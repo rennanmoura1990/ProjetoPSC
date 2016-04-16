@@ -1,5 +1,5 @@
 package model.constants;
 
 public enum Unidades {
-	PRIMEIRA,SEGUNDA,TERÇA,QUARTA
+	PRIMEIRA,SEGUNDA,TERÃ‡A,QUARTA
 }
