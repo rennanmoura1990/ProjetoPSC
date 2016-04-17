@@ -9,7 +9,7 @@ import javax.persistence.Persistence;
 import javax.persistence.PersistenceException;
 
 public abstract class DAOGenerico<T> {
-	EntityManagerFactory emf = Persistence.createEntityManagerFactory("RestauranteRennan"); //
+	EntityManagerFactory emf = Persistence.createEntityManagerFactory("Colegio"); //
 	EntityManager em = emf.createEntityManager();
 	EntityTransaction et = em.getTransaction();
 	T t; //objeto
