@@ -8,6 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 
 import org.hibernate.annotations.Cascade;
@@ -34,6 +35,9 @@ public class Aluno extends Pessoa {
 	@OneToMany(mappedBy="aluno")
 	@Cascade(CascadeType.ALL)
 	private List<Nota> notas;
+	@OneToOne(mappedBy="aluno")
+	@Cascade(CascadeType.ALL)
+	private Status status;
 	
 	public Aluno() {
 		super();
