@@ -12,22 +12,27 @@ import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 @Entity
-public class Telefones {
-	@Id
-	private int id_telefone;
+public class Telefones extends Geral{
+
 	@Column(nullable=false)
 	private String telefone;
+	
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="id_pessoa",insertable=true,updatable=true)
 	@Fetch(FetchMode.JOIN)
 	@Cascade(CascadeType.SAVE_UPDATE)
 	private Pessoa pessoa;
-	public int getId_telefone() {
-		return id_telefone;
+
+	public Telefones() {
+		super();
 	}
-	public void setId_telefone(int id_telefone) {
-		this.id_telefone = id_telefone;
+	
+	public Telefones(String telefone, Pessoa pessoa) {
+		super();
+		this.telefone = telefone;
+		this.pessoa = pessoa;
 	}
+	
 	public String getTelefone() {
 		return telefone;
 	}

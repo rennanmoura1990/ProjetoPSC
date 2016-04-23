@@ -5,23 +5,34 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class Usuario {
-	@Id
-	private int id_usuario;
+public class Usuario extends Geral{
+	
 	@Column(nullable=false)
 	private String login;
+	
 	@Column(nullable=false,columnDefinition = "varchar(12)") //Senha de 12 caracteres
 	private String senha;
+	
 	private boolean moduloProfessor = false;
 	private boolean moduloAluno = false;
 	private boolean moduloSecretaria = false;
 	private boolean moduloCoordenador = false;
-	public int getId_usuario() {
-		return id_usuario;
+	
+	public Usuario() {
+		super();
 	}
-	public void setId_usuario(int id_usuario) {
-		this.id_usuario = id_usuario;
+	
+	public Usuario(String login, String senha, boolean moduloProfessor, boolean moduloAluno, boolean moduloSecretaria,
+			boolean moduloCoordenador) {
+		super();
+		this.login = login;
+		this.senha = senha;
+		this.moduloProfessor = moduloProfessor;
+		this.moduloAluno = moduloAluno;
+		this.moduloSecretaria = moduloSecretaria;
+		this.moduloCoordenador = moduloCoordenador;
 	}
+	
 	public String getLogin() {
 		return login;
 	}

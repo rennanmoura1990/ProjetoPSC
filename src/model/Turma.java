@@ -11,29 +11,35 @@ import javax.persistence.OneToMany;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 @Entity
-public class Turma {
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id_turma;
+public class Turma extends Geral{
+
 	@Column(nullable=false)
-	private String nome_turma;
+	private String nomeTurma;
+	
 	@OneToMany(mappedBy="turma")
 	@Cascade(CascadeType.ALL)
 	private List<Aluno> alunos;
+	
 	@OneToMany(mappedBy="turma")
 	@Cascade(CascadeType.ALL)
 	private List<Disciplina> disciplina;
-	public int getId_turma() {
-		return id_turma;
+
+	public Turma() {
+		super();
 	}
-	public void setId_turma(int id_turma) {
-		this.id_turma = id_turma;
+	
+	public Turma(String nome_turma, List<Aluno> alunos, List<Disciplina> disciplina) {
+		super();
+		this.nomeTurma = nome_turma;
+		this.alunos = alunos;
+		this.disciplina = disciplina;
 	}
-	public String getNome_turma() {
-		return nome_turma;
+	
+	public String getNomeTurma() {
+		return nomeTurma;
 	}
-	public void setNome_turma(String nome_turma) {
-		this.nome_turma = nome_turma;
+	public void setNomeTurma(String nome_turma) {
+		this.nomeTurma = nome_turma;
 	}
 	public List<Aluno> getAlunos() {
 		return alunos;

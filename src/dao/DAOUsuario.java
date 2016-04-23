@@ -5,7 +5,7 @@ import javax.persistence.Query;
 
 import model.Usuario;
 
-public class DAOUsuario extends DAOGenerico<Usuario> {
+public class DAOUsuario extends DAOGenerico<Usuario> implements IDAOUsuario{
 	/**
 	 * Retorna true se a query me retornar com resultado e false se retornar nada
 	 * @param login

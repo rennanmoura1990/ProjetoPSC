@@ -14,33 +14,43 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 @Entity
-public class Nota {
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id_nota;
+public class Nota extends Geral{
+
 	@Column(nullable=false)
 	private double nota1;
+	
 	@Column(nullable=false)
 	private double nota2;
+	
 	@Column(nullable=false)
 	private double media;
+	
 	@Column(nullable=false)
 	private String unidade;
+	
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="id_aluno",insertable=true,updatable=true)
 	@Fetch(FetchMode.JOIN)
 	@Cascade(CascadeType.SAVE_UPDATE)
 	private Aluno aluno;
+	
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="id_disciplina",insertable=true,updatable=true)
 	@Fetch(FetchMode.JOIN)
 	@Cascade(CascadeType.SAVE_UPDATE)
 	private Disciplina disciplina;
-	public int getId_nota() {
-		return id_nota;
+
+	public Nota() {
+		super();
 	}
-	public void setId_nota(int id_nota) {
-		this.id_nota = id_nota;
+	public Nota(double nota1, double nota2, double media, String unidade, Aluno aluno, Disciplina disciplina) {
+		super();
+		this.nota1 = nota1;
+		this.nota2 = nota2;
+		this.media = media;
+		this.unidade = unidade;
+		this.aluno = aluno;
+		this.disciplina = disciplina;
 	}
 	public double getNota1() {
 		return nota1;

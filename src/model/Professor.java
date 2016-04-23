@@ -12,10 +12,15 @@ import org.hibernate.annotations.CascadeType;
 @Entity
 @PrimaryKeyJoinColumn(name="id_pessoa")
 public class Professor extends Pessoa {
+	
 	@OneToMany (mappedBy = "professor")
 	@Cascade(CascadeType.ALL)
 	private List<Disciplina> disciplina;
 
+	public Professor() {
+		super();
+	}
+	
 	public List<Disciplina> getDisciplina() {
 		return disciplina;
 	}

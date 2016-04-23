@@ -18,19 +18,37 @@ import org.hibernate.annotations.FetchMode;
 @Entity
 @PrimaryKeyJoinColumn(name="id_pessoa")
 public class Aluno extends Pessoa {
+	
 	@Column(nullable=false)
 	private String matricula;
 	private int presenca = 0;
 	private int faltas = 0;
 	private double porcentagem = 0.0;
+	
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="id_turma",insertable=true,updatable=true)
 	@Fetch(FetchMode.JOIN)
 	@Cascade(CascadeType.SAVE_UPDATE)
 	private Turma turma;
+	
 	@OneToMany(mappedBy="aluno")
 	@Cascade(CascadeType.ALL)
 	private List<Nota> notas;
+	
+	public Aluno() {
+		super();
+	}
+
+	public Aluno(String matricula, int presenca, int faltas, double porcentagem, Turma turma, List<Nota> notas) {
+		super();
+		this.matricula = matricula;
+		this.presenca = presenca;
+		this.faltas = faltas;
+		this.porcentagem = porcentagem;
+		this.turma = turma;
+		this.notas = notas;
+	}
+	
 	public String getMatricula() {
 		return matricula;
 	}

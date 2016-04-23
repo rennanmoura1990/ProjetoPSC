@@ -19,26 +19,34 @@ import org.hibernate.annotations.CascadeType;
 
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
-public class Pessoa {
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+public class Pessoa extends Geral{
+
 	@Column(nullable=false)
 	private String nome;
+	
 	@Column(nullable=false)
 	private String cpf;
+	
 	@Column(nullable=false)
 	private String rg;
+	
 	@OneToMany (mappedBy = "pessoa")
 	@Cascade(CascadeType.ALL)
 	private List<Telefones> telefones;
+	
 	@Temporal(TemporalType.DATE)
 	private Calendar dtnasc;
-	public int getId() {
-		return id;
+
+	public Pessoa() {
+		super();
 	}
-	public void setId(int id) {
-		this.id = id;
+	public Pessoa(String nome, String cpf, String rg, List<Telefones> telefones, Calendar dtnasc) {
+		super();
+		this.nome = nome;
+		this.cpf = cpf;
+		this.rg = rg;
+		this.telefones = telefones;
+		this.dtnasc = dtnasc;
 	}
 	public String getNome() {
 		return nome;

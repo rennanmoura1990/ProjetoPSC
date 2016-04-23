@@ -2,6 +2,6 @@ package dao;
 
 import model.Coordenador;
 
-public class DAOCoordenador extends DAOGenerico<Coordenador> {
+public class DAOCoordenador extends DAOGenerico<Coordenador> implements IDAOCoordenador{
 
 }
