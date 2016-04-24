@@ -16,14 +16,12 @@ public class DAONota extends DAOGenerico<Nota> implements IDAONota {
 	 */
 	public double NotaFinal(int id_aluno, int id_disciplina) throws DAOException {
 		try {
-			double media;
 			Query query = em.createQuery(
-					"SELECT SUM(n.media) from Nota n WHERE id_aluno = :aluno AND id_disciplina = :disciplina",
+					"SELECT AVG(n.media) from Nota n WHERE id_aluno = :aluno AND id_disciplina = :disciplina",
 					Nota.class);
 			query.setParameter("aluno", id_aluno);
 			query.setParameter("disciplina", id_disciplina);
-			media = ((double) query.getSingleResult())/4;
-			return media;
+			return (double) query.getSingleResult();
 		} catch (PersistenceException e) {
 			// TODO Auto-generated catch block
 			throw new DAOException(e);
