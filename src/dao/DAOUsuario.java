@@ -12,15 +12,11 @@ public class DAOUsuario extends DAOGenerico<Usuario> implements IDAOUsuario{
 	 * @param senha
 	 * @return
 	 */
-	public boolean Logar(String login,String senha){
+	public Usuario Logar(String login,String senha){
 		Query query = em.createQuery("SELECT u FROM Usuario u WHERE u.login = :login AND u.senha = :senha",Usuario.class);
 		query.setParameter("login",login);
 		query.setParameter("senha",senha);
-		Usuario u = (Usuario) query.getSingleResult();
-		if (u.equals(null)){
-			return false;
-		}else{
-			return true;
+		return (Usuario) query.getSingleResult();
 		}
 	}
 }
