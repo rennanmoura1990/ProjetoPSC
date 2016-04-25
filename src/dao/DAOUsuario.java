@@ -13,7 +13,7 @@ public class DAOUsuario extends DAOGenerico<Usuario> implements IDAOUsuario{
 	 * @return
 	 */
 	public boolean Logar(String login,String senha){
-		Query query = em.createQuery("SELECT u FROM Usuario u WHERE login = :login AND senha= :senha",Usuario.class);
+		Query query = em.createQuery("SELECT u FROM Usuario u WHERE u.login = :login AND u.senha = :senha",Usuario.class);
 		query.setParameter("login",login);
 		query.setParameter("senha",senha);
 		Usuario u = (Usuario) query.getSingleResult();

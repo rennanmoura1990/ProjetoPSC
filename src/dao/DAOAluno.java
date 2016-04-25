@@ -16,7 +16,7 @@ public class DAOAluno extends DAOGenerico<Aluno> implements IDAOAluno {
 	 */
 	public long QtdAlunoTurma(int turma_id) throws DAOException {
 		try {
-			Query query = em.createQuery("SELECT COUNT (*) from Aluno a WHERE id_turma = :id", Aluno.class);
+			Query query = em.createQuery("SELECT COUNT (*) from Aluno a WHERE a.id_turma = :id", Aluno.class);
 			query.setParameter("id",turma_id);
 			return (long) query.getSingleResult();
 		} catch (PersistenceException e) {
