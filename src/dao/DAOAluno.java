@@ -15,12 +15,14 @@ public class DAOAluno extends DAOGenerico<Aluno> implements IDAOAluno {
 	 * @return
 	 */
 	public long QtdAlunoTurma(int turma_id) throws DAOException {
+		long qtd;
 		try {
 			Query query = em.createQuery("SELECT COUNT (*) from Aluno a WHERE a.id_turma = :id", Aluno.class);
 			query.setParameter("id",turma_id);
-			return (long) query.getSingleResult();
+			qtd = (long) query.getSingleResult();
 		} catch (PersistenceException e) {
-			throw new DAOException(e);
+			throw new DAOException("Erro ao obter a quantidade de Alunos!");
 		}
+		return qtd;
 	}
 }

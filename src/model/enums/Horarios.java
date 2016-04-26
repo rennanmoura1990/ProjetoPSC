@@ -1,4 +1,4 @@
-package model.constants;
+package model.enums;
 /**
  * HM = Horário Manhã
  * HT = Horário Tarde

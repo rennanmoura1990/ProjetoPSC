@@ -24,7 +24,7 @@ public class DAONota extends DAOGenerico<Nota> implements IDAONota {
 			return (double) query.getSingleResult();
 		} catch (PersistenceException e) {
 			// TODO Auto-generated catch block
-			throw new DAOException(e);
+			throw new DAOException("Erro ao emitir nota final!");
 		}
 	}
 }
