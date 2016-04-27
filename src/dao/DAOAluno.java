@@ -36,11 +36,10 @@ public class DAOAluno extends DAOGenerico<Aluno> implements IDAOAluno {
 		}
 		return qtd;
 	}
-	public void LancaFalta(int id_aluno) throws DAOException{
+	public void LancaFalta(Aluno a) throws DAOException{
 		int faltas;
 		try{
 			et.begin();
-			Aluno a = new Aluno();
 			faltas = a.getFaltas();
 			a.setFaltas(faltas+1);
 			em.merge(a);
