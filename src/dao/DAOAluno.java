@@ -25,4 +25,28 @@ public class DAOAluno extends DAOGenerico<Aluno> implements IDAOAluno {
 		}
 		return qtd;
 	}
+	public long NumeroFaltas(int id_aluno) throws DAOException{
+		long qtd;
+		try{
+			Query query = em.createQuery("SELECT a.faltas FROM Aluno a WHERE a.id = :id",Aluno.class);
+			query.setParameter("id",id_aluno);
+			qtd = (long) query.getSingleResult();
+		}catch(PersistenceException e){
+			throw new DAOException("Erro ao verificar a quantidade de faltas!");
+		}
+		return qtd;
+	}
+	public void LancaFalta(int id_aluno) throws DAOException{
+		int faltas;
+		try{
+			et.begin();
+			Aluno a = new Aluno();
+			faltas = a.getFaltas();
+			a.setFaltas(faltas+1);
+			em.merge(a);
+			et.commit();
+		}catch(PersistenceException e){
+			throw new DAOException("Erro ao lançar falta");
+		}
+	}
 }

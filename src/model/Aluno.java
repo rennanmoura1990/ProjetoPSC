@@ -22,7 +22,6 @@ public class Aluno extends Pessoa {
 
 	@Column(nullable = false)
 	private String matricula;
-	private int presenca = 0;
 	private int faltas = 0;
 	private double porcentagem = 0.0;
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -42,10 +41,9 @@ public class Aluno extends Pessoa {
 		super();
 	}
 
-	public Aluno(String matricula, int presenca, int faltas, double porcentagem, Turma turma, List<Nota> notas) {
+	public Aluno(String matricula,int faltas, double porcentagem, Turma turma, List<Nota> notas) {
 		super();
 		this.matricula = matricula;
-		this.presenca = presenca;
 		this.faltas = faltas;
 		this.porcentagem = porcentagem;
 		this.turma = turma;
@@ -58,14 +56,6 @@ public class Aluno extends Pessoa {
 
 	public void setMatricula(String matricula) {
 		this.matricula = matricula;
-	}
-
-	public int getPresenca() {
-		return presenca;
-	}
-
-	public void setPresenca(int presenca) {
-		this.presenca = presenca;
 	}
 
 	public int getFaltas() {
