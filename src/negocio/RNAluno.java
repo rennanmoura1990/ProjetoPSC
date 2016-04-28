@@ -1,5 +1,7 @@
 package negocio;
 
+import dao.DAOAluno;
+import dao.DAOTurma;
 import dao.IDAOAluno;
 import dao.IDAOTurma;
 import exception.DAOException;
@@ -8,6 +10,11 @@ import model.enums.*;
 public class RNAluno {
 	IDAOAluno daoaluno;
 	IDAOTurma daoturma;
+		
+		public RNAluno(){
+			daoaluno = new DAOAluno();
+			daoturma = new DAOTurma();
+		}
 
 	/**
 	 * Verifica se a sala tem mais de 40 alunos

@@ -1,11 +1,16 @@
 package negocio;
 
+import dao.DAONota;
 import dao.IDAONota;
 import exception.DAOException;
 import model.enums.Status;
 
 public class RNNota {
 	IDAONota daonota;
+	
+	public RNNota(){
+		daonota = new DAONota();
+	}
 
 	public String NotaFinal(int id_aluno, int id_disciplina) throws DAOException {
 		String status;

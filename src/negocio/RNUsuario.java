@@ -1,11 +1,17 @@
 package negocio;
 
+import dao.DAOUsuario;
 import dao.IDAOUsuario;
 import exception.DAOException;
 import model.Usuario;
 
 public class RNUsuario {
 	IDAOUsuario daousuario;
+	
+	public RNUsuario(){
+		daousuario = new DAOUsuario();
+	}
+	
 	/**
 	 * Retorna false,caso não consiga encontrar o usuário
 	 * @param login
