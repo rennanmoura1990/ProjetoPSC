@@ -27,4 +27,15 @@ public class DAONota extends DAOGenerico<Nota> implements IDAONota {
 			throw new DAOException("Erro ao emitir nota final!");
 		}
 	}
+
+	public double NotaRecuperacao(int id_aluno,int id_disciplina) throws DAOException{
+		try{
+			Query query = em.createQuery("SELECT n.nota_recupecao FROM Nota n WHERE n.id_aluno = :aluno AND n.id_disciplina = :disciplina",Nota.class);
+			query.setParameter("aluno", id_aluno);
+			query.setParameter("disciplina", id_disciplina);
+			return (double) query.getSingleResult();
+		}catch(PersistenceException e){
+			throw new DAOException("Erro ao emitir nota da recuperação!");
+		}
+	}
 }

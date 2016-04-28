@@ -3,9 +3,6 @@ package model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import org.hibernate.annotations.Cascade;
@@ -16,14 +13,13 @@ import org.hibernate.annotations.FetchMode;
 @Entity
 public class Nota extends Geral{
 
-	@Column(nullable=false)
 	private double nota1;
 	
-	@Column(nullable=false)
 	private double nota2;
 	
-	@Column(nullable=false)
 	private double media;
+	
+	private double nota_recuperacao;
 	
 	@Column(nullable=false)
 	private String unidade;
@@ -43,11 +39,12 @@ public class Nota extends Geral{
 	public Nota() {
 		super();
 	}
-	public Nota(double nota1, double nota2, double media, String unidade, Aluno aluno, Disciplina disciplina) {
+	public Nota(double nota1, double nota2, double media,double nota_recuperacao,String unidade, Aluno aluno, Disciplina disciplina) {
 		super();
 		this.nota1 = nota1;
 		this.nota2 = nota2;
 		this.media = media;
+		this.nota_recuperacao = nota_recuperacao;
 		this.unidade = unidade;
 		this.aluno = aluno;
 		this.disciplina = disciplina;
@@ -69,6 +66,12 @@ public class Nota extends Geral{
 	}
 	public void setMedia(double media) {
 		this.media = media;
+	}
+	public double getNota_recuperacao() {
+		return nota_recuperacao;
+	}
+	public void setNota_recuperacao(double nota_recuperacao) {
+		this.nota_recuperacao = nota_recuperacao;
 	}
 	public String getUnidade() {
 		return unidade;

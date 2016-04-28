@@ -4,9 +4,6 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -15,6 +12,8 @@ public class Turma extends Geral{
 
 	@Column(nullable=false)
 	private String nomeTurma;
+	
+	private int qtd_aulas;
 	
 	@OneToMany(mappedBy="turma")
 	@Cascade(CascadeType.ALL)
@@ -28,9 +27,10 @@ public class Turma extends Geral{
 		super();
 	}
 	
-	public Turma(String nome_turma, List<Aluno> alunos, List<Disciplina> disciplina) {
+	public Turma(String nome_turma,int qtd_aulas,List<Aluno> alunos, List<Disciplina> disciplina) {
 		super();
 		this.nomeTurma = nome_turma;
+		this.qtd_aulas = qtd_aulas;
 		this.alunos = alunos;
 		this.disciplina = disciplina;
 	}
@@ -41,6 +41,14 @@ public class Turma extends Geral{
 	public void setNomeTurma(String nome_turma) {
 		this.nomeTurma = nome_turma;
 	}
+	public int getQtd_aulas() {
+		return qtd_aulas;
+	}
+
+	public void setQtd_aulas(int qtd_aulas) {
+		this.qtd_aulas = qtd_aulas;
+	}
+
 	public List<Aluno> getAlunos() {
 		return alunos;
 	}

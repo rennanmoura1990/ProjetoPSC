@@ -24,6 +24,7 @@ public class Aluno extends Pessoa {
 	private String matricula;
 	private int faltas = 0;
 	private double porcentagem = 0.0;
+	private String status;
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_turma", insertable = true, updatable = true)
 	@Fetch(FetchMode.JOIN)
@@ -33,19 +34,18 @@ public class Aluno extends Pessoa {
 	@OneToMany(mappedBy = "aluno")
 	@Cascade(CascadeType.ALL)
 	private List<Nota> notas;
-	@OneToOne(mappedBy = "aluno")
-	@Cascade(CascadeType.ALL)
-	private Status status;
+	
 
 	public Aluno() {
 		super();
 	}
 
-	public Aluno(String matricula,int faltas, double porcentagem, Turma turma, List<Nota> notas) {
+	public Aluno(String matricula,int faltas, double porcentagem,String status,Turma turma, List<Nota> notas) {
 		super();
 		this.matricula = matricula;
 		this.faltas = faltas;
 		this.porcentagem = porcentagem;
+		this.status = status;
 		this.turma = turma;
 		this.notas = notas;
 	}
@@ -72,6 +72,14 @@ public class Aluno extends Pessoa {
 
 	public void setPorcentagem(double porcentagem) {
 		this.porcentagem = porcentagem;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public Turma getTurma() {
