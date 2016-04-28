@@ -7,6 +7,18 @@ import exception.DAOException;
 import model.Turma;
 
 public class DAOTurma extends DAOGenerico<Turma> implements IDAOTurma{
+	
+	public Turma BuscaTurmaNome(String nome) throws DAOException {
+		try {
+			Query query = em.createQuery("SELECT t FROM Turma t WHERE t.nomeTurma = :nome", Turma.class);
+			query.setParameter("nome", nome);
+			return (Turma) query.getSingleResult();
+		} catch (PersistenceException e) {
+			// TODO Auto-generated catch block
+			throw new DAOException("Erro ao Buscar Turma por Nome!");
+		}
+	}
+	
 	public int PegarAulasTotais(int id_turma) throws DAOException {
 		int qtd = 0;
 		try {
