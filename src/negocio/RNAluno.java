@@ -31,28 +31,28 @@ public class RNAluno {
 
 	public void verificaObjeto(Aluno a) throws Exception {
 		if (a == null) {
-			throw new Exception("Cadastro inválido");
+			throw new Exception("Cadastro invalido");
 		}
 	}
 
 	public void validaRegistro(Aluno a) throws Exception {
 		if (a.getCpf().isEmpty()) {
-			throw new Exception("CPF Inválido!");
+			throw new Exception("CPF Invalido!");
 		}
 		if (a.getDtnasc() == null) {
-			throw new Exception("Data de Nascimento inválida!");
+			throw new Exception("Data de Nascimento invalida!");
 		}
 		if (a.getMatricula().isEmpty()) {
-			throw new Exception("Data de Nascimento inválida!");
+			throw new Exception("Data de Nascimento invalida!");
 		}
 		if (a.getNome().isEmpty()) {
-			throw new Exception("Nome inválido!");
+			throw new Exception("Nome invalido!");
 		}
 		if (a.getRg().isEmpty()) {
-			throw new Exception("RG inválido!");
+			throw new Exception("RG invalido!");
 		}
 		if (a.getTurma() == null) {
-			throw new Exception("É necessário está em uma turma!");
+			throw new Exception("E necessario esta em uma turma!");
 		}
 	}
 
@@ -66,13 +66,13 @@ public class RNAluno {
 
 	public void registroNovoAluno(Aluno a) throws Exception {
 		if (buscaAluno(a) != null) {
-			throw new Exception("Aluno já existente!");
+			throw new Exception("Aluno ja existente!");
 		}
 	}
 
 	public void registroExistente(Aluno a) throws DAOException, Exception{
 		if(buscaID(a) == null){
-			throw new Exception("Aluno não existe no banco!");
+			throw new Exception("Aluno nao existe no banco!");
 		}
 	}
 
@@ -106,7 +106,7 @@ public class RNAluno {
 			return daoaluno.listaTudo(Aluno.class);
 		} catch (PersistenceException e) {
 			// TODO Auto-generated catch block
-			throw new DAOException("Não foi possível Listar todos alunos!");
+			throw new DAOException("Nao foi possivel Listar todos alunos!");
 		}
 	}
 	
@@ -127,7 +127,7 @@ public class RNAluno {
 	}
 
 	/**
-	 * Verifica porcentagem de faltas de um aluno,se acima de 25% ele é
+	 * Verifica porcentagem de faltas de um aluno,se acima de 25% ele 
 	 * considerado reprovado por falta
 	 * 
 	 * @param id_aluno

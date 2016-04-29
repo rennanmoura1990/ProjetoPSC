@@ -60,7 +60,7 @@ public class DAOAluno extends DAOGenerico<Aluno> implements IDAOAluno {
 			em.merge(a);
 			et.commit();
 		} catch (PersistenceException e) {
-			throw new DAOException("Erro ao lançar falta");
+			throw new DAOException("Erro ao lanÃ§ar falta");
 		}
 	}
 
