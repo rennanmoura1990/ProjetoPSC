@@ -17,6 +17,7 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
+@SuppressWarnings("unused")
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
 public class Pessoa extends Geral{

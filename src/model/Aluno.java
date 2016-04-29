@@ -16,6 +16,7 @@ import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+@SuppressWarnings("unused")
 @Entity
 @PrimaryKeyJoinColumn(name = "id_pessoa")
 public class Aluno extends Pessoa {

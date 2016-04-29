@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+@SuppressWarnings("unused")
 @Entity
 public class Usuario extends Geral{
 	

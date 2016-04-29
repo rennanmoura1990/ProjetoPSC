@@ -11,6 +11,7 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+@SuppressWarnings("unused")
 @Entity
 public class Telefones extends Geral{
 
