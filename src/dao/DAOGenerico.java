@@ -86,7 +86,7 @@ public abstract class DAOGenerico<T> implements IDAOGenerico<T> {
 	 * @see dao.IDAOGenerico#ListaTudo(java.lang.Class)
 	 */
 	@SuppressWarnings("unchecked")
-	public List<T> ListaTudo(Class<T> objeto) throws DAOException {
+	public List<T> listaTudo(Class<T> objeto) throws DAOException {
 		List<T> lista = null;
 		try {
 			lista = em.createQuery("Select obj from " + objeto.getSimpleName() + " obj").getResultList();

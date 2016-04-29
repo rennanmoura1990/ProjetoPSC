@@ -14,6 +14,6 @@ public interface IDAOGenerico<T> {
 
 	public T buscarId(int id, Class<T> objeto) throws DAOException;
 
-	public List<T> ListaTudo(Class<T> objeto) throws DAOException;
+	public List<T> listaTudo(Class<T> objeto) throws DAOException;
 
 }

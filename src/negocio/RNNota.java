@@ -11,8 +11,8 @@ public class RNNota {
 	public RNNota(){
 		daonota = new DAONota();
 	}
-
-	public String NotaFinal(int id_aluno, int id_disciplina) throws DAOException {
+	
+	public String notaFinal(int id_aluno, int id_disciplina) throws DAOException {
 		String status;
 		double nota_final = this.daonota.NotaFinal(id_aluno, id_disciplina);
 		if (nota_final >= 7.0) {
@@ -23,7 +23,7 @@ public class RNNota {
 		return status;
 	}
 	
-	public String NotaRecuperacao(int id_aluno,int id_disciplina) throws DAOException{
+	public String notaRecuperacao(int id_aluno,int id_disciplina) throws DAOException{
 		String status;
 		double recuperacao =  this.daonota.NotaRecuperacao(id_aluno, id_disciplina);
 		double nota_final = this.daonota.NotaFinal(id_aluno, id_disciplina);

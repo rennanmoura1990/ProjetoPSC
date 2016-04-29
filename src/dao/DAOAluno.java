@@ -7,6 +7,17 @@ import model.Aluno;
 
 public class DAOAluno extends DAOGenerico<Aluno> implements IDAOAluno {
 
+	public Aluno buscaAlunoNome(String nome) throws DAOException {
+		try {
+			Query query = em.createQuery("SELECT a FROM Aluno a WHERE a.nome = :nome", Aluno.class);
+			query.setParameter("nome", nome);
+			return (Aluno) query.getSingleResult();
+		} catch (PersistenceException e) {
+			// TODO Auto-generated catch block
+			throw new DAOException("Erro ao Buscar Aluno por Nome!");
+		}
+	}
+
 	/**
 	 * Retorna a quantidade de alunos de uma determinada turma
 	 * 
@@ -24,6 +35,7 @@ public class DAOAluno extends DAOGenerico<Aluno> implements IDAOAluno {
 		}
 		return qtd;
 	}
+
 	/**
 	 * Retorna a quantidade de faltas de um aluno
 	 */
