@@ -97,7 +97,7 @@ public class RNAluno {
 		try {
 			daoaluno.excluir(Aluno.class, id);
 		} catch (PersistenceException e) {
-			throw new DAOException("Erro ao alterar dados!");
+			throw new DAOException("Erro ao excluir dados!");
 		}
 	}
 	

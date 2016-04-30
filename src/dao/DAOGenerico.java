@@ -28,7 +28,7 @@ public abstract class DAOGenerico<T> implements IDAOGenerico<T> {
 			et.commit();
 		} catch (PersistenceException e) {
 			et.rollback();
-			throw new DAOException("Erro ao cadastrar "+t.toString());
+			throw new DAOException("Erro ao cadastrar "+t.getClass().getSimpleName());
 		}
 	}
 
@@ -44,7 +44,7 @@ public abstract class DAOGenerico<T> implements IDAOGenerico<T> {
 			et.commit();
 		} catch (PersistenceException e) {
 			et.rollback();
-			throw new DAOException("Erro ao alterar "+t.toString());
+			throw new DAOException("Erro ao alterar "+t.getClass().getSimpleName());
 		}
 	}
 
@@ -61,7 +61,7 @@ public abstract class DAOGenerico<T> implements IDAOGenerico<T> {
 			et.commit();
 		} catch (PersistenceException e) {
 			et.rollback();
-			throw new DAOException("Erro ao Excluir "+t.toString());
+			throw new DAOException("Erro ao Excluir "+t.getClass().getSimpleName());
 		}
 	}
 
@@ -75,7 +75,7 @@ public abstract class DAOGenerico<T> implements IDAOGenerico<T> {
 			t = em.find(objeto, id);
 		} catch (RuntimeException e) {
 			e.printStackTrace();
-			throw new DAOException("Erro ao buscar "+t.toString());
+			throw new DAOException("Erro ao buscar "+t.getClass().getSimpleName());
 		}
 		return t;
 	}
@@ -94,7 +94,7 @@ public abstract class DAOGenerico<T> implements IDAOGenerico<T> {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			throw new DAOException("Erro ao Listar "+t.toString());
+			throw new DAOException("Erro ao Listar "+t.getClass().getSimpleName());
 		}
 	}
 }
