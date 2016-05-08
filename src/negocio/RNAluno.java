@@ -31,28 +31,28 @@ public class RNAluno {
 
 	public void verificaObjeto(Aluno a) throws Exception {
 		if (a == null) {
-			throw new Exception("Cadastro invalido");
+			throw new Exception("Cadastro inválido");
 		}
 	}
 
 	public void validaRegistro(Aluno a) throws Exception {
 		if (a.getCpf().isEmpty()) {
-			throw new Exception("CPF Invalido!");
+			throw new Exception("CPF Inválido!");
 		}
 		if (a.getDtnasc() == null) {
-			throw new Exception("Data de Nascimento invalida!");
+			throw new Exception("Data de Nascimento inválida!");
 		}
 		if (a.getMatricula().isEmpty()) {
-			throw new Exception("Data de Nascimento invalida!");
+			throw new Exception("Data de Nascimento inválida!");
 		}
 		if (a.getNome().isEmpty()) {
-			throw new Exception("Nome invalido!");
+			throw new Exception("Nome inválido!");
 		}
 		if (a.getRg().isEmpty()) {
-			throw new Exception("RG invalido!");
+			throw new Exception("RG inválido!");
 		}
 		if (a.getTurma() == null) {
-			throw new Exception("E necessario esta em uma turma!");
+			throw new Exception("E necessário esta em uma turma!");
 		}
 	}
 
@@ -66,13 +66,13 @@ public class RNAluno {
 
 	public void registroNovoAluno(Aluno a) throws Exception {
 		if (buscaAluno(a) != null) {
-			throw new Exception("Aluno ja existente!");
+			throw new Exception("Aluno já existente!");
 		}
 	}
 
-	public void registroExistente(Aluno a) throws DAOException, Exception{
-		if(buscaID(a) == null){
-			throw new Exception("Aluno nao existe no banco!");
+	public void registroExistente(Aluno a) throws DAOException, Exception {
+		if (buscaID(a) == null) {
+			throw new Exception("Aluno não existe no banco!");
 		}
 	}
 
@@ -84,7 +84,7 @@ public class RNAluno {
 			throw new DAOException("Erro ao buscar Aluno por id");
 		}
 	}
-	
+
 	public void alterar(Aluno a) throws DAOException {
 		try {
 			daoaluno.alterar(a);
@@ -92,7 +92,7 @@ public class RNAluno {
 			throw new DAOException("Erro ao alterar dados!");
 		}
 	}
-	
+
 	public void excluir(int id) throws DAOException {
 		try {
 			daoaluno.excluir(Aluno.class, id);
@@ -100,16 +100,16 @@ public class RNAluno {
 			throw new DAOException("Erro ao excluir dados!");
 		}
 	}
-	
-	public List<Aluno> listarTudo() throws DAOException{
+
+	public List<Aluno> listarTudo() throws DAOException {
 		try {
 			return daoaluno.listaTudo(Aluno.class);
 		} catch (PersistenceException e) {
 			// TODO Auto-generated catch block
-			throw new DAOException("Nao foi possivel Listar todos alunos!");
+			throw new DAOException("Não foi possivél Listar todos alunos!");
 		}
 	}
-	
+
 	/**
 	 * Verifica se a sala tem mais de 40 alunos
 	 * 
@@ -118,16 +118,22 @@ public class RNAluno {
 	 * @throws DAOException
 	 */
 	public boolean verificaSala(int id_turma) throws DAOException {
-		boolean verifica = true;
-		long qtd = this.daoaluno.QtdAlunoTurma(id_turma);
-		if (qtd > 40) {
+		boolean verifica;
+		try {
 			verifica = false;
+			long qtd = this.daoaluno.QtdAlunoTurma(id_turma);
+			if (qtd < 40) {
+				verifica = true;
+			}
+		} catch (PersistenceException e) {
+			// TODO Auto-generated catch block
+			throw new DAOException("Turma cheia!");
 		}
 		return verifica;
 	}
 
 	/**
-	 * Verifica porcentagem de faltas de um aluno,se acima de 25% ele 
+	 * Verifica porcentagem de faltas de um aluno,se acima de 25% ele
 	 * considerado reprovado por falta
 	 * 
 	 * @param id_aluno

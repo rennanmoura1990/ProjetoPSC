@@ -100,7 +100,7 @@ public class RNDisciplina {
 			return daodisciplina.listaTudo(Disciplina.class);
 		} catch (PersistenceException e) {
 			// TODO Auto-generated catch block
-			throw new DAOException("Nao foi possivel Listar todas Disciplinas!");
+			throw new DAOException("Não foi possível Listar todas Disciplinas!");
 		}
 	}
 }

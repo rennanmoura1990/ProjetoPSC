@@ -26,16 +26,16 @@ public class RNTurma {
 
 	public void verificaObjeto(Turma t) throws Exception {
 		if (t == null) {
-			throw new Exception("Cadastro inv·lido");
+			throw new Exception("Cadastro inv√°lido");
 		}
 	}
 
 	public void validaRegistro(Turma t) throws Exception {
 		if(t.getNomeTurma().isEmpty()){
-			throw new Exception("Nome inv·lido!");
+			throw new Exception("Nome inv√°lido!");
 		}
 		if(t.getQtd_aulas() == 0 ){
-			throw new Exception("Numero de aulas inv·lido!");
+			throw new Exception("Numero de aulas inv√°lido!");
 		}
 	}
 
@@ -49,13 +49,13 @@ public class RNTurma {
 
 	public void registroNovoTurma(Turma t) throws Exception {
 		if (buscaTurma(t) != null) {
-			throw new Exception("Turma j· existente!");
+			throw new Exception("Turma j√° existente!");
 		}
 	}
 
 	public void registroExistente(Turma t) throws DAOException, Exception{
 		if(buscaID(t) == null){
-			throw new Exception("Turma n„o existente no banco!");
+			throw new Exception("Turma n√£o existente no banco!");
 		}
 	}
 
@@ -89,7 +89,7 @@ public class RNTurma {
 			return daoturma.listaTudo(Turma.class);
 		} catch (PersistenceException e) {
 			// TODO Auto-generated catch block
-			throw new DAOException("N„o foi possÌvel Listar todas turmas!");
+			throw new DAOException("N√£o foi poss√≠vel Listar todas turmas!");
 		}
 	}
 }

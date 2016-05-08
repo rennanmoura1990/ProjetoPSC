@@ -119,7 +119,7 @@ public class RNSecretaria {
 			return daosecretaria.listaTudo(Secretaria.class);
 		} catch (PersistenceException e) {
 			// TODO Auto-generated catch block
-			throw new DAOException("Nao foi possivel Listar toda Secretaria");
+			throw new DAOException("Não foi possível listar toda Secretaria");
 		}
 	}
 }

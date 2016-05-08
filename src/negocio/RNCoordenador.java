@@ -119,7 +119,7 @@ public class RNCoordenador {
 			return daocoordenador.listaTudo(Coordenador.class);
 		} catch (PersistenceException e) {
 			// TODO Auto-generated catch block
-			throw new DAOException("Nao foi possivel Listar todos coordenaores!");
+			throw new DAOException("Não foi possivel Listar todos coordenaores!");
 		}
 	}
 }

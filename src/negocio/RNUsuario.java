@@ -26,16 +26,16 @@ public class RNUsuario {
 
 	public void verificaObjeto(Usuario u) throws Exception {
 		if (u == null) {
-			throw new Exception("Cadastro inv·lido");
+			throw new Exception("Cadastro inv√°lido");
 		}
 	}
 
 	public void validaRegistro(Usuario u) throws Exception {
 		if(u.getLogin() == null){
-			throw new Exception("Login Inv·lido!");
+			throw new Exception("Login Inv√°lido!");
 		}
 		if(u.getSenha() == null){
-			throw new Exception("Senha Inv·lida!");
+			throw new Exception("Senha Inv√°lida!");
 		}
 	}
 
@@ -43,19 +43,19 @@ public class RNUsuario {
 		try {
 			return daousuario.BuscaUsuarioLogin(u.getLogin());
 		} catch (PersistenceException e) {
-			throw new DAOException("Erro ao buscar usu·rio por login!");
+			throw new DAOException("Erro ao buscar Usu√°rio por login!");
 		}
 	}
 
 	public void registroNovoUsuario(Usuario u) throws Exception {
 		if (buscaUsuario(u) != null) {
-			throw new Exception("Usu·rio j· existente!");
+			throw new Exception("Usu√°rio ja existente!");
 		}
 	}
 
 	public void registroExistente(Usuario u) throws DAOException, Exception{
 		if(buscaID(u) == null){
-			throw new Exception("Usu·rio n„o existe no banco!");
+			throw new Exception("Usu√°rio nao existe no banco!");
 		}
 	}
 
@@ -64,7 +64,7 @@ public class RNUsuario {
 			return daousuario.buscarId(u.getId(),Usuario.class);
 		} catch (PersistenceException e) {
 			// TODO Auto-generated catch block
-			throw new DAOException("Erro ao buscar Usu·rio por id");
+			throw new DAOException("Erro ao buscar Usu√°rio por id");
 		}
 	}
 	
@@ -89,12 +89,12 @@ public class RNUsuario {
 			return daousuario.listaTudo(Usuario.class);
 		} catch (PersistenceException e) {
 			// TODO Auto-generated catch block
-			throw new DAOException("N„o foi possÌvel Listar todos usu·rios!");
+			throw new DAOException("N√£o foi poss√≠vel Listar todos usu√°rios!");
 		}
 	}
 
 	/**
-	 * Retorna false,caso n„o consiga encontrar o usu·rio
+	 * Retorna false,caso nÔøΩo consiga encontrar o usuÔøΩrio
 	 * @param login
 	 * @param senha
 	 * @return

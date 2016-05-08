@@ -38,7 +38,7 @@ public class RNNota {
 
 	public boolean ValidaNota(double nota) throws Exception {
 		try {
-			if (nota > 0 || nota < 10) {
+			if (nota >= 0 || nota <= 10) {
 				return true;
 			}
 		} catch (Exception e) {

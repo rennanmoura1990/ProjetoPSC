@@ -48,7 +48,7 @@ public class RNTelefones {
 
 	public void verificaObjeto(Telefones t) throws Exception {
 		if (t == null) {
-			throw new Exception("Cadastro invalido");
+			throw new Exception("Cadastro inválido");
 		}
 	}
 
@@ -99,7 +99,7 @@ public class RNTelefones {
 			return daotelefones.listaTudo(Telefones.class);
 		} catch (PersistenceException e) {
 			// TODO Auto-generated catch block
-			throw new DAOException("Nao foi possivel Listar todos telefones!");
+			throw new DAOException("Não foi possivel Listar todos telefones!");
 		}
 	}
 }
