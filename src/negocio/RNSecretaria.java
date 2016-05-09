@@ -7,6 +7,7 @@ import javax.persistence.PersistenceException;
 import dao.DAOSecretaria;
 import dao.IDAOSecretaria;
 import exception.DAOException;
+import exception.GeralException;
 import model.Secretaria;
 
 public class RNSecretaria {
@@ -53,9 +54,9 @@ public class RNSecretaria {
 	 * @throws DAOException
 	 */
 
-	public Secretaria buscarId(Secretaria s) throws DAOException {
+	public Secretaria buscarId(int id) throws DAOException {
 		try {
-			return daosecretaria.buscarId(s.getId(),Secretaria.class);
+			return daosecretaria.buscarId(id,Secretaria.class);
 		} catch (PersistenceException e) {
 			throw new DAOException("Erro no banco de dados!");
 		} catch (DAOException e) {
@@ -72,7 +73,7 @@ public class RNSecretaria {
 	 */
 
 	public void novoRegistro(Secretaria s) throws DAOException {
-		if (buscaSecretaria(s) != null)
+		if (buscaSecretaria(s.getNome()) != null)
 			throw new DAOException("Secretaria já existe no banco de dados");
 	}
 
@@ -84,17 +85,17 @@ public class RNSecretaria {
 		}
 	}
 	
-	public Secretaria buscaSecretaria(Secretaria s) throws DAOException {
+	public Secretaria buscaSecretaria(String nome) throws DAOException {
 		try {
-			return daosecretaria.buscaSecretariaNome(s.getNome());
+			return daosecretaria.buscaSecretariaNome(nome);
 		} catch (PersistenceException e) {
 			throw new DAOException("Erro ao buscar Secretaria por nome");
 		}
 	}
 	
-	public void registroExistente(Secretaria s) throws DAOException, Exception{
-		if(buscarId(s) == null){
-			throw new Exception("Secretaria não existe no banco!");
+	public void registroExistente(Secretaria s) throws DAOException, GeralException{
+		if(buscarId(s.getId()) == null){
+			throw new GeralException("Secretaria não existe no banco!");
 		}
 	}
 	

@@ -7,6 +7,7 @@ import javax.persistence.PersistenceException;
 import dao.DAOProfessor;
 import dao.IDAOProfessor;
 import exception.DAOException;
+import exception.GeralException;
 import model.Professor;
 
 public class RNProfessor {
@@ -24,56 +25,56 @@ public class RNProfessor {
 		}
 	}
 
-	public void verificaObjeto(Professor p) throws Exception {
+	public void verificaObjeto(Professor p) throws GeralException {
 		if (p == null) {
-			throw new Exception("Cadastro inv·lido");
+			throw new GeralException("Cadastro inv√°lido");
 		}
 	}
 
-	public void validaRegistro(Professor p) throws Exception {
+	public void validaRegistro(Professor p) throws GeralException {
 		if (p.getCpf().isEmpty()) {
-			throw new Exception("CPF Inv·lido!");
+			throw new GeralException("CPF Inv√°lido!");
 		}
 		if (p.getDtnasc() == null) {
-			throw new Exception("Data de Nascimento inv·lida!");
+			throw new GeralException("Data de Nascimento inv√°lida!");
 		}
 		if (p.getDisciplina().isEmpty()) {
-			throw new Exception("Professor precisa ter pelo menos uma disciplina!");
+			throw new GeralException("Professor precisa ter pelo menos uma disciplina!");
 		}
 		if (p.getNome().isEmpty()) {
-			throw new Exception("Nome inv·lido!");
+			throw new GeralException("Nome inv√°lido!");
 		}
 		if (p.getRg().isEmpty()) {
-			throw new Exception("RG inv·lido!");
+			throw new GeralException("RG inv√°lido!");
 		}
 		if (p.getTelefones().isEmpty()) {
-			throw new Exception("Professor precisa ter pelo menos um telefone de contato!");
+			throw new GeralException("Professor precisa ter pelo menos um telefone de contato!");
 		}
 	}
 
-	public Professor buscaProfessor(Professor p) throws DAOException {
+	public Professor buscaProfessor(String nome) throws DAOException {
 		try {
-			return daoprofessor.buscaProfessorNome(p.getNome());
+			return daoprofessor.buscaProfessorNome(nome);
 		} catch (PersistenceException e) {
 			throw new DAOException("Erro ao buscar professor por nome");
 		}
 	}
 
-	public void registroNovoAluno(Professor p) throws Exception {
-		if (buscaProfessor(p) != null) {
-			throw new Exception("Professor j· existente!");
+	public void registroNovoProfessor(Professor p) throws GeralException, DAOException {
+		if (buscaProfessor(p.getNome()) != null) {
+			throw new DAOException("Professor j√° existente!");
 		}
 	}
 
-	public void registroExistente(Professor p) throws DAOException, Exception{
-		if(buscaID(p) == null){
-			throw new Exception("Professor n„o existe no banco!");
+	public void registroExistente(Professor p) throws DAOException, GeralException{
+		if(buscaID(p.getId()) == null){
+			throw new GeralException("Professor n√£o existe no banco!");
 		}
 	}
 
-	public Professor buscaID(Professor p) throws DAOException {
+	public Professor buscaID(int id) throws DAOException {
 		try {
-			return daoprofessor.buscarId(p.getId(),Professor.class);
+			return daoprofessor.buscarId(id,Professor.class);
 		} catch (PersistenceException e) {
 			// TODO Auto-generated catch block
 			throw new DAOException("Erro ao buscar Professor por id");
@@ -101,7 +102,7 @@ public class RNProfessor {
 			return daoprofessor.listaTudo(Professor.class);
 		} catch (PersistenceException e) {
 			// TODO Auto-generated catch block
-			throw new DAOException("N„o foi possÌvel Listar todos alunos!");
+			throw new DAOException("NÔøΩo foi possÔøΩvel Listar todos alunos!");
 		}
 	}
 }

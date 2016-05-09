@@ -7,6 +7,7 @@ import javax.persistence.PersistenceException;
 import dao.DAOTurma;
 import dao.IDAOTurma;
 import exception.DAOException;
+import exception.GeralException;
 import model.Turma;
 
 public class RNTurma {
@@ -24,44 +25,44 @@ public class RNTurma {
 		}
 	}
 
-	public void verificaObjeto(Turma t) throws Exception {
+	public void verificaObjeto(Turma t) throws GeralException {
 		if (t == null) {
-			throw new Exception("Cadastro inválido");
+			throw new GeralException("Cadastro inválido");
 		}
 	}
 
-	public void validaRegistro(Turma t) throws Exception {
+	public void validaRegistro(Turma t) throws GeralException {
 		if(t.getNomeTurma().isEmpty()){
-			throw new Exception("Nome inválido!");
+			throw new GeralException("Nome inválido!");
 		}
 		if(t.getQtd_aulas() == 0 ){
-			throw new Exception("Numero de aulas inválido!");
+			throw new GeralException("Numero de aulas inválido!");
 		}
 	}
 
-	public Turma buscaTurma(Turma t) throws DAOException {
+	public Turma buscaTurma(String nome) throws DAOException {
 		try {
-			return daoturma.BuscaTurmaNome(t.getNomeTurma());
+			return daoturma.BuscaTurmaNome(nome);
 		} catch (PersistenceException e) {
 			throw new DAOException("Erro ao buscar turma por nome");
 		}
 	}
 
-	public void registroNovoTurma(Turma t) throws Exception {
-		if (buscaTurma(t) != null) {
-			throw new Exception("Turma já existente!");
+	public void registroNovoTurma(Turma t) throws GeralException, DAOException {
+		if (buscaTurma(t.getNomeTurma()) != null) {
+			throw new GeralException("Turma já existente!");
 		}
 	}
 
-	public void registroExistente(Turma t) throws DAOException, Exception{
-		if(buscaID(t) == null){
-			throw new Exception("Turma não existente no banco!");
+	public void registroExistente(Turma t) throws DAOException, GeralException{
+		if(buscaID(t.getId()) == null){
+			throw new GeralException("Turma não existente no banco!");
 		}
 	}
 
-	public Turma buscaID(Turma t) throws DAOException {
+	public Turma buscaID(int id) throws DAOException {
 		try {
-			return daoturma.buscarId(t.getId(),Turma.class);
+			return daoturma.buscarId(id,Turma.class);
 		} catch (PersistenceException e) {
 			// TODO Auto-generated catch block
 			throw new DAOException("Erro ao buscar Turma por id");

@@ -15,12 +15,12 @@ public class DAOUsuario extends DAOGenerico<Usuario> implements IDAOUsuario {
 			return (Usuario) query.getSingleResult();
 		} catch (PersistenceException e) {
 			// TODO Auto-generated catch block
-			throw new DAOException("Erro ao Buscar Usuário por Login!");
+			throw new DAOException("Erro ao Buscar UsuÃ¡rio por Login!");
 		}
 	}
 
 	/**
-	 * Retorna objeto do usuário
+	 * Retorna objeto do usuï¿½rio
 	 * 
 	 * @param login
 	 * @param senha

@@ -7,15 +7,16 @@ import javax.persistence.PersistenceException;
 import dao.DAOUsuario;
 import dao.IDAOUsuario;
 import exception.DAOException;
+import exception.GeralException;
 import model.Usuario;
 
 public class RNUsuario {
 	IDAOUsuario daousuario;
-	
-	public RNUsuario(){
+
+	public RNUsuario() {
 		daousuario = new DAOUsuario();
 	}
-	
+
 	public void inserir(Usuario u) throws DAOException {
 		try {
 			daousuario.inserir(u);
@@ -24,18 +25,18 @@ public class RNUsuario {
 		}
 	}
 
-	public void verificaObjeto(Usuario u) throws Exception {
+	public void verificaObjeto(Usuario u) throws GeralException {
 		if (u == null) {
-			throw new Exception("Cadastro inválido");
+			throw new GeralException("Cadastro inválido");
 		}
 	}
 
-	public void validaRegistro(Usuario u) throws Exception {
-		if(u.getLogin() == null){
-			throw new Exception("Login Inválido!");
+	public void validaRegistro(Usuario u) throws GeralException {
+		if (u.getLogin() == null) {
+			throw new GeralException("Login Inválido!");
 		}
-		if(u.getSenha() == null){
-			throw new Exception("Senha Inválida!");
+		if (u.getSenha() == null) {
+			throw new GeralException("Senha Inválida!");
 		}
 	}
 
@@ -47,27 +48,27 @@ public class RNUsuario {
 		}
 	}
 
-	public void registroNovoUsuario(Usuario u) throws Exception {
+	public void registroNovoUsuario(Usuario u) throws GeralException, DAOException {
 		if (buscaUsuario(u) != null) {
-			throw new Exception("Usuário ja existente!");
+			throw new GeralException("Usuário ja existente!");
 		}
 	}
 
-	public void registroExistente(Usuario u) throws DAOException, Exception{
-		if(buscaID(u) == null){
-			throw new Exception("Usuário nao existe no banco!");
+	public void registroExistente(Usuario u) throws DAOException, GeralException {
+		if (buscaID(u.getId()) == null) {
+			throw new GeralException("Usuário nao existe no banco!");
 		}
 	}
 
-	public Usuario buscaID(Usuario u) throws DAOException {
+	public Usuario buscaID(int id) throws DAOException {
 		try {
-			return daousuario.buscarId(u.getId(),Usuario.class);
+			return daousuario.buscarId(id, Usuario.class);
 		} catch (PersistenceException e) {
 			// TODO Auto-generated catch block
 			throw new DAOException("Erro ao buscar Usuário por id");
 		}
 	}
-	
+
 	public void alterar(Usuario u) throws DAOException {
 		try {
 			daousuario.alterar(u);
@@ -75,7 +76,7 @@ public class RNUsuario {
 			throw new DAOException("Erro ao alterar dados!");
 		}
 	}
-	
+
 	public void excluir(int id) throws DAOException {
 		try {
 			daousuario.excluir(Usuario.class, id);
@@ -83,8 +84,8 @@ public class RNUsuario {
 			throw new DAOException("Erro ao alterar dados!");
 		}
 	}
-	
-	public List<Usuario> listarTudo() throws DAOException{
+
+	public List<Usuario> listarTudo() throws DAOException {
 		try {
 			return daousuario.listaTudo(Usuario.class);
 		} catch (PersistenceException e) {
@@ -95,12 +96,13 @@ public class RNUsuario {
 
 	/**
 	 * Retorna false,caso n�o consiga encontrar o usu�rio
+	 * 
 	 * @param login
 	 * @param senha
 	 * @return
 	 * @throws DAOException
 	 */
-	public boolean VerificaLogin(String login, String senha) throws DAOException {
+	public boolean verificaUsuarioExistente(String login, String senha) throws DAOException {
 		boolean verifica = true;
 		Usuario u;
 		u = this.daousuario.Logar(login, senha);
@@ -109,4 +111,14 @@ public class RNUsuario {
 		}
 		return verifica;
 	}
+
+	public Usuario buscaUsuarioLogin(String login) throws DAOException {
+		try {
+			return daousuario.BuscaUsuarioLogin(login);
+		} catch (PersistenceException e) {
+			// TODO Auto-generated catch block
+			throw new DAOException(e.getMessage());
+		}
+	}
+
 }

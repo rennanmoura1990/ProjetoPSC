@@ -7,6 +7,7 @@ import javax.persistence.PersistenceException;
 import dao.DAOCoordenador;
 import dao.IDAOCoordenador;
 import exception.DAOException;
+import exception.GeralException;
 import model.Coordenador;
 
 public class RNCoordenador {
@@ -23,7 +24,7 @@ public class RNCoordenador {
 	 *            instância de Coordenador com seus dados
 	 * @throws DAOException
 	 */
-	public void verificarObjeto(Coordenador c) throws DAOException {
+	public void verificaObjeto(Coordenador c) throws DAOException {
 		if (c == null)
 			throw new DAOException("Dados inválidos!");
 	}
@@ -53,9 +54,9 @@ public class RNCoordenador {
 	 * @throws DAOException
 	 */
 
-	public Coordenador buscarId(Coordenador c) throws DAOException {
+	public Coordenador buscarId(int id) throws DAOException {
 		try {
-			return daocoordenador.buscarId(c.getId(), Coordenador.class);
+			return daocoordenador.buscarId(id, Coordenador.class);
 		} catch (PersistenceException e) {
 			throw new DAOException("Erro no banco de dados!");
 		} catch (DAOException e) {
@@ -72,7 +73,7 @@ public class RNCoordenador {
 	 */
 
 	public void novoRegistro(Coordenador c) throws DAOException {
-		if (buscaCoordenador(c) != null)
+		if (buscaCoordenador(c.getNome()) != null)
 			throw new DAOException("Coordenador já existe no banco de dados");
 	}
 
@@ -84,17 +85,17 @@ public class RNCoordenador {
 		}
 	}
 	
-	public Coordenador buscaCoordenador(Coordenador c) throws DAOException {
+	public Coordenador buscaCoordenador(String nome) throws DAOException {
 		try {
-			return daocoordenador.buscaCoordenadorNome(c.getNome());
+			return daocoordenador.buscaCoordenadorNome(nome);
 		} catch (PersistenceException e) {
 			throw new DAOException("Erro ao buscar Coordenador por nome");
 		}
 	}
 	
-	public void registroExistente(Coordenador c) throws DAOException, Exception{
-		if(buscarId(c) == null){
-			throw new Exception("Coordenador não existe no banco!");
+	public void registroExistente(Coordenador c) throws DAOException, GeralException{
+		if(buscarId(c.getId()) == null){
+			throw new GeralException("Coordenador não existe no banco!");
 		}
 	}
 	
