@@ -1,9 +1,14 @@
 package dao;
 
+import java.util.Arrays;
+import java.util.List;
+
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import exception.DAOException;
+import exception.GeralException;
 import model.Aluno;
+import model.enums.Status;
 
 public class DAOAluno extends DAOGenerico<Aluno> implements IDAOAluno {
 
@@ -63,5 +68,15 @@ public class DAOAluno extends DAOGenerico<Aluno> implements IDAOAluno {
 			throw new DAOException("Erro ao lançar falta");
 		}
 	}
-
+	
+	public List<Status> status() throws GeralException{
+		try {
+			List<Status> status = Arrays.asList(Status.values());
+			return status;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			throw new GeralException("Erro a listar Status");
+		}
+	}
+	
 }

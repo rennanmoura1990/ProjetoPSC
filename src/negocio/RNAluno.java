@@ -9,6 +9,7 @@ import dao.DAOTurma;
 import dao.IDAOAluno;
 import dao.IDAOTurma;
 import exception.DAOException;
+import exception.GeralException;
 import model.Aluno;
 import model.enums.*;
 
@@ -29,62 +30,62 @@ public class RNAluno {
 		}
 	}
 
-	public void verificaObjeto(Aluno a) throws Exception {
+	public void verificaObjeto(Aluno a) throws GeralException {
 		if (a == null) {
-			throw new Exception("Cadastro invalido");
+			throw new GeralException("Cadastro inválido");
 		}
 	}
 
-	public void validaRegistro(Aluno a) throws Exception {
+	public void validaRegistro(Aluno a) throws GeralException {
 		if (a.getCpf().isEmpty()) {
-			throw new Exception("CPF Invalido!");
+			throw new GeralException("CPF Inválido!");
 		}
 		if (a.getDtnasc() == null) {
-			throw new Exception("Data de Nascimento invalida!");
+			throw new GeralException("Data de Nascimento inválida!");
 		}
 		if (a.getMatricula().isEmpty()) {
-			throw new Exception("Data de Nascimento invalida!");
+			throw new GeralException("Data de Nascimento inválida!");
 		}
 		if (a.getNome().isEmpty()) {
-			throw new Exception("Nome invalido!");
+			throw new GeralException("Nome inválido!");
 		}
 		if (a.getRg().isEmpty()) {
-			throw new Exception("RG invalido!");
+			throw new GeralException("RG inválido!");
 		}
 		if (a.getTurma() == null) {
-			throw new Exception("E necessario esta em uma turma!");
+			throw new GeralException("E necessário esta em uma turma!");
 		}
 	}
 
-	public Aluno buscaAluno(Aluno a) throws DAOException {
+	public Aluno buscaAlunoNome(String nome) throws DAOException {
 		try {
-			return daoaluno.buscaAlunoNome(a.getNome());
+			return daoaluno.buscaAlunoNome(nome);
 		} catch (PersistenceException e) {
 			throw new DAOException("Erro ao buscar aluno por nome");
 		}
 	}
 
-	public void registroNovoAluno(Aluno a) throws Exception {
-		if (buscaAluno(a) != null) {
-			throw new Exception("Aluno ja existente!");
+	public void registroNovoAluno(Aluno a) throws GeralException, DAOException {
+		if (buscaAlunoNome(a.getNome()) != null) {
+			throw new GeralException("Aluno já existente!");
 		}
 	}
 
-	public void registroExistente(Aluno a) throws DAOException, Exception{
-		if(buscaID(a) == null){
-			throw new Exception("Aluno nao existe no banco!");
+	public void registroExistente(Aluno a) throws DAOException, GeralException {
+		if (buscaID(a.getId()) == null) {
+			throw new GeralException("Aluno não existe no banco!");
 		}
 	}
 
-	public Aluno buscaID(Aluno a) throws DAOException {
+	public Aluno buscaID(int id) throws DAOException {
 		try {
-			return daoaluno.buscarId(a.getId(), Aluno.class);
+			return daoaluno.buscarId(id, Aluno.class);
 		} catch (PersistenceException e) {
 			// TODO Auto-generated catch block
 			throw new DAOException("Erro ao buscar Aluno por id");
 		}
 	}
-	
+
 	public void alterar(Aluno a) throws DAOException {
 		try {
 			daoaluno.alterar(a);
@@ -92,7 +93,7 @@ public class RNAluno {
 			throw new DAOException("Erro ao alterar dados!");
 		}
 	}
-	
+
 	public void excluir(int id) throws DAOException {
 		try {
 			daoaluno.excluir(Aluno.class, id);
@@ -100,16 +101,16 @@ public class RNAluno {
 			throw new DAOException("Erro ao excluir dados!");
 		}
 	}
-	
-	public List<Aluno> listarTudo() throws DAOException{
+
+	public List<Aluno> listarTudo() throws DAOException {
 		try {
 			return daoaluno.listaTudo(Aluno.class);
 		} catch (PersistenceException e) {
 			// TODO Auto-generated catch block
-			throw new DAOException("Nao foi possivel Listar todos alunos!");
+			throw new DAOException("Não foi possivel Listar todos alunos!");
 		}
 	}
-	
+
 	/**
 	 * Verifica se a sala tem mais de 40 alunos
 	 * 
@@ -118,16 +119,22 @@ public class RNAluno {
 	 * @throws DAOException
 	 */
 	public boolean verificaSala(int id_turma) throws DAOException {
-		boolean verifica = true;
-		long qtd = this.daoaluno.QtdAlunoTurma(id_turma);
-		if (qtd > 40) {
+		boolean verifica;
+		try {
 			verifica = false;
+			long qtd = this.daoaluno.QtdAlunoTurma(id_turma);
+			if (qtd < 40) {
+				verifica = true;
+			}
+		} catch (PersistenceException e) {
+			// TODO Auto-generated catch block
+			throw new DAOException("Turma cheia!");
 		}
 		return verifica;
 	}
 
 	/**
-	 * Verifica porcentagem de faltas de um aluno,se acima de 25% ele 
+	 * Verifica porcentagem de faltas de um aluno,se acima de 25% ele
 	 * considerado reprovado por falta
 	 * 
 	 * @param id_aluno
@@ -137,7 +144,7 @@ public class RNAluno {
 	 */
 	public String verificaPorcentagemFalta(int id_aluno, int id_turma) throws DAOException {
 		String status = null;
-		int faltas = this.daoaluno.NumeroFaltas(id_aluno);
+		int faltas = QtdAlunoTurma(id_turma);
 		int aulas = this.daoturma.PegarAulasTotais(id_turma);
 		double porcentagem = (faltas / aulas) * 100;
 		if (porcentagem > 25) {
@@ -146,5 +153,41 @@ public class RNAluno {
 			status = null;
 		}
 		return status;
+	}
+	
+	public int QtdAlunoTurma(int turma_id) throws DAOException{
+		try {
+			return daoaluno.QtdAlunoTurma(turma_id);
+		} catch (PersistenceException e) {
+			// TODO Auto-generated catch block
+			throw new DAOException(e.getMessage());
+		}
+	}
+	
+	public int NumeroFaltas(int id_aluno) throws DAOException{
+		try {
+			return daoaluno.NumeroFaltas(id_aluno);
+		} catch (PersistenceException e) {
+			// TODO Auto-generated catch block
+			throw new DAOException(e.getMessage());
+		}
+	}
+	
+	public void LancaFalta(Aluno a) throws DAOException{
+		try {
+			daoaluno.LancaFalta(a);
+		} catch (PersistenceException e) {
+			// TODO Auto-generated catch block
+			throw new DAOException(e.getMessage());
+		}
+	}
+	
+	public List<Status> status() throws GeralException{
+		try {
+			return daoaluno.status();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			throw new GeralException(e.getMessage());
+		}
 	}
 }

@@ -7,6 +7,7 @@ import javax.persistence.PersistenceException;
 import dao.DAOTelefones;
 import dao.IDAOTelefones;
 import exception.DAOException;
+import exception.GeralException;
 import model.Telefones;
 
 public class RNTelefones {
@@ -24,20 +25,29 @@ public class RNTelefones {
 	 * @return
 	 * @throws DAOException
 	 */
-	public boolean VerificaTelefone(int id_pessoa, String telefone) throws DAOException {
+	public boolean VerificaTelefone(int id_pessoa, String telefone) throws Exception {
 		boolean verifica = false;
 		try {
-			Telefones telefones = daotelefones.buscaTelefonesUsuario(id_pessoa, telefone);
+			Telefones telefones = buscaTelefonesUsuario(id_pessoa,telefone);
 			if (telefones == null) {
 				verifica = true;
 			}
 			return verifica;
-		} catch (PersistenceException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			throw new DAOException("Esse telefone já está vinculado a esta pessoa,por favor informe outro!");
+			throw new Exception("Esse telefone já está vinculado a esta pessoa,por favor informe outro!");
 		}
 	}
 
+	public Telefones buscaTelefonesUsuario(int pessoa_id,String telefone) throws DAOException{
+		try {
+			return daotelefones.buscaTelefonesUsuario(pessoa_id, telefone);
+		} catch (PersistenceException e) {
+			// TODO Auto-generated catch block
+			throw new DAOException(e.getMessage());
+		}
+	}
+	
 	public void inserir(Telefones t) throws DAOException {
 		try {
 			daotelefones.inserir(t);
@@ -46,18 +56,18 @@ public class RNTelefones {
 		}
 	}
 
-	public void verificaObjeto(Telefones t) throws Exception {
+	public void verificaObjeto(Telefones t) throws GeralException {
 		if (t == null) {
-			throw new Exception("Cadastro invalido");
+			throw new GeralException("Cadastro inválido");
 		}
 	}
 
-	public void validaRegistro(Telefones t) throws Exception {
+	public void validaRegistro(Telefones t) throws GeralException {
 		if (t.getTelefone() == null) {
-			throw new Exception("Telefone inválido!");
+			throw new GeralException("Telefone inválido!");
 		}
 		if (t.getPessoa() == null) {
-			throw new Exception("É necessário uma pessoa vinculada a este telefone!");
+			throw new GeralException("É necessário uma pessoa vinculada a este telefone!");
 		}
 	}
 
@@ -69,9 +79,9 @@ public class RNTelefones {
 		}
 	}
 
-	public Telefones buscaID(Telefones t) throws DAOException {
+	public Telefones buscaID(int id) throws DAOException {
 		try {
-			return daotelefones.buscarId(t.getId(), Telefones.class);
+			return daotelefones.buscarId(id, Telefones.class);
 		} catch (PersistenceException e) {
 			// TODO Auto-generated catch block
 			throw new DAOException("Erro ao buscar Telefones por id");
@@ -99,7 +109,7 @@ public class RNTelefones {
 			return daotelefones.listaTudo(Telefones.class);
 		} catch (PersistenceException e) {
 			// TODO Auto-generated catch block
-			throw new DAOException("Nao foi possivel Listar todos telefones!");
+			throw new DAOException("Não foi possivel Listar todos telefones!");
 		}
 	}
 }

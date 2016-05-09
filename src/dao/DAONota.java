@@ -1,14 +1,19 @@
 package dao;
 
+import java.util.Arrays;
+import java.util.List;
+
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
 import exception.DAOException;
+import exception.GeralException;
 import model.Nota;
+import model.enums.Unidades;
 
 public class DAONota extends DAOGenerico<Nota> implements IDAONota {
 	/**
-	 * Emite a média final de um aluno de uma determinada disciplina
+	 * Emite a mÃ©dia final de um aluno de uma determinada disciplina
 	 * 
 	 * @param id_aluno
 	 * @param id_disciplina
@@ -35,7 +40,18 @@ public class DAONota extends DAOGenerico<Nota> implements IDAONota {
 			query.setParameter("disciplina", id_disciplina);
 			return (double) query.getSingleResult();
 		}catch(PersistenceException e){
-			throw new DAOException("Erro ao emitir nota da recuperação!");
+			throw new DAOException("Erro ao emitir nota da recuperaÃ§Ã£o!");
 		}
 	}
+	
+	public List<Unidades> unidades() throws GeralException{
+		try {
+			List<Unidades> unidades = Arrays.asList(Unidades.values());
+			return unidades;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			throw new GeralException("Erro ao listar Unidades!");
+		}
+	}
+	
 }
