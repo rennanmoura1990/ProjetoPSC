@@ -44,7 +44,7 @@ public class RNAluno {
 			throw new GeralException("Data de Nascimento inválida!");
 		}
 		if (a.getMatricula().isEmpty()) {
-			throw new GeralException("Data de Nascimento inválida!");
+			throw new GeralException("Matrícula inválida!");
 		}
 		if (a.getNome().isEmpty()) {
 			throw new GeralException("Nome inválido!");
