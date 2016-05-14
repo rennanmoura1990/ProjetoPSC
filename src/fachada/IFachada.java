@@ -19,9 +19,9 @@ import model.enums.Unidades;
 
 public interface IFachada {
 
-	public void inserirAluno(Aluno a) throws Exception;
+	public void inserirAluno(Aluno a) throws GeralException, DAOException;
 
-	public void alterarAluno(Aluno a) throws Exception;
+	public void alterarAluno(Aluno a) throws GeralException, DAOException;
 
 	public void excluirAluno(int id) throws DAOException;
 

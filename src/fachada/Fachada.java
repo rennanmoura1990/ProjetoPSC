@@ -39,7 +39,7 @@ public class Fachada implements IFachada {
 	RNUsuario rnu = new RNUsuario();
 
 	@Override
-	public void inserirAluno(Aluno a) throws Exception {
+	public void inserirAluno(Aluno a) throws GeralException, DAOException {
 		// TODO Auto-generated method stub
 		rna.verificaObjeto(a);
 		rna.validaRegistro(a);
@@ -48,7 +48,7 @@ public class Fachada implements IFachada {
 	}
 
 	@Override
-	public void alterarAluno(Aluno a) throws Exception {
+	public void alterarAluno(Aluno a) throws GeralException, DAOException {
 		// TODO Auto-generated method stub
 		rna.verificaObjeto(a);
 		rna.validaRegistro(a);

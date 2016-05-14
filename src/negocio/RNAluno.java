@@ -53,7 +53,7 @@ public class RNAluno {
 			throw new GeralException("RG inválido!");
 		}
 		if (a.getTurma() == null) {
-			throw new GeralException("E necessário esta em uma turma!");
+			throw new GeralException("É necessário esta em uma turma!");
 		}
 	}
 
