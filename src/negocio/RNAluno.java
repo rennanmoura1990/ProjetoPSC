@@ -190,4 +190,13 @@ public class RNAluno {
 			throw new GeralException(e.getMessage());
 		}
 	}
+	
+	public List<Aluno> listaAlunoPorTurma(int id_turma) throws GeralException{
+		try {
+			return daoaluno.alunoPorTurma(id_turma);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			throw new GeralException(e.getMessage());
+		}
+	}
 }

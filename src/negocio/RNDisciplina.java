@@ -125,4 +125,13 @@ public class RNDisciplina {
 		}
 	}
 	
+	public List<Disciplina> listaDisciplinaPorProfessor(int id_professor) throws GeralException{
+		try {
+			return daodisciplina.disciplinaPorProfessor(id_professor);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			throw new GeralException(e.getMessage());
+		}
+	}
+	
 }

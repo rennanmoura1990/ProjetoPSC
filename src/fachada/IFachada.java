@@ -34,6 +34,8 @@ public interface IFachada {
 	public int NumeroFaltas(int id) throws DAOException;
 
 	public void LancaFalta(Aluno a) throws DAOException;
+	
+	public List<Aluno> listaAlunoporTurma(int id_turma) throws GeralException;
 
 	public void inserirCoordenador(Coordenador c) throws DAOException;
 
@@ -62,6 +64,8 @@ public interface IFachada {
 	public List<Horarios> horarios() throws GeralException;
 	
 	public List<Dias_semana> diasSemana() throws GeralException;
+	
+	public List<Disciplina> listaDisciplinaPorProfessor(int id_professor) throws GeralException;
 
 	public void inserirNota(Nota n) throws GeralException, DAOException;
 

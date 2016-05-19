@@ -95,7 +95,12 @@ public class Fachada implements IFachada {
 		// TODO Auto-generated method stub
 		rna.LancaFalta(a);
 	}
-
+	
+	public List<Aluno> listaAlunoporTurma(int id_turma) throws GeralException{
+		return rna.listaAlunoPorTurma(id_turma);
+	}
+	
+	
 	@Override
 	public void inserirCoordenador(Coordenador c) throws DAOException {
 		// TODO Auto-generated method stub
@@ -196,6 +201,10 @@ public class Fachada implements IFachada {
 	public List<Dias_semana> diasSemana() throws GeralException {
 		// TODO Auto-generated method stub
 		return rnd.diasSemana();
+	}
+	
+	public List<Disciplina> listaDisciplinaPorProfessor(int id_professor) throws GeralException{
+		return rnd.listaDisciplinaPorProfessor(id_professor);
 	}
 
 	@Override

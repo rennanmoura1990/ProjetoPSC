@@ -78,5 +78,21 @@ public class DAOAluno extends DAOGenerico<Aluno> implements IDAOAluno {
 			throw new GeralException("Erro a listar Status");
 		}
 	}
-	
+	/**
+	 * Lista Alunos de uma turma
+	 * @param id_turma
+	 * @return
+	 * @throws GeralException 
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Aluno> alunoPorTurma(int id_turma) throws GeralException{
+		try {
+			Query query = em.createQuery("SELECT a FROM Aluno a WHERE a.id_turma = :id");
+			query.setParameter("id", id_turma);
+			return (List<Aluno>)query.getResultList();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			throw new GeralException("Não foi possível listar Alunos pela Turma!");
+		}
+	}
 }

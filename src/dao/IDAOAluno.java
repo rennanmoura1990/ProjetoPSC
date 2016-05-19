@@ -14,4 +14,5 @@ public interface IDAOAluno extends IDAOGenerico<Aluno>{
 	public int NumeroFaltas(int id_aluno) throws DAOException;
 	public void LancaFalta(Aluno a) throws DAOException;
 	public List<Status> status() throws GeralException;
+	public List<Aluno> alunoPorTurma(int id_turma) throws GeralException;
 }

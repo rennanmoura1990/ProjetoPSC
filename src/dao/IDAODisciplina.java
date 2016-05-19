@@ -12,4 +12,5 @@ public interface IDAODisciplina extends IDAOGenerico<Disciplina>{
 	public Disciplina buscaDisciplinanome(String nome) throws DAOException;
 	public List<Horarios> listaHorarios() throws GeralException;
 	public List<Dias_semana> listaDiasSemana() throws GeralException;
+	public List<Disciplina> disciplinaPorProfessor(int id_professor) throws GeralException;
 }
