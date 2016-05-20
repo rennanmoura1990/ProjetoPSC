@@ -95,12 +95,11 @@ public class Fachada implements IFachada {
 		// TODO Auto-generated method stub
 		rna.LancaFalta(a);
 	}
-	
-	public List<Aluno> listaAlunoporTurma(int id_turma) throws GeralException{
+
+	public List<Aluno> listaAlunoporTurma(int id_turma) throws GeralException {
 		return rna.listaAlunoPorTurma(id_turma);
 	}
-	
-	
+
 	@Override
 	public void inserirCoordenador(Coordenador c) throws DAOException {
 		// TODO Auto-generated method stub
@@ -202,8 +201,8 @@ public class Fachada implements IFachada {
 		// TODO Auto-generated method stub
 		return rnd.diasSemana();
 	}
-	
-	public List<Disciplina> listaDisciplinaPorProfessor(int id_professor) throws GeralException{
+
+	public List<Disciplina> listaDisciplinaPorProfessor(int id_professor) throws GeralException {
 		return rnd.listaDisciplinaPorProfessor(id_professor);
 	}
 
@@ -483,10 +482,11 @@ public class Fachada implements IFachada {
 		return rnu.listarTudo();
 	}
 
-	@Override
-	public boolean Logar(String login, String senha) throws DAOException {
-		// TODO Auto-generated method stub
-		return rnu.verificaUsuarioExistente(login, senha);
+	public Usuario fazerLogin(String login, String senha) throws DAOException {
+		if (rnu.verificaUsuarioExistente(login, senha)) {
+			return rnu.fazerLogin(login, senha);
+		} else {
+			return null;
+		}
 	}
-
 }

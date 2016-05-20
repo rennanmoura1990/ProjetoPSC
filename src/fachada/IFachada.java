@@ -34,7 +34,7 @@ public interface IFachada {
 	public int NumeroFaltas(int id) throws DAOException;
 
 	public void LancaFalta(Aluno a) throws DAOException;
-	
+
 	public List<Aluno> listaAlunoporTurma(int id_turma) throws GeralException;
 
 	public void inserirCoordenador(Coordenador c) throws DAOException;
@@ -51,7 +51,7 @@ public interface IFachada {
 
 	public void inserirDisciplina(Disciplina d) throws DAOException;
 
-	public void alterarDisciplina(Disciplina d) throws DAOException,GeralException;
+	public void alterarDisciplina(Disciplina d) throws DAOException, GeralException;
 
 	public void excluirDisciplina(int id) throws DAOException;
 
@@ -60,11 +60,11 @@ public interface IFachada {
 	public List<Disciplina> listaDisciplina() throws DAOException;
 
 	public Disciplina buscaDisciplinaNome(String nome) throws DAOException;
-	
+
 	public List<Horarios> horarios() throws GeralException;
-	
+
 	public List<Dias_semana> diasSemana() throws GeralException;
-	
+
 	public List<Disciplina> listaDisciplinaPorProfessor(int id_professor) throws GeralException;
 
 	public void inserirNota(Nota n) throws GeralException, DAOException;
@@ -77,12 +77,12 @@ public interface IFachada {
 
 	public List<Nota> listaNota() throws DAOException;
 
-	public String NotaFinal(int id_aluno,int id_disciplina) throws DAOException;
-	
-	public String NotaRecuperacao(int id_aluno,int id_disciplina) throws DAOException;
-	
+	public String NotaFinal(int id_aluno, int id_disciplina) throws DAOException;
+
+	public String NotaRecuperacao(int id_aluno, int id_disciplina) throws DAOException;
+
 	public List<Unidades> unidades() throws GeralException;
-	
+
 	public void inserirProfessor(Professor p) throws Exception;
 
 	public void alteraProfessor(Professor p) throws DAOException, GeralException;
@@ -94,7 +94,7 @@ public interface IFachada {
 	public List<Professor> listaProfessor() throws DAOException;
 
 	public Professor buscaProfessorNome(String nome) throws DAOException;
-	
+
 	public void inserirSecretaria(Secretaria s) throws DAOException;
 
 	public void alteraSecretaria(Secretaria s) throws DAOException, GeralException;
@@ -106,7 +106,7 @@ public interface IFachada {
 	public List<Secretaria> listaSecretaria() throws DAOException;
 
 	public Secretaria buscaSecretariaNome(String nome) throws DAOException;
-	
+
 	public void inserirTelefone(Telefones t) throws DAOException, GeralException;
 
 	public void alteraTelefone(Telefones t) throws DAOException, GeralException;
@@ -117,8 +117,8 @@ public interface IFachada {
 
 	public List<Telefones> listaTelefones() throws DAOException;
 
-	public Telefones buscaTelefonesUsuario(int pessoa_id,String telefone) throws DAOException;
-	
+	public Telefones buscaTelefonesUsuario(int pessoa_id, String telefone) throws DAOException;
+
 	public void inserirTurma(Turma t) throws DAOException, GeralException;
 
 	public void alteraTurma(Turma t) throws DAOException, GeralException;
@@ -130,7 +130,7 @@ public interface IFachada {
 	public List<Turma> listaTurma() throws DAOException;
 
 	public Turma buscaTurmaNome(String nome) throws DAOException;
-	
+
 	public void inserirUsuario(Usuario u) throws DAOException, GeralException;
 
 	public void alteraUsuario(Usuario u) throws DAOException, GeralException;
@@ -141,7 +141,6 @@ public interface IFachada {
 
 	public List<Usuario> listaUsuario() throws DAOException;
 
-	public boolean Logar(String login,String senha) throws DAOException;
-	
+	public Usuario fazerLogin(String login, String senha) throws DAOException;
 
 }

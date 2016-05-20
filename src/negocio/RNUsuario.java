@@ -120,5 +120,14 @@ public class RNUsuario {
 			throw new DAOException(e.getMessage());
 		}
 	}
+	
+	public Usuario fazerLogin(String login,String senha) throws DAOException{
+		try {
+			return daousuario.Logar(login, senha);
+		} catch (PersistenceException e) {
+			// TODO Auto-generated catch block
+			throw new DAOException(e.getMessage());
+		}
+	}
 
 }
