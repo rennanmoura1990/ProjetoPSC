@@ -1,24 +1,42 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 	<title>Login Projeto Escolar</title>
 </h:head>
 <h:body>
-	<h:form>
-		<h:outputText value="Nome : "/>
-		<h:inputText id="nomeusuario" value="#{usuarioBean.login}"></h:inputText>
-		<br></br>
-		<br></br>
-		<h:outputText value="Senha : "/>
-		<h:inputSecret id="senhausuario" value="#{usuarioBean.senha}"></h:inputSecret>
-		<br></br>
-		<br></br>
-		<h:commandButton action="#{usuarioBean.Logar}" value="Entrar"></h:commandButton>
-	</h:form>
+	<ui:composition template="_template.xhtml">
+
+		<ui:define name="titulo">
+			<p:outputPanel>Login</p:outputPanel>
+		</ui:define>
+
+		<ui:define name="conteudo">
+		
+			<p:messages globalOnly="true" />
+				<h:form id="login">
+					
+					<p:fieldset legend="Login">
+						<h:panelGrid columns="3">
+							<h:outputText value="Nome : "/>
+							<h:inputText id="nomeusuario" value="#{usuarioBean.login}"></h:inputText>
+							<br></br>
+							<br></br>
+							<h:outputText value="Senha : "/>
+							<h:inputSecret id="senhausuario" value="#{usuarioBean.senha}"></h:inputSecret>
+							<br></br>
+							<br></br>
+							<h:commandButton action="#{usuarioBean.Logar}" value="Entrar"></h:commandButton>
+						</h:panelGrid>
+					</p:fieldset>
+				</h:form>
+		</ui:define>
+
+	</ui:composition>
 </h:body>
 </html>
