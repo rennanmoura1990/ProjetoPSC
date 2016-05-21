@@ -6,18 +6,19 @@
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-	<title>Login Projeto Escola</title>
+	<title>Login Projeto Escolar</title>
 </h:head>
 <h:body>
-<h:form>
-<h:outputText value="nomeUsuario" />
-<h:inputText id="nomeusuario" value="#{usuarioBean.login}"></h:inputText>
-</br></br>
-<h:outputText value="senhaUsuario" />
-<h:inputText id="senhausuario" value="#{usuarioBean.senha}"></h:inputText>
-
-
-
-</h:form>
+	<h:form>
+		<h:outputText value="Nome : "/>
+		<h:inputText id="nomeusuario" value="#{usuarioBean.login}"></h:inputText>
+		<br></br>
+		<br></br>
+		<h:outputText value="Senha : "/>
+		<h:inputSecret id="senhausuario" value="#{usuarioBean.senha}"></h:inputSecret>
+		<br></br>
+		<br></br>
+		<h:commandButton action="#{usuarioBean.Logar}" value="Entrar"></h:commandButton>
+	</h:form>
 </h:body>
 </html>
