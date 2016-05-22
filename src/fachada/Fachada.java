@@ -485,4 +485,5 @@ public class Fachada implements IFachada {
 	public Usuario fazerLogin(String login, String senha) throws DAOException {
 		return rnu.fazerLogin(login, senha);
 	}
+
 }

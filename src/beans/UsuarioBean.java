@@ -27,7 +27,7 @@ public class UsuarioBean {
 		try {
 			usuario = fachada.fazerLogin(login, senha);
 			if (usuario != null)
-				return "menuprincipal.xhtml";
+				return "menuprincipal";
 		} catch (DAOException e) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
 		}
@@ -65,6 +65,5 @@ public class UsuarioBean {
 	public void setFachada(IFachada fachada) {
 		this.fachada = fachada;
 	}
-	
-	
+
 }

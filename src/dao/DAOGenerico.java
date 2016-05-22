@@ -10,6 +10,7 @@ import javax.persistence.PersistenceException;
 
 import exception.DAOException;
 
+
 public abstract class DAOGenerico<T> implements IDAOGenerico<T> {
 	EntityManagerFactory emf = Persistence.createEntityManagerFactory("Colegio");
 	EntityManager em = emf.createEntityManager();
