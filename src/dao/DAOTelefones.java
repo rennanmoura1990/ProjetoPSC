@@ -21,6 +21,8 @@ public class DAOTelefones extends DAOGenerico<Telefones> implements IDAOTelefone
 		} catch (PersistenceException e) {
 			// TODO Auto-generated catch block
 			throw new DAOException("Erro ao buscar Telefone da Pessoa!");
+		} finally {
+			em.clear();
 		}
 	}
 
@@ -33,6 +35,9 @@ public class DAOTelefones extends DAOGenerico<Telefones> implements IDAOTelefone
 		} catch (PersistenceException e) {
 			// TODO Auto-generated catch block
 			throw new DAOException("Erro ao buscar Telefone!");
+		} finally {
+			em.close();
+			emf.close();
 		}
 	}
 }

@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.PersistenceException;
 
+import org.hibernate.QueryException;
+
 import dao.DAOUsuario;
 import dao.IDAOUsuario;
 import exception.DAOException;
@@ -95,7 +97,7 @@ public class RNUsuario {
 	}
 
 	/**
-	 * Retorna false,caso n�o consiga encontrar o usu�rio
+	 * Retorna false,caso não consiga encontrar o usuário
 	 * 
 	 * @param login
 	 * @param senha
@@ -103,13 +105,15 @@ public class RNUsuario {
 	 * @throws DAOException
 	 */
 	public boolean verificaUsuarioExistente(String login, String senha) throws DAOException {
-		boolean verifica = true;
-		Usuario u;
-		u = this.daousuario.Logar(login, senha);
-		if (u == null) {
-			verifica = false;
+		@SuppressWarnings("unused")
+		Usuario u = null;
+		try {
+			u = this.daousuario.Logar(login, senha);
+			return true;
+		} catch (QueryException e) {
+			// TODO Auto-generated catch block
+			throw new DAOException(e.getMessage());
 		}
-		return verifica;
 	}
 
 	public Usuario buscaUsuarioLogin(String login) throws DAOException {
@@ -120,8 +124,8 @@ public class RNUsuario {
 			throw new DAOException(e.getMessage());
 		}
 	}
-	
-	public Usuario fazerLogin(String login,String senha) throws DAOException{
+
+	public Usuario fazerLogin(String login, String senha) throws DAOException {
 		try {
 			return daousuario.Logar(login, senha);
 		} catch (PersistenceException e) {

@@ -11,7 +11,7 @@ import javax.persistence.PersistenceException;
 import exception.DAOException;
 
 public abstract class DAOGenerico<T> implements IDAOGenerico<T> {
-	EntityManagerFactory emf = Persistence.createEntityManagerFactory("Colegio"); //
+	EntityManagerFactory emf = Persistence.createEntityManagerFactory("Colegio");
 	EntityManager em = emf.createEntityManager();
 	EntityTransaction et = em.getTransaction();
 	T t; // objeto
@@ -28,7 +28,9 @@ public abstract class DAOGenerico<T> implements IDAOGenerico<T> {
 			et.commit();
 		} catch (PersistenceException e) {
 			et.rollback();
-			throw new DAOException("Erro ao cadastrar "+t.getClass().getSimpleName());
+			throw new DAOException("Erro ao cadastrar " + t.getClass().getSimpleName());
+		} finally {
+			em.clear();
 		}
 	}
 
@@ -44,7 +46,9 @@ public abstract class DAOGenerico<T> implements IDAOGenerico<T> {
 			et.commit();
 		} catch (PersistenceException e) {
 			et.rollback();
-			throw new DAOException("Erro ao alterar "+t.getClass().getSimpleName());
+			throw new DAOException("Erro ao alterar " + t.getClass().getSimpleName());
+		} finally {
+			em.clear();
 		}
 	}
 
@@ -61,7 +65,9 @@ public abstract class DAOGenerico<T> implements IDAOGenerico<T> {
 			et.commit();
 		} catch (PersistenceException e) {
 			et.rollback();
-			throw new DAOException("Erro ao Excluir "+t.getClass().getSimpleName());
+			throw new DAOException("Erro ao Excluir " + t.getClass().getSimpleName());
+		} finally {
+			em.clear();
 		}
 	}
 
@@ -75,7 +81,9 @@ public abstract class DAOGenerico<T> implements IDAOGenerico<T> {
 			t = em.find(objeto, id);
 		} catch (RuntimeException e) {
 			e.printStackTrace();
-			throw new DAOException("Erro ao buscar "+t.getClass().getSimpleName());
+			throw new DAOException("Erro ao buscar " + t.getClass().getSimpleName());
+		} finally {
+			em.clear();
 		}
 		return t;
 	}
@@ -94,7 +102,9 @@ public abstract class DAOGenerico<T> implements IDAOGenerico<T> {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			throw new DAOException("Erro ao Listar "+t.getClass().getSimpleName());
+			throw new DAOException("Erro ao Listar " + t.getClass().getSimpleName());
+		} finally {
+			em.clear();
 		}
 	}
 }

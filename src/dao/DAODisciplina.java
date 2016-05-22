@@ -1,8 +1,6 @@
 package dao;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.EnumSet;
 import java.util.List;
 
 import javax.persistence.PersistenceException;
@@ -23,6 +21,8 @@ public class DAODisciplina extends DAOGenerico<Disciplina> implements IDAODiscip
 		} catch (PersistenceException e) {
 			// TODO Auto-generated catch block
 			throw new DAOException("Erro ao Buscar Disciplina por Nome!");
+		} finally {
+			em.clear();
 		}
 	}
 
@@ -34,6 +34,8 @@ public class DAODisciplina extends DAOGenerico<Disciplina> implements IDAODiscip
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			throw new GeralException(e.getMessage());
+		} finally {
+			em.clear();
 		}
 	}
 
@@ -45,6 +47,8 @@ public class DAODisciplina extends DAOGenerico<Disciplina> implements IDAODiscip
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			throw new GeralException(e.getMessage());
+		} finally {
+			em.clear();
 		}
 	}
 
@@ -57,6 +61,8 @@ public class DAODisciplina extends DAOGenerico<Disciplina> implements IDAODiscip
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			throw new GeralException("Não foi possível listar disciplinas do professor!");
+		} finally {
+			em.clear();
 		}
 	}
 }

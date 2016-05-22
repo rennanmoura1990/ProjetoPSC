@@ -3,14 +3,13 @@ package model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
-@SuppressWarnings("unused")
 @Entity
 public class Usuario extends Geral{
 	
 	@Column(nullable=false)
 	private String login;
 	
-	@Column(nullable=false,columnDefinition = "varchar(12)") //Senha de 12 caracteres
+	@Column(nullable=false)
 	private String senha;
 	
 	private boolean moduloProfessor = false;

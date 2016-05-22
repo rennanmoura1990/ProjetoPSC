@@ -30,28 +30,36 @@ public class DAONota extends DAOGenerico<Nota> implements IDAONota {
 		} catch (PersistenceException e) {
 			// TODO Auto-generated catch block
 			throw new DAOException("Erro ao emitir nota final!");
+		} finally {
+			em.clear();
 		}
 	}
 
-	public double NotaRecuperacao(int id_aluno,int id_disciplina) throws DAOException{
-		try{
-			Query query = em.createQuery("SELECT n.nota_recupecao FROM Nota n WHERE n.id_aluno = :aluno AND n.id_disciplina = :disciplina",Nota.class);
+	public double NotaRecuperacao(int id_aluno, int id_disciplina) throws DAOException {
+		try {
+			Query query = em.createQuery(
+					"SELECT n.nota_recupecao FROM Nota n WHERE n.id_aluno = :aluno AND n.id_disciplina = :disciplina",
+					Nota.class);
 			query.setParameter("aluno", id_aluno);
 			query.setParameter("disciplina", id_disciplina);
 			return (double) query.getSingleResult();
-		}catch(PersistenceException e){
+		} catch (PersistenceException e) {
 			throw new DAOException("Erro ao emitir nota da recuperação!");
+		} finally {
+			em.clear();
 		}
 	}
-	
-	public List<Unidades> unidades() throws GeralException{
+
+	public List<Unidades> unidades() throws GeralException {
 		try {
 			List<Unidades> unidades = Arrays.asList(Unidades.values());
 			return unidades;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			throw new GeralException("Erro ao listar Unidades!");
+		} finally {
+			em.clear();
 		}
 	}
-	
+
 }

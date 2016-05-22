@@ -16,6 +16,8 @@ public class DAOProfessor extends DAOGenerico<Professor> implements IDAOProfesso
 		} catch (PersistenceException e) {
 			// TODO Auto-generated catch block
 			throw new DAOException("Erro ao Buscar Professor por Nome!");
+		} finally {
+			em.clear();
 		}
 	}
 

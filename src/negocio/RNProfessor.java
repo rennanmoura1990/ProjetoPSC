@@ -102,7 +102,7 @@ public class RNProfessor {
 			return daoprofessor.listaTudo(Professor.class);
 		} catch (PersistenceException e) {
 			// TODO Auto-generated catch block
-			throw new DAOException("N�o foi poss�vel Listar todos alunos!");
+			throw new DAOException("Não foi possível Listar todos alunos!");
 		}
 	}
 }

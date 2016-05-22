@@ -6,7 +6,7 @@ import javax.persistence.Query;
 import exception.DAOException;
 import model.Secretaria;
 
-public class DAOSecretaria extends DAOGenerico<Secretaria> implements IDAOSecretaria{
+public class DAOSecretaria extends DAOGenerico<Secretaria> implements IDAOSecretaria {
 
 	public Secretaria buscaSecretariaNome(String nome) throws DAOException {
 		try {
@@ -16,6 +16,8 @@ public class DAOSecretaria extends DAOGenerico<Secretaria> implements IDAOSecret
 		} catch (PersistenceException e) {
 			// TODO Auto-generated catch block
 			throw new DAOException("Erro ao Buscar Secretaria por Nome!");
+		} finally {
+			em.clear();
 		}
 	}
 }

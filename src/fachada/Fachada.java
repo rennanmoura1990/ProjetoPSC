@@ -483,10 +483,6 @@ public class Fachada implements IFachada {
 	}
 
 	public Usuario fazerLogin(String login, String senha) throws DAOException {
-		if (rnu.verificaUsuarioExistente(login, senha)) {
-			return rnu.fazerLogin(login, senha);
-		} else {
-			return null;
-		}
+		return rnu.fazerLogin(login, senha);
 	}
 }
