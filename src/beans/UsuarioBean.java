@@ -23,16 +23,34 @@ public class UsuarioBean {
 		this.fachada = new Fachada();
 	}
 
-	public String Logar() {
+	public String Login() {
 		try {
 			usuario = fachada.fazerLogin(login, senha);
-			if (usuario != null)
-				return "menuprincipal";
+			if (usuario != null) {
+				if (usuario.getTipoUsuario().equals("ALUNO")) {
+					return "menuprincipal";
+				} else if (usuario.getTipoUsuario().equals("PROFESSOR")) {
+					return "menuprincipal";
+				} else if (usuario.getTipoUsuario().equals("COORDENADOR")) {
+					return "menuprincipal";
+				} else if (usuario.getTipoUsuario().equals("SECRETARIA")) {
+					return "menuprincipal";
+				} else {
+					return "menuprincipal";
+				}
+			}
 		} catch (DAOException e) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
 		}
-		return "/index.xhtml?faces-redirect=true";
+		return "index?faces-redirect=true";
 	}
+	
+	public String Logout(){
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("usuario");
+		return "index?faces-redirect=true";
+	}
+	
+	
 
 	public String getLogin() {
 		return login;

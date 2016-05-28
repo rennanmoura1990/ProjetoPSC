@@ -15,6 +15,7 @@ import model.Turma;
 import model.Usuario;
 import model.enums.Dias_semana;
 import model.enums.Horarios;
+import model.enums.TiposUsuarios;
 import model.enums.Unidades;
 import negocio.RNAluno;
 import negocio.RNCoordenador;
@@ -484,6 +485,10 @@ public class Fachada implements IFachada {
 
 	public Usuario fazerLogin(String login, String senha) throws DAOException {
 		return rnu.fazerLogin(login, senha);
+	}
+	
+	public List<TiposUsuarios> tiposUsuarios() throws GeralException{
+		return rnu.tiposUsuarios();
 	}
 
 }

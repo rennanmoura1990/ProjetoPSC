@@ -57,9 +57,6 @@ public class DAONota extends DAOGenerico<Nota> implements IDAONota {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			throw new GeralException("Erro ao listar Unidades!");
-		} finally {
-			em.clear();
 		}
 	}
-
 }

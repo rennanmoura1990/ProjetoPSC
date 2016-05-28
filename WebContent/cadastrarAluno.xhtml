@@ -10,15 +10,17 @@
 </h:head>
 <h:body>
 	<h:form>
-		<h3>Login</h3>
-		<p:outputLabel value="Nome : " />
-		<p:inputText id="nomeusuario" value="#{usuarioBean.login}"></p:inputText>
-		<p:message for="nomeusuario"></p:message>
+		<h3>Matrícula</h3>
+		<p:outputLabel value="Matricula : " />
+		<p:inputText id="matricula" value="#{alunoBean.aluno.matricula}"></p:inputText>
+		
 		<br></br>
 		<br></br>
-		<p:outputLabel value="Senha : " />
-		<p:password id="senhausuario" value="#{usuarioBean.senha}"></p:password>
-		<p:message for="senhausuario"></p:message>
+        <p:outputLabel for="status" value="Status:" />
+        <p:selectOneListbox id="status" value="#{alunoBean.aluno.status}">
+           <f:selectItems value="#{alunoBean.status}"></f:selectItems>
+        </p:selectOneListbox>
+     </h:panelGrid>
 		<br></br>
 		<br></br>
 		<p:commandButton action="#{usuarioBean.Login}" value="Entrar"></p:commandButton>

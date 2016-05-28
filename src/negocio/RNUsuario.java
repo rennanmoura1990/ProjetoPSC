@@ -11,6 +11,7 @@ import dao.IDAOUsuario;
 import exception.DAOException;
 import exception.GeralException;
 import model.Usuario;
+import model.enums.TiposUsuarios;
 
 public class RNUsuario {
 	IDAOUsuario daousuario;
@@ -39,6 +40,9 @@ public class RNUsuario {
 		}
 		if (u.getSenha() == null) {
 			throw new GeralException("Senha Inválida!");
+		}
+		if(u.getTipoUsuario() == null){
+			throw new GeralException("Tipo de Usuário inválido!");
 		}
 	}
 
@@ -131,6 +135,14 @@ public class RNUsuario {
 		} catch (PersistenceException e) {
 			// TODO Auto-generated catch block
 			throw new DAOException(e.getMessage());
+		}
+	}
+	public List<TiposUsuarios> tiposUsuarios() throws GeralException{
+		try {
+			return daousuario.tiposUsuarios();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			throw new GeralException(e.getMessage());
 		}
 	}
 

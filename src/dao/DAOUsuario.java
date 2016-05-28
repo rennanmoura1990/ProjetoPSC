@@ -1,10 +1,15 @@
 package dao;
 
+import java.util.Arrays;
+import java.util.List;
+
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
 import exception.DAOException;
+import exception.GeralException;
 import model.Usuario;
+import model.enums.TiposUsuarios;
 
 public class DAOUsuario extends DAOGenerico<Usuario> implements IDAOUsuario {
 
@@ -40,6 +45,15 @@ public class DAOUsuario extends DAOGenerico<Usuario> implements IDAOUsuario {
 			throw new DAOException("Erro ao fazer login!");
 		} finally {
 			em.clear();
+		}
+	}
+	public List<TiposUsuarios> tiposUsuarios() throws GeralException{
+		try {
+			List<TiposUsuarios> tpUsuarios = Arrays.asList(TiposUsuarios.values());
+			return tpUsuarios;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			throw new GeralException("Erro ao listar Tipos de Usuario!");
 		}
 	}
 }

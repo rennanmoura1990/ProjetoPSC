@@ -1,4 +1,7 @@
-/fachada/
-/negocio/
+/META-INF/
+/beans/
 /dao/
+/exception/
+/fachada/
 /model/
+/negocio/

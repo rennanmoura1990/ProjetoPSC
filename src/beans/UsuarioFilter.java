@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet Filter implementation class UsuarioFilter
  */
-@WebFilter("*.xhtml")
+@WebFilter("/*.xhtml")
 public class UsuarioFilter implements Filter {
 
 	/**
@@ -42,8 +42,8 @@ public class UsuarioFilter implements Filter {
 		// place your code here
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpSession sessao = req.getSession();
-		if (sessao == null || sessao.getAttribute("usuarioBean") == null
-				|| ((UsuarioBean) sessao.getAttribute("usuarioBean")).getUsuario() == null) {
+		if (sessao == null || sessao.getAttribute("usuario") == null
+				|| ((UsuarioBean) sessao.getAttribute("usuario")).getUsuario() == null) {
 			RequestDispatcher dis = request.getRequestDispatcher("/index.xhtml");
 			dis.forward(request, response);
 		} else {
