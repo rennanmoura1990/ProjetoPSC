@@ -3,13 +3,16 @@ package beans;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.ManagedBean;
+import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.net.ssl.SSLEngineResult.Status;
-
+import exception.DAOException;
+import exception.GeralException;
 import fachada.Fachada;
 import fachada.IFachada;
 import model.Aluno;
+import model.Telefones;
+import model.Turma;
+import model.enums.*;
 
 @ManagedBean
 @SessionScoped
@@ -17,12 +20,36 @@ public class AlunoBean {
 	private Aluno aluno;
 	private List<Aluno> alunos;
 	private List<Status> status;
+	private int turma;
+	private String telefone;
+	private List<String> telefones;
+	private Telefones telefoneObj;
 	private IFachada fachada;
+	private List<Turma> turmas;
 
 	public AlunoBean() {
 		this.aluno = new Aluno();
 		this.alunos = new ArrayList<Aluno>();
+		this.status = new ArrayList<Status>();
+		this.turmas = new ArrayList<Turma>();
+		this.telefones = new ArrayList<String>();
+		this.telefoneObj = new Telefones();
 		this.fachada = new Fachada();
+	}
+
+	public void addTelefone() {
+		telefones.add(telefone);
+	}
+
+	public void cadastrarAluno() throws GeralException, DAOException {
+		Turma t = fachada.buscarIdTurma(turma);
+		aluno.setTurma(t);
+		fachada.inserirAluno(aluno);
+		for (int i=0;i<telefones.size();i++) {
+			telefoneObj.setPessoa(aluno);
+			telefoneObj.setTelefone(telefones.get(i));
+			fachada.inserirTelefone(telefoneObj);
+		}
 	}
 
 	public Aluno getAluno() {
@@ -56,7 +83,45 @@ public class AlunoBean {
 	public void setStatus(List<Status> status) {
 		this.status = status;
 	}
-	
-	
-	
+
+	public List<Turma> getTurmas() throws DAOException {
+		turmas = fachada.listaTurma();
+		return turmas;
+	}
+
+	public void setTurmas(List<Turma> turmas) {
+		this.turmas = turmas;
+	}
+
+	public int getTurma() {
+		return turma;
+	}
+
+	public void setTurma(int turma) {
+		this.turma = turma;
+	}
+
+	public List<String> getTelefones() {
+		return telefones;
+	}
+
+	public void setTelefones(List<String> telefones) {
+		this.telefones = telefones;
+	}
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+
+	public Telefones getTelefoneObj() {
+		return telefoneObj;
+	}
+
+	public void setTelefoneObj(Telefones telefoneObj) {
+		this.telefoneObj = telefoneObj;
+	}
 }

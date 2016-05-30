@@ -12,11 +12,11 @@ import model.Professor;
 
 public class RNProfessor {
 	IDAOProfessor daoprofessor;
-	
-	public RNProfessor(){
+
+	public RNProfessor() {
 		daoprofessor = new DAOProfessor();
 	}
-	
+
 	public void inserir(Professor p) throws DAOException {
 		try {
 			daoprofessor.inserir(p);
@@ -52,12 +52,8 @@ public class RNProfessor {
 		}
 	}
 
-	public Professor buscaProfessor(String nome) throws DAOException {
-		try {
-			return daoprofessor.buscaProfessorNome(nome);
-		} catch (PersistenceException e) {
-			throw new DAOException("Erro ao buscar professor por nome");
-		}
+	public Professor buscaProfessor(String nome) {
+		return daoprofessor.buscaProfessorNome(nome);
 	}
 
 	public void registroNovoProfessor(Professor p) throws GeralException, DAOException {
@@ -66,21 +62,21 @@ public class RNProfessor {
 		}
 	}
 
-	public void registroExistente(Professor p) throws DAOException, GeralException{
-		if(buscaID(p.getId()) == null){
+	public void registroExistente(Professor p) throws DAOException, GeralException {
+		if (buscaID(p.getId()) == null) {
 			throw new GeralException("Professor não existe no banco!");
 		}
 	}
 
 	public Professor buscaID(int id) throws DAOException {
 		try {
-			return daoprofessor.buscarId(id,Professor.class);
+			return daoprofessor.buscarId(id, Professor.class);
 		} catch (PersistenceException e) {
 			// TODO Auto-generated catch block
 			throw new DAOException("Erro ao buscar Professor por id");
 		}
 	}
-	
+
 	public void alterar(Professor p) throws DAOException {
 		try {
 			daoprofessor.alterar(p);
@@ -88,7 +84,7 @@ public class RNProfessor {
 			throw new DAOException("Erro ao alterar dados!");
 		}
 	}
-	
+
 	public void excluir(int id) throws DAOException {
 		try {
 			daoprofessor.excluir(Professor.class, id);
@@ -96,8 +92,8 @@ public class RNProfessor {
 			throw new DAOException("Erro ao alterar dados!");
 		}
 	}
-	
-	public List<Professor> listarTudo() throws DAOException{
+
+	public List<Professor> listarTudo() throws DAOException {
 		try {
 			return daoprofessor.listaTudo(Professor.class);
 		} catch (PersistenceException e) {

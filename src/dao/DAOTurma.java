@@ -1,5 +1,6 @@
 package dao;
 
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
@@ -8,14 +9,14 @@ import model.Turma;
 
 public class DAOTurma extends DAOGenerico<Turma> implements IDAOTurma {
 
-	public Turma BuscaTurmaNome(String nome) throws DAOException {
+	public Turma BuscaTurmaNome(String nome){
 		try {
 			Query query = em.createQuery("SELECT t FROM Turma t WHERE t.nomeTurma = :nome", Turma.class);
 			query.setParameter("nome", nome);
 			return (Turma) query.getSingleResult();
-		} catch (PersistenceException e) {
+		} catch (NoResultException e) {
 			// TODO Auto-generated catch block
-			throw new DAOException("Erro ao Buscar Turma por Nome!");
+			return null;
 		} finally {
 			em.clear();
 		}

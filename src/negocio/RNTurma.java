@@ -12,11 +12,11 @@ import model.Turma;
 
 public class RNTurma {
 	IDAOTurma daoturma;
-	
-	public RNTurma(){
+
+	public RNTurma() {
 		daoturma = new DAOTurma();
 	}
-	
+
 	public void inserir(Turma t) throws DAOException {
 		try {
 			daoturma.inserir(t);
@@ -32,20 +32,16 @@ public class RNTurma {
 	}
 
 	public void validaRegistro(Turma t) throws GeralException {
-		if(t.getNomeTurma().isEmpty()){
+		if (t.getNomeTurma().isEmpty()) {
 			throw new GeralException("Nome inválido!");
 		}
-		if(t.getQtd_aulas() == 0 ){
+		if (t.getQtd_aulas() == 0) {
 			throw new GeralException("Numero de aulas inválido!");
 		}
 	}
 
-	public Turma buscaTurma(String nome) throws DAOException {
-		try {
-			return daoturma.BuscaTurmaNome(nome);
-		} catch (PersistenceException e) {
-			throw new DAOException("Erro ao buscar turma por nome");
-		}
+	public Turma buscaTurma(String nome) {
+		return daoturma.BuscaTurmaNome(nome);
 	}
 
 	public void registroNovoTurma(Turma t) throws GeralException, DAOException {
@@ -54,21 +50,21 @@ public class RNTurma {
 		}
 	}
 
-	public void registroExistente(Turma t) throws DAOException, GeralException{
-		if(buscaID(t.getId()) == null){
+	public void registroExistente(Turma t) throws DAOException, GeralException {
+		if (buscaID(t.getId()) == null) {
 			throw new GeralException("Turma não existente no banco!");
 		}
 	}
 
 	public Turma buscaID(int id) throws DAOException {
 		try {
-			return daoturma.buscarId(id,Turma.class);
+			return daoturma.buscarId(id, Turma.class);
 		} catch (PersistenceException e) {
 			// TODO Auto-generated catch block
 			throw new DAOException("Erro ao buscar Turma por id");
 		}
 	}
-	
+
 	public void alterar(Turma t) throws DAOException {
 		try {
 			daoturma.alterar(t);
@@ -76,7 +72,7 @@ public class RNTurma {
 			throw new DAOException("Erro ao alterar dados!");
 		}
 	}
-	
+
 	public void excluir(int id) throws DAOException {
 		try {
 			daoturma.excluir(Turma.class, id);
@@ -84,8 +80,8 @@ public class RNTurma {
 			throw new DAOException("Erro ao alterar dados!");
 		}
 	}
-	
-	public List<Turma> listarTudo() throws DAOException{
+
+	public List<Turma> listarTudo() throws DAOException {
 		try {
 			return daoturma.listaTudo(Turma.class);
 		} catch (PersistenceException e) {

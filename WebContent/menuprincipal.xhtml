@@ -4,15 +4,21 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-<title>LOGIN OK</title>
-</head>
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>LOGIN OK</title>
+</h:head>
 <body>
 	<h1>LOGIN OK</h1>
 	<h:form>
+	<p:outputLabel value="#{usuarioBean.login}"></p:outputLabel>
+		<p:commandButton value="Formulário Aluno" id="formulario"
+			action="#{usuarioBean.CadastroAluno()}" />
+	</h:form>
+	<br></br>
+	<h:form>
 		<p:commandButton value="logout" id="logout"
-			actionListener="#{usuarioBean.Logout}" ajax="false" />
+			action="#{usuarioBean.Logout()}" />
 	</h:form>
 </body>
 </html>

@@ -361,7 +361,6 @@ public class Fachada implements IFachada {
 		// TODO Auto-generated method stub
 		rnt.verificaObjeto(t);
 		rnt.validaRegistro(t);
-		rnt.buscaTelefonesUsuario(t.getId(), t.getPessoa().getNome());
 		rnt.inserir(t);
 	}
 
@@ -370,7 +369,6 @@ public class Fachada implements IFachada {
 		// TODO Auto-generated method stub
 		rnt.verificaObjeto(t);
 		rnt.validaRegistro(t);
-		rnt.buscaTelefonesUsuario(t.getId(), t.getPessoa().getNome());
 		rnt.alterar(t);
 	}
 

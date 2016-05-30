@@ -1,6 +1,8 @@
 package beans;
 
 import java.io.IOException;
+
+import javax.faces.context.FacesContext;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -9,14 +11,14 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
  * Servlet Filter implementation class UsuarioFilter
  */
-@WebFilter("/*.xhtml")
+@WebFilter(filterName="Authentication")
 public class UsuarioFilter implements Filter {
 
 	/**
@@ -41,22 +43,31 @@ public class UsuarioFilter implements Filter {
 		// TODO Auto-generated method stub
 		// place your code here
 		HttpServletRequest req = (HttpServletRequest) request;
-		HttpSession sessao = req.getSession();
-		if (sessao == null || sessao.getAttribute("usuario") == null
-				|| ((UsuarioBean) sessao.getAttribute("usuario")).getUsuario() == null) {
-			RequestDispatcher dis = request.getRequestDispatcher("/index.xhtml");
-			dis.forward(request, response);
-		} else {
-			chain.doFilter(request, response);
+		HttpServletResponse res = (HttpServletResponse) response;
+		String uri = req.getRequestURI();
+		String redireciona = null;
+		HttpSession sessao = req.getSession(false);
+		if (sessao == null || sessao.getAttribute("usuario") == null) {
+			// RequestDispatcher dis = request.getRequestDispatcher("/index.xhtml");
+			// dis.forward(request, response);
+			if(uri.contains("/secretaria") || uri.contains("/professor")){
+				redireciona = req.getContextPath()+"/index.xhtml";
+				//se eu acessar qualquer página dentro dessas pastas,se a sessão tiver nula,volta pra tela de login :)
+			}
+		} else if (uri.endsWith("index.xhtml") || uri.endsWith(req.getContextPath()+"/")){
+			redireciona = "menuprincipal.xhtml";
 		}
-		// pass the request along the filter chain
+		if(redireciona != null){
+			res.sendRedirect(redireciona);
+		}else{
+			chain.doFilter(request,response);
+		}
 	}
 
 	/**
 	 * @see Filter#init(FilterConfig)
 	 */
 	public void init(FilterConfig fConfig) throws ServletException {
-		// TODO Auto-generated method stub
 	}
 
 }

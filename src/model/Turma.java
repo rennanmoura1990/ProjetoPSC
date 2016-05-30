@@ -61,5 +61,4 @@ public class Turma extends Geral{
 	public void setDisciplina(List<Disciplina> disciplina) {
 		this.disciplina = disciplina;
 	}
-	
 }

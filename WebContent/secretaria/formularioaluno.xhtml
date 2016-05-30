@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Cadastro de Aluno</title>
+</h:head>
+<body>
+	<h:form>
+		<p:panelGrid columns="4" cellpadding="1">
+			<p:outputLabel for="matricula" value="Matrícula" />
+			<p:inputText id="matricula" value="#{alunoBean.aluno.matricula}" />
+			<p:outputLabel for="nome" value="Nome" />
+			<p:inputText id="nome" value="#{alunoBean.aluno.nome}"></p:inputText>
+			<p:outputLabel for="dtnasc" value="Data de Nascimento"/>
+			<p:calendar id="dtnasc" value="#{alunoBean.aluno.dtnasc}" navigator="true" pattern="dd-MM-yyyy"/>
+			<p:outputLabel for="cpf" value="CPF" />
+			<p:inputText id="cpf" value="#{alunoBean.aluno.cpf}"></p:inputText>
+			<p:outputLabel for="rg" value="RG" />
+			<p:inputText id="rg" value="#{alunoBean.aluno.rg}"></p:inputText>
+			<p:outputLabel for="telefone" value="Telefone" />
+			<p:inputText id="telefone" value="#{alunoBean.telefone}"></p:inputText>
+			<p:commandButton value="Adicionar" action="#{alunoBean.addTelefone}" update="listatelefones"/>
+			<p:selectOneListbox id="listatelefones">
+				<f:selectItems value="#{alunoBean.telefones}"/>
+			</p:selectOneListbox>
+			<p:outputLabel for="telefone" value="Turma" />
+			<p:selectOneListbox id="turma" value="#{alunoBean.turma}">
+				<f:selectItems value="#{alunoBean.turmas}" var="a" itemLabel="#{a.nomeTurma}" itemValue="#{a.id}"/>
+			</p:selectOneListbox>
+			<p:commandButton action="#{alunoBean.cadastrarAluno}"
+				value="Cadastrar"></p:commandButton>
+		</p:panelGrid>
+	</h:form>
+</body>
+</html>

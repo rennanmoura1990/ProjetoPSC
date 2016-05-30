@@ -3,6 +3,7 @@ package dao;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import exception.DAOException;
@@ -12,14 +13,14 @@ import model.enums.Status;
 
 public class DAOAluno extends DAOGenerico<Aluno> implements IDAOAluno {
 
-	public Aluno buscaAlunoNome(String nome) throws DAOException {
+	public Aluno buscaAlunoNome(String nome){
 		try {
 			Query query = em.createQuery("SELECT a FROM Aluno a WHERE a.nome = :nome", Aluno.class);
 			query.setParameter("nome", nome);
 			return (Aluno) query.getSingleResult();
-		} catch (PersistenceException e) {
+		} catch (NoResultException e) {
 			// TODO Auto-generated catch block
-			throw new DAOException("Erro ao Buscar Aluno por Nome!");
+			return null;
 		} finally {
 			em.clear();
 		}

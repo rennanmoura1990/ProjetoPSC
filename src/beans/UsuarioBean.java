@@ -4,6 +4,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 import exception.DAOException;
 import fachada.Fachada;
@@ -27,16 +28,17 @@ public class UsuarioBean {
 		try {
 			usuario = fachada.fazerLogin(login, senha);
 			if (usuario != null) {
+				FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", usuario);
 				if (usuario.getTipoUsuario().equals("ALUNO")) {
-					return "menuprincipal";
+					return "menuprincipal?faces-redirect=true";
 				} else if (usuario.getTipoUsuario().equals("PROFESSOR")) {
-					return "menuprincipal";
+					return "menuprincipal?faces-redirect=true";
 				} else if (usuario.getTipoUsuario().equals("COORDENADOR")) {
-					return "menuprincipal";
+					return "menuprincipal?faces-redirect=true";
 				} else if (usuario.getTipoUsuario().equals("SECRETARIA")) {
-					return "menuprincipal";
+					return "menuprincipal?faces-redirect=true";
 				} else {
-					return "menuprincipal";
+					return "menuprincipal?faces-redirect=true";
 				}
 			}
 		} catch (DAOException e) {
@@ -44,13 +46,16 @@ public class UsuarioBean {
 		}
 		return "index?faces-redirect=true";
 	}
-	
-	public String Logout(){
-		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("usuario");
+
+	public String Logout() {
+		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 		return "index?faces-redirect=true";
+
 	}
-	
-	
+
+	public String CadastroAluno() {
+		return "/secretaria/formularioaluno?faces-redirect=true";
+	}
 
 	public String getLogin() {
 		return login;

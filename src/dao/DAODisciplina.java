@@ -3,24 +3,23 @@ package dao;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.persistence.PersistenceException;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
-import exception.DAOException;
 import exception.GeralException;
 import model.Disciplina;
 import model.enums.*;
 
 public class DAODisciplina extends DAOGenerico<Disciplina> implements IDAODisciplina {
 
-	public Disciplina buscaDisciplinanome(String nome) throws DAOException {
+	public Disciplina buscaDisciplinanome(String nome){
 		try {
 			Query query = em.createQuery("SELECT d FROM Disciplina d WHERE d.nomeDisciplina = :nome", Disciplina.class);
 			query.setParameter("nome", nome);
 			return (Disciplina) query.getSingleResult();
-		} catch (PersistenceException e) {
+		} catch (NoResultException e) {
 			// TODO Auto-generated catch block
-			throw new DAOException("Erro ao Buscar Disciplina por Nome!");
+			return null;
 		} finally {
 			em.clear();
 		}

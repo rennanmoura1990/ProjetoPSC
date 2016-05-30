@@ -57,18 +57,15 @@ public class RNAluno {
 		}
 	}
 
-	public Aluno buscaAlunoNome(String nome) throws DAOException {
-		try {
-			return daoaluno.buscaAlunoNome(nome);
-		} catch (PersistenceException e) {
-			throw new DAOException("Erro ao buscar aluno por nome");
-		}
+	public Aluno buscaAlunoNome(String nome) throws DAOException{
+		return daoaluno.buscaAlunoNome(nome);
 	}
 
 	public void registroNovoAluno(Aluno a) throws GeralException, DAOException {
 		if (buscaAlunoNome(a.getNome()) != null) {
 			throw new GeralException("Aluno já existente!");
 		}
+		return;
 	}
 
 	public void registroExistente(Aluno a) throws DAOException, GeralException {
@@ -154,8 +151,8 @@ public class RNAluno {
 		}
 		return status;
 	}
-	
-	public int QtdAlunoTurma(int turma_id) throws DAOException{
+
+	public int QtdAlunoTurma(int turma_id) throws DAOException {
 		try {
 			return daoaluno.QtdAlunoTurma(turma_id);
 		} catch (PersistenceException e) {
@@ -163,8 +160,8 @@ public class RNAluno {
 			throw new DAOException(e.getMessage());
 		}
 	}
-	
-	public int NumeroFaltas(int id_aluno) throws DAOException{
+
+	public int NumeroFaltas(int id_aluno) throws DAOException {
 		try {
 			return daoaluno.NumeroFaltas(id_aluno);
 		} catch (PersistenceException e) {
@@ -172,8 +169,8 @@ public class RNAluno {
 			throw new DAOException(e.getMessage());
 		}
 	}
-	
-	public void LancaFalta(Aluno a) throws DAOException{
+
+	public void LancaFalta(Aluno a) throws DAOException {
 		try {
 			daoaluno.LancaFalta(a);
 		} catch (PersistenceException e) {
@@ -181,8 +178,8 @@ public class RNAluno {
 			throw new DAOException(e.getMessage());
 		}
 	}
-	
-	public List<Status> status() throws GeralException{
+
+	public List<Status> status() throws GeralException {
 		try {
 			return daoaluno.status();
 		} catch (Exception e) {
@@ -190,8 +187,8 @@ public class RNAluno {
 			throw new GeralException(e.getMessage());
 		}
 	}
-	
-	public List<Aluno> listaAlunoPorTurma(int id_turma) throws GeralException{
+
+	public List<Aluno> listaAlunoPorTurma(int id_turma) throws GeralException {
 		try {
 			return daoaluno.alunoPorTurma(id_turma);
 		} catch (Exception e) {

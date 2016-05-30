@@ -28,7 +28,7 @@ public class RNTelefones {
 	public boolean VerificaTelefone(int id_pessoa, String telefone) throws Exception {
 		boolean verifica = false;
 		try {
-			Telefones telefones = buscaTelefonesUsuario(id_pessoa,telefone);
+			Telefones telefones = buscaTelefonesUsuario(id_pessoa, telefone);
 			if (telefones == null) {
 				verifica = true;
 			}
@@ -39,7 +39,7 @@ public class RNTelefones {
 		}
 	}
 
-	public Telefones buscaTelefonesUsuario(int pessoa_id,String telefone) throws DAOException{
+	public Telefones buscaTelefonesUsuario(int pessoa_id, String telefone) throws DAOException {
 		try {
 			return daotelefones.buscaTelefonesUsuario(pessoa_id, telefone);
 		} catch (PersistenceException e) {
@@ -47,7 +47,7 @@ public class RNTelefones {
 			throw new DAOException(e.getMessage());
 		}
 	}
-	
+
 	public void inserir(Telefones t) throws DAOException {
 		try {
 			daotelefones.inserir(t);
@@ -71,12 +71,8 @@ public class RNTelefones {
 		}
 	}
 
-	public Telefones buscaTelefone(Telefones t) throws DAOException {
-		try {
-			return daotelefones.buscaTelefone(t.getTelefone());
-		} catch (PersistenceException e) {
-			throw new DAOException("Erro ao buscar Telefone!");
-		}
+	public Telefones buscaTelefone(Telefones t) {
+		return daotelefones.buscaTelefone(t.getTelefone());
 	}
 
 	public Telefones buscaID(int id) throws DAOException {

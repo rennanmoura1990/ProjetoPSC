@@ -3,6 +3,7 @@ package dao;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
@@ -13,14 +14,14 @@ import model.enums.TiposUsuarios;
 
 public class DAOUsuario extends DAOGenerico<Usuario> implements IDAOUsuario {
 
-	public Usuario BuscaUsuarioLogin(String login) throws DAOException {
+	public Usuario BuscaUsuarioLogin(String login){
 		try {
 			Query query = em.createQuery("SELECT u FROM Usuario u WHERE u.login = :login", Usuario.class);
 			query.setParameter("login", login);
 			return (Usuario) query.getSingleResult();
-		} catch (PersistenceException e) {
+		} catch (NoResultException e) {
 			// TODO Auto-generated catch block
-			throw new DAOException("Erro ao Buscar Usuário por Login!");
+			return null;
 		} finally {
 			em.clear();
 		}

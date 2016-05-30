@@ -60,12 +60,8 @@ public class RNDisciplina {
 		}
 	}
 
-	public Disciplina buscaDisciplina(String nome) throws DAOException {
-		try {
+	public Disciplina buscaDisciplina(String nome){
 			return daodisciplina.buscaDisciplinanome(nome);
-		} catch (PersistenceException e) {
-			throw new DAOException("Erro ao buscar Disciplina por nome");
-		}
 	}
 
 	public void registroExistente(Disciplina d) throws DAOException,GeralException {

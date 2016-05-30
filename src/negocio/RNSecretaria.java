@@ -56,7 +56,7 @@ public class RNSecretaria {
 
 	public Secretaria buscarId(int id) throws DAOException {
 		try {
-			return daosecretaria.buscarId(id,Secretaria.class);
+			return daosecretaria.buscarId(id, Secretaria.class);
 		} catch (PersistenceException e) {
 			throw new DAOException("Erro no banco de dados!");
 		} catch (DAOException e) {
@@ -84,21 +84,17 @@ public class RNSecretaria {
 			throw new DAOException("Erro ao salvar dados!");
 		}
 	}
-	
-	public Secretaria buscaSecretaria(String nome) throws DAOException {
-		try {
-			return daosecretaria.buscaSecretariaNome(nome);
-		} catch (PersistenceException e) {
-			throw new DAOException("Erro ao buscar Secretaria por nome");
-		}
+
+	public Secretaria buscaSecretaria(String nome){
+		return daosecretaria.buscaSecretariaNome(nome);
 	}
-	
-	public void registroExistente(Secretaria s) throws DAOException, GeralException{
-		if(buscarId(s.getId()) == null){
+
+	public void registroExistente(Secretaria s) throws DAOException, GeralException {
+		if (buscarId(s.getId()) == null) {
 			throw new GeralException("Secretaria não existe no banco!");
 		}
 	}
-	
+
 	public void alterar(Secretaria s) throws DAOException {
 		try {
 			daosecretaria.alterar(s);
@@ -106,7 +102,7 @@ public class RNSecretaria {
 			throw new DAOException("Erro ao alterar dados!");
 		}
 	}
-	
+
 	public void excluir(int id) throws DAOException {
 		try {
 			daosecretaria.excluir(Secretaria.class, id);
@@ -114,8 +110,8 @@ public class RNSecretaria {
 			throw new DAOException("Erro ao exluir dados!");
 		}
 	}
-	
-	public List<Secretaria> listarTudo() throws DAOException{
+
+	public List<Secretaria> listarTudo() throws DAOException {
 		try {
 			return daosecretaria.listaTudo(Secretaria.class);
 		} catch (PersistenceException e) {

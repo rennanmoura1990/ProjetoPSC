@@ -41,17 +41,13 @@ public class RNUsuario {
 		if (u.getSenha() == null) {
 			throw new GeralException("Senha Inválida!");
 		}
-		if(u.getTipoUsuario() == null){
+		if (u.getTipoUsuario() == null) {
 			throw new GeralException("Tipo de Usuário inválido!");
 		}
 	}
 
-	public Usuario buscaUsuario(Usuario u) throws DAOException {
-		try {
-			return daousuario.BuscaUsuarioLogin(u.getLogin());
-		} catch (PersistenceException e) {
-			throw new DAOException("Erro ao buscar Usuário por login!");
-		}
+	public Usuario buscaUsuario(Usuario u) {
+		return daousuario.BuscaUsuarioLogin(u.getLogin());
 	}
 
 	public void registroNovoUsuario(Usuario u) throws GeralException, DAOException {
@@ -137,7 +133,8 @@ public class RNUsuario {
 			throw new DAOException(e.getMessage());
 		}
 	}
-	public List<TiposUsuarios> tiposUsuarios() throws GeralException{
+
+	public List<TiposUsuarios> tiposUsuarios() throws GeralException {
 		try {
 			return daousuario.tiposUsuarios();
 		} catch (Exception e) {

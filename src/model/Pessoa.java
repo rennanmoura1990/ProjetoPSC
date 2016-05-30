@@ -1,6 +1,6 @@
 package model;
 
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -32,12 +32,12 @@ public class Pessoa extends Geral{
 	private List<Telefones> telefones;
 	
 	@Temporal(TemporalType.DATE)
-	private Calendar dtnasc;
+	private Date dtnasc;
 
 	public Pessoa() {
 		super();
 	}
-	public Pessoa(String nome, String cpf, String rg, List<Telefones> telefones, Calendar dtnasc) {
+	public Pessoa(String nome, String cpf, String rg, List<Telefones> telefones, Date dtnasc) {
 		super();
 		this.nome = nome;
 		this.cpf = cpf;
@@ -69,10 +69,10 @@ public class Pessoa extends Geral{
 	public void setTelefones(List<Telefones> telefones) {
 		this.telefones = telefones;
 	}
-	public Calendar getDtnasc() {
+	public Date getDtnasc() {
 		return dtnasc;
 	}
-	public void setDtnasc(Calendar dtnasc) {
+	public void setDtnasc(Date dtnasc) {
 		this.dtnasc = dtnasc;
 	}
 	

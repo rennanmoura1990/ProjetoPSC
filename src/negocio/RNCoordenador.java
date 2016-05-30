@@ -85,12 +85,8 @@ public class RNCoordenador {
 		}
 	}
 	
-	public Coordenador buscaCoordenador(String nome) throws DAOException {
-		try {
+	public Coordenador buscaCoordenador(String nome){
 			return daocoordenador.buscaCoordenadorNome(nome);
-		} catch (PersistenceException e) {
-			throw new DAOException("Erro ao buscar Coordenador por nome");
-		}
 	}
 	
 	public void registroExistente(Coordenador c) throws DAOException, GeralException{
