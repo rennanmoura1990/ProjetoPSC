@@ -25,9 +25,9 @@
 			<p:outputLabel for="telefone" value="Telefone" />
 			<p:inputText id="telefone" value="#{alunoBean.telefone}"></p:inputText>
 			<p:commandButton value="Adicionar" action="#{alunoBean.addTelefone}" update="listatelefones"/>
-			<p:selectOneListbox id="listatelefones">
-				<f:selectItems value="#{alunoBean.telefones}"/>
-			</p:selectOneListbox>
+			<p:selectCheckboxMenu id="listatelefones" label="Selecionar telefones">
+            	<f:selectItems value="#{alunoBean.telefones}"/>
+       		</p:selectCheckboxMenu>
 			<p:outputLabel for="telefone" value="Turma" />
 			<p:selectOneListbox id="turma" value="#{alunoBean.turma}">
 				<f:selectItems value="#{alunoBean.turmas}" var="a" itemLabel="#{a.nomeTurma}" itemValue="#{a.id}"/>

@@ -45,7 +45,7 @@ public class AlunoBean {
 		Turma t = fachada.buscarIdTurma(turma);
 		aluno.setTurma(t);
 		fachada.inserirAluno(aluno);
-		for (int i=0;i<telefones.size();i++) {
+		for (int i=0;i<this.getTelefones().size();i++) {
 			telefoneObj.setPessoa(aluno);
 			telefoneObj.setTelefone(telefones.get(i));
 			fachada.inserirTelefone(telefoneObj);
