@@ -51,6 +51,17 @@ public class AlunoBean {
 			fachada.inserirTelefone(telefoneObj);
 		}
 	}
+	
+	public void clear(){
+		aluno.setNome(null);
+		aluno.setCpf(null);
+		aluno.setDtnasc(null);
+		aluno.setMatricula(null);
+		aluno.setRg(null);
+		aluno.setTelefones(null);
+		aluno.setTurma(null);
+		
+	}
 
 	public Aluno getAluno() {
 		return aluno;

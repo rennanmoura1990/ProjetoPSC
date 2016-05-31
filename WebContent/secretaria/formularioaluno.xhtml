@@ -12,6 +12,7 @@
 
 	<ui:define name="content">
 	<h:form>
+	
 		<p:panel id="panel" header="Cadastrar novo aluno" style="margin-bottom:10px;">
         <p:messages id="msgs" />
 			<h:panelGrid columns="2" cellpadding="5">
@@ -39,6 +40,7 @@
 				</p:selectOneListbox>
 				<p:commandButton action="#{alunoBean.cadastrarAluno}"
 					value="Cadastrar" update="panel"></p:commandButton>
+				<p:commandButton action="#{alunoBean.clear}" update="panel" value="Limpar"/>
 			</h:panelGrid>
 		</p:panel>
 	</h:form>
