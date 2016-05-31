@@ -45,13 +45,14 @@ public class AlunoBean {
 		Turma t = fachada.buscarIdTurma(turma);
 		aluno.setTurma(t);
 		fachada.inserirAluno(aluno);
-		for (int i=0;i<this.getTelefones().size();i++) {
+		for (String tel : telefones) {
+			telefoneObj = new Telefones();
 			telefoneObj.setPessoa(aluno);
-			telefoneObj.setTelefone(telefones.get(i));
+			telefoneObj.setTelefone(tel);
 			fachada.inserirTelefone(telefoneObj);
 		}
+		aluno = new Aluno();
 	}
-
 	public Aluno getAluno() {
 		return aluno;
 	}
