@@ -24,7 +24,7 @@
 				<p:calendar id="dtnasc" value="#{alunoBean.aluno.dtnasc}" navigator="true" pattern="dd-MM-yyyy"  required="true"/>
 				<p:outputLabel for="cpf" value="CPF" />
 				<p:inputText id="cpf" value="#{alunoBean.aluno.cpf}" required="true">
-					<f:validateLength minimum="11" />
+					<f:validateLength minimum="11" maximum="11" />
 				</p:inputText>
 				<p:outputLabel for="rg" value="RG" />
 				<p:inputText id="rg" value="#{alunoBean.aluno.rg}" required="true"></p:inputText>
