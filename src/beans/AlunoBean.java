@@ -106,6 +106,7 @@ public class AlunoBean {
 	}
 
 	public void setTelefones(List<String> telefones) {
+		
 		this.telefones = telefones;
 	}
 
