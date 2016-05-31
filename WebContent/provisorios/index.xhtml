@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+
+<h:head>
+	<title>Gerenciamento de Projetos com JSF</title>
+</h:head>
+<h:body> 
+	Seja bem vindo ao sistema <br />
+	<h:form>
+		<ui:composition template="_template.xhtml">
+
+		<ui:define name="titulo">
+			<p:outputPanel>Login</p:outputPanel>
+		</ui:define>
+
+		<ui:define name="conteudo">
+		
+			<p:messages globalOnly="true" />
+				<h:form id="login">
+					
+					<p:fieldset legend="Login">
+						<h:panelGrid columns="2">
+							<h:outputLabel value="Login:" for="login" />
+					  		<h:inputText id="titulo" value="#login" />
+					  		
+							<h:outputLabel value="Senha: " for="senha" />
+					  		<h:inputText id="senha" value="senha"/>
+					  		
+							
+							<h:commandButton value="Gravar" action="logar"/>	  			
+						</h:panelGrid>
+					</p:fieldset>
+				</h:form>
+		</ui:define>
+
+	</ui:composition>
+		<h:panelGroup	rendered="#{controleLogin.usuarioLogado == null}">
+			<h:commandLink action="#{controleLogin.paginaLogin()}" value="Login" />
+		</h:panelGroup>
+	</h:form>
+</h:body>
+</html>
