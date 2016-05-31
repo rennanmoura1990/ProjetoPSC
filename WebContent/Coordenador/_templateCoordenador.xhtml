@@ -9,62 +9,69 @@
 	<h:head />
 	<h:body>
 		<p:layout>
-		<p:layoutUnit position="west" size="310">
-		
-		<div id="cabecalho">
+		<p:layoutUnit position="north" size="20%">
 			<h:panelGrid columns="2">
-				<h:graphicImage library="img" name="logo.png" />
+				
+			<h:graphicImage style="max-width: 40%; height: auto;" library="img" name="logo.jpg" />	
+					
+				
 							
 				
 			</h:panelGrid>
+		</p:layoutUnit>
+		
+		
+		<p:layoutUnit position="west" size="310">
 			
-			<p:growl id="messages" showDetail="true" autoUpdate="true" />
-			<h1>
-				<ui:insert name="titulo"></ui:insert>
-			</h1>
-			<br/>
-			<h:form rendered="true">	
-				<p:panelMenu  class="MenuSideMainLink bordersOfMenuSide" value="Menu" style="width:300px" >
-					<p:submenu  label = "SubMenu - Professor">
-						<p:menuitem value="Cadastrar" action="coordenador/formProfessorCadastrar?faces-redirect=true" icon="ui-icon-disk" />
-						<p:menuitem value="Buscar" action="coordenador/formProfessorBuscar?faces-redirect=true" icon="ui-icon-search" />
-						<p:menuitem value="Listar" action="coordenador/formProfessorListar?faces-redirect=true" icon="fa fa-fw fa-edit" />
+			<div id="cabecalho">
+				<ui:insert name="titulo"  ></ui:insert>
+				
+				<p:growl id="messages" showDetail="true" autoUpdate="true" />
+				
+				<br/>
+				<h:form rendered="true">	
+					<p:panelMenu  class="MenuSideMainLink bordersOfMenuSide" value="Menu" style="width:300px" >
+						<p:submenu  label = "SubMenu - Professor">
+							<p:menuitem value="Cadastrar" action="coordenador/formProfessorCadastrar?faces-redirect=true" icon="ui-icon-disk" />
+							<p:menuitem value="Buscar" action="coordenador/formProfessorBuscar?faces-redirect=true" icon="ui-icon-search" />
+							<p:menuitem value="Listar" action="coordenador/formProfessorListar?faces-redirect=true" icon="fa fa-fw fa-edit" />
+							
+						</p:submenu >
+						<p:submenu label = "SubMenu - Aluno">
+							<p:menuitem value="Cadastrar" action="coordenador/formAlunoCadastrar?faces-redirect=true" icon="ui-icon-disk" />
+							<p:menuitem value="Buscar" action="coordenador/formAlunoBuscar?faces-redirect=true" icon="ui-icon-search" />
+							<p:menuitem value="Listar" action="coordenador/formAlunoListar?faces-redirect=true" icon="ui-icon-note"/>
+							
+						</p:submenu>
+						<p:submenu label = "SubMenu - Turma">
+							<p:menuitem value="Cadastrar" action="coordenador/formTurmaCadastrar?faces-redirect=true" icon="ui-icon-disk" />
+							<p:menuitem value="Buscar" action="coordenador/formTurmaBuscar?faces-redirect=true" icon="ui-icon-search" />
+							<p:menuitem value="Listar" action="coordenador/formTurmaListar?faces-redirect=true" icon="ui-icon-note" />
+							<p:menuitem value="Gerar grade da Turma" action="coordenador/formTurmaListar?faces-redirect=true" icon="ui-icon-calendar" />
+							
+						</p:submenu>
+						<p:submenu label = "SubMenu - Disciplina">
+							<p:menuitem value="Cadastrar" action="coordenador/formDisciplinaCadastrar?faces-redirect=true" icon="ui-icon-disk" />
+							<p:menuitem value="Buscar" action="coordenador/formDisciplinaBuscar?faces-redirect=true" icon="ui-icon-search" />
+							<p:menuitem value="Listar" action="coordenador/formDisciplinaLIstar?faces-redirect=true" icon="ui-icon-note" />
+							
+						</p:submenu>
 						
-					</p:submenu >
-					<p:submenu label = "SubMenu - Aluno">
-						<p:menuitem value="Cadastrar" action="coordenador/formAlunoCadastrar?faces-redirect=true" icon="ui-icon-disk" />
-						<p:menuitem value="Buscar" action="coordenador/formAlunoBuscar?faces-redirect=true" icon="ui-icon-search" />
-						<p:menuitem value="Listar" action="coordenador/formAlunoListar?faces-redirect=true" icon="ui-icon-note"/>
 						
-					</p:submenu>
-					<p:submenu label = "SubMenu - Turma">
-						<p:menuitem value="Cadastrar" action="coordenador/formTurmaCadastrar?faces-redirect=true" icon="ui-icon-disk" />
-						<p:menuitem value="Buscar" action="coordenador/formTurmaBuscar?faces-redirect=true" icon="ui-icon-search" />
-						<p:menuitem value="Listar" action="coordenador/formTurmaListar?faces-redirect=true" icon="ui-icon-note" />
-						<p:menuitem value="Gerar grade da Turma" action="coordenador/formTurmaListar?faces-redirect=true" icon="ui-icon-calendar" />
-						
-					</p:submenu>
-					<p:submenu label = "SubMenu - Disciplina">
-						<p:menuitem value="Cadastrar" action="coordenador/formDisciplinaCadastrar?faces-redirect=true" icon="ui-icon-disk" />
-						<p:menuitem value="Buscar" action="coordenador/formDisciplinaBuscar?faces-redirect=true" icon="ui-icon-search" />
-						<p:menuitem value="Listar" action="coordenador/formDisciplinaLIstar?faces-redirect=true" icon="ui-icon-note" />
-						
-					</p:submenu>
-					
-					
-					<p:separator />
-					<p:menuitem value="Logout" action="#{loginBean.deslogar}" icon="fa fa-fw fa-sign-out" />
-				</p:panelMenu>
-			</h:form>
-			<br/>
-		</div>
+						<p:separator />
+						<p:menuitem value="Logout" action="#{loginBean.deslogar}" icon="fa fa-fw fa-sign-out" />
+					</p:panelMenu>
+				</h:form>
+				<br/>
+			</div>
 		</p:layoutUnit>
-		<p:layoutUnit position="center" size="70%">
-		<div id="conteudo">
-			<ui:insert name="conteudo">
-			</ui:insert>
-		</div>
-		</p:layoutUnit>
+			<p:layoutUnit position="center" size="70%">
+			<div id="conteudo">
+				<ui:insert name="conteudo">
+				</ui:insert>
+			</div>
+			</p:layoutUnit>
+		
 		</p:layout>
 	</h:body>
 

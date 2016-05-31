@@ -15,7 +15,7 @@
 		<ui:composition template="_templateCoordenador.xhtml">
 
 		<ui:define name="titulo">
-			<p:outputPanel>Área do Coordenador</p:outputPanel>
+			<p:outputPanel style="font-size: 20px;font-align: center;">Área do Coordenador</p:outputPanel>
 		</ui:define>
 
 		<ui:define name="conteudo">
@@ -42,24 +42,14 @@
 							<f:ajax event="blur" render=":messages" />
 							</h:outputLabel>
 					  		<h:inputText id="rg"  /> 
-				  			
-								<p:outputLabel value="Inserir fone:" for="fone" />
-								<h:inputText id="fone"  />
-								<p:commandButton value="Inserir" action="#"
-								process="@this " update="" />
+				  			<p:outputLabel for="telefone" value="Telefone" />
+							<p:inputText id="telefone" value="#professorBean.telefone"></p:inputText>
+							<p:commandButton value="Adicionar" action="#professorBean.addTelefone" update="listatelefones"/>
+							<p:selectCheckboxMenu id="listatelefones" label="Selecionar telefones">
+				            	<f:selectItems value="#professorBean.telefones"/>
+				       		</p:selectCheckboxMenu>
+							<p:outputLabel for="telefone" value="Turma" />
 							
-							<p:dataTable value="#" var="fone"
-								id="tabelaFones" emptyMessage="Nenhum Telefone">
-								<p:panelGrid columns="2">
-									<p:column>
-										<h:outputText value="#professor.fone" />
-									</p:column>
-									<p:column>
-										<p:commandLink value="X" action="#professor.removerFone(fone)}" 
-											update="tabelaFones" process="@this" />
-									</p:column>
-								</p:panelGrid>
-							</p:dataTable>
 							
 							
 						<p:outputLabel value="Selecione Disciplina:" for="disciplina" />
