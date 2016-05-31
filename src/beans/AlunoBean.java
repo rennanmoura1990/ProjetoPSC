@@ -45,13 +45,38 @@ public class AlunoBean {
 		Turma t = fachada.buscarIdTurma(turma);
 		aluno.setTurma(t);
 		fachada.inserirAluno(aluno);
-		for (int i=0;i<this.getTelefones().size();i++) {
+		for (String tel : telefones) {
+			telefoneObj = new Telefones();
 			telefoneObj.setPessoa(aluno);
-			telefoneObj.setTelefone(telefones.get(i));
+			telefoneObj.setTelefone(tel);
 			fachada.inserirTelefone(telefoneObj);
 		}
+		aluno = new Aluno();
 	}
-
+	
+	public void clear(){
+		aluno.setNome(null);
+		aluno.setCpf(null);
+		aluno.setDtnasc(null);
+		aluno.setMatricula(null);
+		aluno.setRg(null);
+		aluno.setTelefones(null);
+		aluno.setTurma(null);
+		
+	}
+	public void edit(Aluno a) throws GeralException, DAOException{
+		Aluno alunoEdit = new Aluno();
+		alunoEdit.setId(a.getId());
+		alunoEdit.setCpf(a.getCpf());
+		alunoEdit.setDtnasc(a.getDtnasc());
+		alunoEdit.setMatricula(a.getMatricula());
+		alunoEdit.setNome(a.getNome());
+		alunoEdit.setRg(a.getRg());
+		alunoEdit.setTelefones(a.getTelefones());
+		alunoEdit.setTurma(a.getTurma());
+		fachada.alterarAluno(alunoEdit);
+	}
+	
 	public Aluno getAluno() {
 		return aluno;
 	}
@@ -106,6 +131,7 @@ public class AlunoBean {
 	}
 
 	public void setTelefones(List<String> telefones) {
+		
 		this.telefones = telefones;
 	}
 
