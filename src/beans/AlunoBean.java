@@ -53,6 +53,20 @@ public class AlunoBean {
 		}
 		aluno = new Aluno();
 	}
+	
+	public void edit(Aluno a) throws GeralException, DAOException{
+		Aluno alunoEdit = new Aluno();
+		alunoEdit.setId(a.getId());
+		alunoEdit.setCpf(a.getCpf());
+		alunoEdit.setDtnasc(a.getDtnasc());
+		alunoEdit.setMatricula(a.getMatricula());
+		alunoEdit.setNome(a.getNome());
+		alunoEdit.setRg(a.getRg());
+		alunoEdit.setTelefones(a.getTelefones());
+		alunoEdit.setTurma(a.getTurma());
+		fachada.alterarAluno(alunoEdit);
+	}
+	
 	public Aluno getAluno() {
 		return aluno;
 	}
