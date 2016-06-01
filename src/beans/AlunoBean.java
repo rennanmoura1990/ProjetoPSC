@@ -85,7 +85,8 @@ public class AlunoBean {
 		this.aluno = aluno;
 	}
 
-	public List<Aluno> getAlunos() {
+	public List<Aluno> getAlunos() throws DAOException {
+		alunos = fachada.listaAluno();
 		return alunos;
 	}
 
