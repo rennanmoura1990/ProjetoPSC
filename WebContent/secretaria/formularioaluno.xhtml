@@ -16,9 +16,10 @@
 				style="margin-bottom:10px;">
 				<p:commandButton value="Cadastrar" type="button" id="cadastrar"
 					onclick="PF('dialogCadastro').show();" />
-					<br></br><br></br>
-				<p:dataTable id="tabelaalunos" var="aluno"
-					value="#{alunoBean.alunos}">
+				<p:commandButton action="#{alunoBean.menuPrincipal}" value="Voltar ao Menu Principal"/>
+				<br></br>
+				<br></br>
+				<p:dataTable id="tabelaalunos" var="aluno" value="#{alunoBean.alunos}">
 					<p:column headerText="Matricula">
 						<h:outputText value="#{aluno.matricula}" />
 					</p:column>
@@ -58,8 +59,7 @@
 			</p:panel>
 		</h:form>
 
-
-
+		<!-- MODAL DE CADASTRO DO ALUNO -->
 		<p:dialog header="Cadastro de Aluno" widgetVar="dialogCadastro"
 			modal="true">
 			<h:form id="formcadastro">
@@ -104,6 +104,7 @@
 			</h:form>
 		</p:dialog>
 
+		<!-- MODAL DE EDIÇÃO DO ALUNO -->
 		<p:dialog header="Editar Aluno" widgetVar="dialogEdicao" modal="true"
 			id="editalauno">
 			<h:form id="formedicao">
@@ -147,7 +148,8 @@
 					update="formedicao" />
 			</h:form>
 		</p:dialog>
-
+	
+		<!-- MODAL DE CAIXA DE DIÁLOGO DE EXCLUSÃO DE ALUNO -->
 		<p:confirmDialog id="excluiraluno"
 			message="Você quer realmente deletar o Aluno #{alunoBean.aluno.nome}?"
 			header="Excluir Aluno" severity="alert" widgetVar="aviso">

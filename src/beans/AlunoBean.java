@@ -86,6 +86,10 @@ public class AlunoBean {
 		fachada.excluirAluno(aluno.getId());
 		aluno = new Aluno();
 	}
+	
+	public String menuPrincipal(){
+		return "/menuprincipal?faces-redirect=true";
+	}
 
 	public Aluno getAluno() {
 		return aluno;
