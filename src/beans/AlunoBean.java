@@ -3,8 +3,11 @@ package beans;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+
 import exception.DAOException;
 import exception.GeralException;
 import fachada.Fachada;
@@ -53,8 +56,8 @@ public class AlunoBean {
 		}
 		aluno = new Aluno();
 	}
-	
-	public void clear(){
+
+	public void clear() {
 		aluno.setNome(null);
 		aluno.setCpf(null);
 		aluno.setDtnasc(null);
@@ -62,21 +65,28 @@ public class AlunoBean {
 		aluno.setRg(null);
 		aluno.setTelefones(null);
 		aluno.setTurma(null);
-		
+		telefone = null;
+		telefones.clear();
 	}
-	public void edit(Aluno a) throws GeralException, DAOException{
-		Aluno alunoEdit = new Aluno();
-		alunoEdit.setId(a.getId());
-		alunoEdit.setCpf(a.getCpf());
-		alunoEdit.setDtnasc(a.getDtnasc());
-		alunoEdit.setMatricula(a.getMatricula());
-		alunoEdit.setNome(a.getNome());
-		alunoEdit.setRg(a.getRg());
-		alunoEdit.setTelefones(a.getTelefones());
-		alunoEdit.setTurma(a.getTurma());
-		fachada.alterarAluno(alunoEdit);
+
+	public void edit() throws GeralException, DAOException {
+		Turma t = fachada.buscarIdTurma(turma);
+		aluno.setTurma(t);
+		fachada.alterarAluno(aluno);
+		for (String tel : telefones) {
+			telefoneObj = new Telefones();
+			telefoneObj.setPessoa(aluno);
+			telefoneObj.setTelefone(tel);
+			fachada.alteraTelefone(telefoneObj);
+		}
+		aluno = new Aluno();
 	}
-	
+
+	public void excluir() throws DAOException {
+		fachada.excluirAluno(aluno.getId());
+		aluno = new Aluno();
+	}
+
 	public Aluno getAluno() {
 		return aluno;
 	}
@@ -132,7 +142,7 @@ public class AlunoBean {
 	}
 
 	public void setTelefones(List<String> telefones) {
-		
+
 		this.telefones = telefones;
 	}
 
