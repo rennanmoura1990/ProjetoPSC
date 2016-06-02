@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+
+<h:head>
+	<title>Gerenciamento de Projetos com JSF</title>
+</h:head>
+<h:body> 
+	Seja bem vindo ao sistema <br />
+	<h:form>
+		<ui:composition template="_templateCoordenador.xhtml">
+
+		<ui:define name="titulo">
+			<p:outputPanel style="font-size: 20px;font-align: center;">Área do Coordenador</p:outputPanel>
+		</ui:define>
+
+		<ui:define name="conteudo">
+		 <h:form>
+                <h:panelGrid columns="2">
+                    
+                    <h:outputLabel value="#diaSemana" for="diaSemana" />
+                    <h:inputText id="diaSemana" value="#disciplinaController.selected.diaSemana}"  required="true" />
+                    <h:outputLabel value="horario}" for="horario" />
+                    <h:inputText id="horario" value="#disciplinaController.selected.horario}" required="true" />
+                    <h:outputLabel value="nomeDisciplina}" for="nomeDisciplina" />
+                    <h:inputText id="nomeDisciplina" value="#disciplinaController.selected.nomeDisciplina}" required="true" />
+                    <h:outputLabel value="idTurma}" for="idTurma" />
+                    <h:selectOneMenu id="idTurma" value="#disciplinaController.selected.idTurma}"  >
+                        <f:selectItems value="#turmaController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="idProfessor}" for="idProfessor" />
+                    <h:selectOneMenu id="idProfessor" value="#disciplinaController.selected.idProfessor}"  >
+                        <f:selectItems value="#professorController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+               
+            </h:form>
+		
+		</ui:define>
+
+	</ui:composition>
+		<h:panelGroup	rendered="#{controleLogin.usuarioLogado == null}">
+			<h:commandLink action="#{controleLogin.paginaLogin()}" value="Login" />
+		</h:panelGroup>
+	</h:form>
+</h:body>
+</html>

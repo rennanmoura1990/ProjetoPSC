@@ -12,7 +12,9 @@
 	</ui:define>
 	<ui:define name="content">
 		<h:form>
-			<p:panel id="panel" header="Cadastrar novo aluno"
+
+			<p:fieldset id="panel" legend="Cadastrar novo aluno"
+
 				style="margin-bottom:10px;">
 
 				<h:panelGrid columns="2" cellpadding="5">
@@ -53,7 +55,9 @@
 					value="Cadastrar" update="panellista"/>
 				<p:commandButton action="#{alunoBean.clear}" value="Limpar"
 					update="panel" />
-			</p:panel>
+
+			</p:fieldset>
+
 		</h:form>
 		<p:messages id="msgs" />
 		<p:panel id="panellista" header="Lista de Alunos"

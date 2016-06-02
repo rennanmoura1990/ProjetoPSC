@@ -15,18 +15,18 @@ public class Professor extends Pessoa {
 	
 	@OneToMany (mappedBy = "professor")
 	@Cascade(CascadeType.ALL)
-	private List<Disciplina> disciplina;
+	private List<Disciplina> disciplinas;
 
 	public Professor() {
 		super();
 	}
 	
 	public List<Disciplina> getDisciplina() {
-		return disciplina;
+		return disciplinas;
 	}
 
-	public void setDisciplina(List<Disciplina> disciplina) {
-		this.disciplina = disciplina;
+	public void setDisciplina(List<Disciplina> disciplinas) {
+		this.disciplinas = disciplinas;
 	}
 	
 }

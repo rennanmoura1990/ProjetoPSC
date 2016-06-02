@@ -24,44 +24,92 @@
 				<h:form id="professorCadastrar">
 					
 					<p:fieldset legend="Dados do Professor">
-						<h:panelGrid columns="2">
+						<table border="0">
+						<tr>					
+							<td>
 							<h:outputLabel value="Nome do professor:" for="nomeProfessor" 
 							required="true" requiredMessage="Nome obrigatório">
 							<f:ajax event="blur" render=":messages" />
 							</h:outputLabel>
-					  		<h:inputText id="nomeProfessor"  /> 
-					  		
+							</td>
+							<td>
+					  		<h:inputText id="nomeProfessor" value="#{professorBean.professor.nome}" /> <br/>
+					  		</td>
+					  	</tr>	
+					  	<tr>
+					  		<td>
 							<h:outputLabel value="CPF:" for="cpf" 
 							required="true" requiredMessage="CPF obrigatório">
 								<f:ajax event="blur" render=":messages" />
 							</h:outputLabel>
-					  		<h:inputText id="cpf"  /> 
-					  		
+							</td>
+							<td>
+					  		<h:inputText id="cpf" value="#{professorBean.professor.cpf}" />
+					  		</td> 
+					  	</tr>	
+					  	<tr>
+					  		<td>
 							<h:outputLabel value="RG:" for="rg" 
 							required="true" requiredMessage="RG obrigatório">
 							<f:ajax event="blur" render=":messages" />
 							</h:outputLabel>
-					  		<h:inputText id="rg"  /> 
-				  			<p:outputLabel for="telefone" value="Telefone" />
-							<p:inputText id="telefone" value="#professorBean.telefone"></p:inputText>
-							<p:commandButton value="Adicionar" action="#professorBean.addTelefone" update="listatelefones"/>
-							<p:selectCheckboxMenu id="listatelefones" label="Selecionar telefones">
-				            	<f:selectItems value="#professorBean.telefones"/>
-				       		</p:selectCheckboxMenu>
-							<p:outputLabel for="telefone" value="Turma" />
-							
-							
-							
-						<p:outputLabel value="Selecione Disciplina:" for="disciplina" />
-						<p:selectOneMenu value="#professor.disciplinaID" id="disciplina">
-							<f:selectItems value="#professor.disciplinas}" var="disciplia"
-								itemLabel="#disciplina.nome" itemValue="#disciplina.id}" />
-						</p:selectOneMenu>			
-							
+							</td>
+							<td>
+					  		<h:inputText id="rg" value="#{professorBean.professor.rg}" /> 
+					  		</td>
+					  	</tr>
+					  		
+					  		
+					  		<tr>
+					  			<td>
+					  			<p:outputLabel for="telefone:" value="Telefone" />
+					  			</td>
+					  			<td>
+								<p:inputText id="telefone" value="#{professorBean.telefone}"/>
+								</td>
+								<td>
+								<p:commandButton value="Adicionar" action="#{professorBean.imprime}" update="listaTelefones"/> <br/>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									
+									<h:dataTable id="listaTelefones" var="telefone" values="#{professorBean.telefones}">	
+									<p:column headerText="Fone" style="max-width: 40px; min-width: 60px; overflow: hidden" >
+								        <h:outputText value="#{telefone}" />
+								    </p:column>								
+								    </h:dataTable>
+					       		</td>
+					       		<td></td>
+					       		<td></td>
+					       </tr>
+				       		
+							<tr>
+								<td>
+								<p:outputLabel for="turma" value="Turma" />
+								</td>
+								<td>
+								<p:selectOneMenu value="#professor.turmaID" id="turma">
+									<f:selectItems value="#professor.turmas}" var="turma"
+										itemLabel="#turma.nome" itemValue="#turma.id}" />
+								</p:selectOneMenu>
+								</td>
+							</tr>
+							<tr>
+								<td>
+								<p:outputLabel value="Selecione Disciplina:" for="disciplina" />
+								</td>
+								<td>
+								<p:selectOneMenu value="#professor.disciplinaID" id="disciplina">
+									<f:selectItems value="#professor.disciplinas}" var="disciplia"
+										itemLabel="#disciplina.nome" itemValue="#disciplina.id}" />
+								</p:selectOneMenu>
+								</td>			
+							</tr>
 					  		
 							
 							 			
-						</h:panelGrid>
+						</table>	
 					</p:fieldset>
 				</h:form>
 		</ui:define>

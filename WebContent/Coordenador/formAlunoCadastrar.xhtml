@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+
+<h:head>
+	<title>Gerenciamento de Projetos com JSF</title>
+</h:head>
+<h:body> 
+	Seja bem vindo ao sistema <br />
+	<h:form>
+		<ui:composition template="_templateCoordenador.xhtml">
+
+		<ui:define name="titulo">
+			<p:outputPanel style="font-size: 20px;font-align: center;">Área do Coordenador</p:outputPanel>
+		</ui:define>
+
+		<ui:define name="conteudo">
+		<!-- Conteudo -->
+			<h:form>
+			<p:fieldset id="panel" legend="Cadastrar novo aluno"
+	
+	style="margin-bottom:10px;">
+			
+				<h:panelGrid columns="2" cellpadding="5">
+				
+					<p:outputLabel for="matricula" value="Matrícula" />
+					
+					<p:inputText id="matricula" value="#{alunoBean.aluno.matricula}" />
+					
+				</h:panelGrid>
+			
+				<h:panelGrid columns="4" cellpadding="5">
+				
+					<p:outputLabel for="nome" value="Nome" />
+					
+					<p:inputText id="nome" value="#{alunoBean.aluno.nome}" />
+					
+					<p:outputLabel for="dtnasc" value="Data de Nascimento" />
+					
+					<p:calendar id="dtnasc" value="#{alunoBean.aluno.dtnasc}"
+					
+					navigator="true" pattern="dd-MM-yyyy" />
+				
+				</h:panelGrid>
+				
+				<h:panelGrid columns="4" cellpadding="5">
+				
+					<p:outputLabel for="cpf" value="CPF" />
+					
+					<p:inputText id="cpf" value="#{alunoBean.aluno.cpf}" />
+					
+					<p:outputLabel for="rg" value="RG" />
+					
+					<p:inputText id="rg" value="#{alunoBean.aluno.rg}" />
+				
+				</h:panelGrid>
+			
+				<h:panelGrid columns="4" cellpadding="5">
+				
+					<p:outputLabel for="telefone" value="Telefone" />
+					
+					<p:inputText id="telefone" value="#{alunoBean.telefone}"/>
+					
+					<p:commandButton value="Adicionar"
+					
+					action="#{alunoBean.addTelefone}" update="listatelefones" />
+					
+					<p:selectOneMenu id="listatelefones" label="Selecionar telefones">
+					
+						<f:selectItems value="#{alunoBean.telefones}" />
+					
+					</p:selectOneMenu>
+				
+				</h:panelGrid>
+			
+				<h:panelGrid columns="2" cellpadding="5">
+				
+					<p:outputLabel for="turma" value="Turma" />
+					
+					<p:selectOneMenu id="turma" value="#{alunoBean.turma}">
+					
+						<f:selectItems value="#{alunoBean.turmas}" var="a"
+						
+						itemLabel="#{a.nomeTurma}" itemValue="#{a.id}" />
+					
+					</p:selectOneMenu>
+				
+				</h:panelGrid>
+			
+			
+			
+			<p:commandButton action="#{alunoBean.cadastrarAluno}"
+			
+			value="Cadastrar" update="panellista"/>
+			
+			<p:commandButton action="#{alunoBean.clear}" value="Limpar"
+			
+			update="panel" />
+			
+		</p:fieldset>
+		</h:form>
+
+<p:messages id="msgs" />
+
+<p:panel id="panellista" header="Lista de Alunos"
+
+style="margin-bottom:10px;">
+
+<p:dataTable id="tabelaalunos" var="aluno"
+
+value="#{alunoBean.alunos}">
+
+<p:column headerText="Matricula">
+
+<h:outputText value="#{aluno.matricula}" />
+
+</p:column>
+
+<p:column headerText="Nome">
+
+<h:outputText value="#{aluno.nome}" />
+
+</p:column>
+
+<p:column headerText="Data de Nascimento">
+
+<h:outputText value="#{aluno.dtnasc}" />
+
+</p:column>
+
+<p:column headerText="CPF">
+
+<h:outputText value="#{aluno.cpf}" />
+
+</p:column>
+
+<p:column headerText="RG">
+
+<h:outputText value="#{aluno.rg}" />
+
+</p:column>
+
+<p:column headerText="Turma">
+
+<h:outputText value="#{aluno.turma.nomeTurma}" />
+
+</p:column>
+
+<p:column headerText="Status">
+
+<h:outputText value="#{aluno.status}" />
+
+</p:column>
+
+<p:column headerText="Opções">
+
+<h:outputText value="Editar" />
+
+<h:outputText value="Excluir"/>
+
+</p:column>
+
+</p:dataTable>
+
+</p:panel>
+		</ui:define>
+
+	</ui:composition>
+		<h:panelGroup	rendered="#{controleLogin.usuarioLogado == null}">
+			<h:commandLink action="#{controleLogin.paginaLogin()}" value="Login" />
+		</h:panelGroup>
+	</h:form>
+</h:body>
+</html>
