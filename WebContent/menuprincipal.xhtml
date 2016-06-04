@@ -4,46 +4,27 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
-    xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 
-	<ui:composition template="./template.xhtml">
-		<ui:define name="top">
-			<h2>Menu Principal</h2>
-		</ui:define>
-	
+<ui:composition template="/template.xhtml">
+	<ui:define name="top">
+		<h2>Menu Principal</h2>
+	</ui:define>
 	<ui:define name="content">
-	<h1>LOGIN OK</h1>
-	<h:form>
-	<p:outputLabel value="#{usuarioBean.login}"></p:outputLabel><br></br><br></br>
-		<p:commandButton value="Formulário Aluno" id="formulario"
-			action="#{usuarioBean.CadastroAluno()}" />
-	</h:form>
-	<br></br>
-	<h:form>
-		<p:commandButton value="logout" id="logout"
-			action="#{usuarioBean.Logout()}" />
-	</h:form>
+		<h:form>
+			<p:outputLabel value="#{usuarioBean.login}"></p:outputLabel>
+			<br></br>
+			<br></br>
+			<p:commandButton value="Formulário Aluno" id="formularioaluno"
+				action="#{usuarioBean.formularioAluno()}" />
+			<p:commandButton value="Formulário Disciplinas"
+				id="formulariodisciplina" action="#{usuarioBean.formularioDisciplina()}" />
+		</h:form>
+		<br></br>
+		<h:form>
+			<p:commandButton value="logout" id="logout"
+				action="#{usuarioBean.Logout()}" />
+		</h:form>
 	</ui:define>
 </ui:composition>
-
-	<ui:composition template="/template.xhtml">
-		<ui:define name="top">
-			<h2>Menu Principal</h2>
-		</ui:define>
-		<ui:define name="content">
-			<h1>LOGIN OK</h1>
-			<h:form>
-				<p:outputLabel value="#{usuarioBean.login}"></p:outputLabel>
-				<br></br>
-				<br></br>
-				<p:commandButton value="Formulário Aluno" id="formulario"
-					action="#{usuarioBean.CadastroAluno()}" />
-			</h:form>
-			<br></br>
-			<h:form>
-				<p:commandButton value="logout" id="logout"
-					action="#{usuarioBean.Logout()}" />
-			</h:form>
-		</ui:define>
-	</ui:composition>
 </html>

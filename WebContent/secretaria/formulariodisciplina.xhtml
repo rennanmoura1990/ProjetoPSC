@@ -1,11 +1,164 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-<title>Insert title here</title>
-</head>
-<body>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 
-</body>
+<ui:composition template=".././template.xhtml">
+	<ui:define name="top">
+		<h2>Cadastro de disciplinas</h2>
+	</ui:define>
+	<ui:define name="content">
+		<h:form id="formPrincipal">
+			<p:messages id="messages" showDetail="true" autoUpdate="true" />
+			<p:panel id="panellista" header="Lista de Disciplinas"
+				style="margin-bottom:10px;">
+				<p:commandButton value="Cadastrar" type="button" id="cadastrar"
+					onclick="PF('dialogCadastro').show();" />
+				<p:commandButton action="#{disciplinaBean.menuPrincipal}"
+					value="Voltar ao Menu Principal" />
+				<br></br>
+				<br></br>
+				<p:dataTable id="tabeladisciplinas" var="d"
+					value="#{disciplinaBean.disciplinas}">
+					<p:column headerText="Nome">
+						<h:outputText value="#{d.nomeDisciplina}" />
+					</p:column>
+					<p:column headerText="Dia da Semana">
+						<h:outputText value="#{d.diaSemana}" />
+					</p:column>
+					<p:column headerText="Horário">
+						<h:outputText value="#{d.horario}" />
+					</p:column>
+					<p:column headerText="Professor">
+						<h:outputText value="#{d.professor.nome}" />
+					</p:column>
+					<p:column headerText="Turma">
+						<h:outputText value="#{d.turma.nomeTurma}" />
+					</p:column>
+					<p:column headerText="Ações">
+						<p:commandLink title="Alterar" update="editadisciplina"
+							oncomplete="PF('dialogEdicao').show();" immediate="true">
+							<p:graphicImage value="/resources/img/edit.png" />
+							<f:setPropertyActionListener
+								target="#{disciplinaBean.disciplina}" value="#{d}" />
+						</p:commandLink>
+						<p:commandLink title="Excluir" update="excluirdisciplina"
+							oncomplete="PF('aviso').show();" immediate="true">
+							<p:graphicImage value="/resources/img/delete.png" />
+							<f:setPropertyActionListener value="#{d}"
+								target="#{disciplinaBean.disciplina}" />
+						</p:commandLink>
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+		</h:form>
+
+		<!-- MODAL DE CADASTRO DA DISCIPLINA -->
+		<p:dialog header="Cadastro de Disciplina" widgetVar="dialogCadastro"
+			modal="true">
+			<h:form id="formcadastro">
+				<h:panelGrid columns="2" cellpadding="5">
+					<p:outputLabel for="nome" value="Nome" />
+					<p:inputText id="nome"
+						value="#{disciplinaBean.disciplina.nomeDisciplina}" />
+				</h:panelGrid>
+				<h:panelGrid columns="4" cellpadding="5">
+					<p:outputLabel for="listahorarios" value="Horário" />
+					<p:selectOneMenu id="listahorarios"
+						value="#{disciplinaBean.horarioId}">
+						<f:selectItems value="#{disciplinaBean.horarios}" var="d"
+							itemLabel="#{d.horario}" itemValue="#{d.horarioID}" />
+					</p:selectOneMenu>
+					<p:outputLabel for="listadiassemana" value="Dia da Semana" />
+					<p:selectOneMenu id="listadiassemana"
+						value="#{disciplinaBean.diaSemanaId}">
+						<f:selectItems value="#{disciplinaBean.diasSemana}" var="d"
+							itemLabel="#{d.diasemana}" itemValue="#{d.diasemanaID}" />
+					</p:selectOneMenu>
+				</h:panelGrid>
+				<h:panelGrid columns="4" cellpadding="5">
+					<p:outputLabel for="listaprofessor" value="Professor" />
+					<p:selectOneMenu id="listaprofessor"
+						value="#{disciplinaBean.professorId}">
+						<f:selectItems value="#{disciplinaBean.professores}" var="p"
+							itemLabel="#{p.nome}" itemValue="#{p.id}" />
+					</p:selectOneMenu>
+					<p:outputLabel for="listaturma" value="Turma" />
+					<p:selectOneMenu id="listaturma" value="#{disciplinaBean.turmaId}">
+						<f:selectItems value="#{disciplinaBean.turmas}" var="t"
+							itemLabel="#{t.nomeTurma}" itemValue="#{t.id}" />
+					</p:selectOneMenu>
+				</h:panelGrid>
+				<p:commandButton
+					actionListener="#{disciplinaBean.cadastrarDisciplina}"
+					value="Cadastrar" update=":formPrincipal:panellista"
+					oncomplete="PF('dialogCadastro').hide();" />
+				<p:commandButton action="#{disciplinaBean.clear}" value="Limpar"
+					update="formcadastro" />
+			</h:form>
+		</p:dialog>
+
+		<!-- MODAL DE EDICAO DA DISCIPLINA -->
+		<p:dialog header="Edição de Disciplina" widgetVar="dialogEdicao"
+			modal="true" id="editadisciplina">
+			<h:form id="formedicao">
+				<h:panelGrid columns="2" cellpadding="5">
+					<p:outputLabel for="nome" value="Nome" />
+					<p:inputText id="nome"
+						value="#{disciplinaBean.disciplina.nomeDisciplina}" />
+				</h:panelGrid>
+				<h:panelGrid columns="4" cellpadding="5">
+					<p:outputLabel for="listahorarios" value="Horário" />
+					<p:selectOneMenu id="listahorarios"
+						value="#{disciplinaBean.horarioId}">
+						<f:selectItems value="#{disciplinaBean.horarios}" var="d"
+							itemLabel="#{d.horario}" itemValue="#{d.horarioID}" />
+					</p:selectOneMenu>
+					<p:outputLabel for="listadiassemana" value="Dia da Semana" />
+					<p:selectOneMenu id="listadiassemana"
+						value="#{disciplinaBean.diaSemanaId}">
+						<f:selectItems value="#{disciplinaBean.diasSemana}" var="d"
+							itemLabel="#{d.diasemana}" itemValue="#{d.diasemanaID}" />
+					</p:selectOneMenu>
+				</h:panelGrid>
+				<h:panelGrid columns="4" cellpadding="5">
+					<p:outputLabel for="listaprofessor" value="Professor" />
+					<p:selectOneMenu id="listaprofessor"
+						value="#{disciplinaBean.professorId}">
+						<f:selectItems value="#{disciplinaBean.professores}" var="p"
+							itemLabel="#{p.nome}" itemValue="#{p.id}" />
+					</p:selectOneMenu>
+					<p:outputLabel for="listaturma" value="Turma" />
+					<p:selectOneMenu id="listaturma" value="#{disciplinaBean.turmaId}">
+						<f:selectItems value="#{disciplinaBean.turmas}" var="t"
+							itemLabel="#{t.nomeTurma}" itemValue="#{t.id}" />
+					</p:selectOneMenu>
+				</h:panelGrid>
+				<p:commandButton actionListener="#{disciplinaBean.editarDisciplina}"
+					value="Editar" update=":formPrincipal:panellista"
+					oncomplete="PF('dialogEdicao').hide();" />
+				<p:commandButton action="#{disciplinaBean.clear}" value="Limpar"
+					update="formedicao" />
+			</h:form>
+		</p:dialog>
+
+		<!-- MODAL DE CAIXA DE DIÁLOGO DE EXCLUSÃO DE Disciplina -->
+		<p:confirmDialog id="excluirdisciplina"
+			message="Você quer realmente deletar a Disciplina #{disciplinaBean.disciplina.nomeDisciplina}?"
+			header="Excluir Disciplina" severity="alert" widgetVar="aviso">
+			<p:commandButton id="sim" value="Sim"
+				oncomplete="PF('aviso').hide();"
+				actionListener="#{disciplinaBean.excluir}"
+				update=":formPrincipal:panellista" />
+			<p:commandButton id="nao" value="Não" onclick="PF('aviso').hide()"
+				type="button" />
+		</p:confirmDialog>
+
+
+	</ui:define>
+</ui:composition>
+
 </html>

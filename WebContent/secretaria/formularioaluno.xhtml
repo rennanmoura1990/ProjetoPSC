@@ -12,14 +12,18 @@
 	</ui:define>
 	<ui:define name="content">
 		<h:form id="formPrincipal">
+			<p:messages id="messages" showDetail="true" autoUpdate="true"
+				/>
 			<p:panel id="panellista" header="Lista de Alunos"
 				style="margin-bottom:10px;">
 				<p:commandButton value="Cadastrar" type="button" id="cadastrar"
 					onclick="PF('dialogCadastro').show();" />
-				<p:commandButton action="#{alunoBean.menuPrincipal}" value="Voltar ao Menu Principal"/>
+				<p:commandButton action="#{alunoBean.menuPrincipal}"
+					value="Voltar ao Menu Principal" />
 				<br></br>
 				<br></br>
-				<p:dataTable id="tabelaalunos" var="aluno" value="#{alunoBean.alunos}">
+				<p:dataTable id="tabelaalunos" var="aluno"
+					value="#{alunoBean.alunos}">
 					<p:column headerText="Matricula">
 						<h:outputText value="#{aluno.matricula}" />
 					</p:column>
@@ -42,7 +46,7 @@
 						<h:outputText value="#{aluno.status}" />
 					</p:column>
 					<p:column headerText="Ações">
-						<p:commandLink title="Alterar" update="editalauno"
+						<p:commandLink title="Alterar" update="editaluno"
 							oncomplete="PF('dialogEdicao').show();" immediate="true">
 							<p:graphicImage value="/resources/img/edit.png" />
 							<f:setPropertyActionListener target="#{alunoBean.aluno}"
@@ -106,7 +110,7 @@
 
 		<!-- MODAL DE EDIÇÃO DO ALUNO -->
 		<p:dialog header="Editar Aluno" widgetVar="dialogEdicao" modal="true"
-			id="editalauno">
+			id="editaluno">
 			<h:form id="formedicao">
 				<h:panelGrid columns="2" cellpadding="5">
 					<p:outputLabel for="matricula" value="Matrícula" />
@@ -148,7 +152,7 @@
 					update="formedicao" />
 			</h:form>
 		</p:dialog>
-	
+
 		<!-- MODAL DE CAIXA DE DIÁLOGO DE EXCLUSÃO DE ALUNO -->
 		<p:confirmDialog id="excluiraluno"
 			message="Você quer realmente deletar o Aluno #{alunoBean.aluno.nome}?"

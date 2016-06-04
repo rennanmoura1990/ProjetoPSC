@@ -53,8 +53,11 @@ public class UsuarioBean {
 
 	}
 
-	public String CadastroAluno() {
+	public String formularioAluno() {
 		return "/secretaria/formularioaluno?faces-redirect=true";
+	}
+	public String formularioDisciplina(){
+		return "/secretaria/formulariodisciplina?faces-redirect=true";
 	}
 
 	public String getLogin() {

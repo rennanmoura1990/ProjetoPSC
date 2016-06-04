@@ -1,5 +1,7 @@
 package dao;
 
+import java.util.List;
+
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
@@ -34,6 +36,22 @@ public class DAOTelefones extends DAOGenerico<Telefones> implements IDAOTelefone
 			Telefones telefones = (Telefones) query.getSingleResult();
 			return telefones;
 		} catch (NoResultException e) {
+			// TODO Auto-generated catch block
+			return null;
+		} finally {
+			em.clear();
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Telefones> listaTelefonesPessoa(int pessoa_id){
+		try {
+			Query query = em.createQuery("SELECT t FROM Telefones t WHERE t.id_pessoa = :id",
+					Telefones.class);
+			query.setParameter("id", pessoa_id);
+			List<Telefones> telefones = (List<Telefones>) query.getResultList();
+			return telefones;
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			return null;
 		} finally {

@@ -45,19 +45,30 @@ public class AlunoBean {
 	}
 
 	public void cadastrarAluno() throws GeralException, DAOException {
-		Turma t = fachada.buscarIdTurma(turma);
-		aluno.setTurma(t);
-		fachada.inserirAluno(aluno);
-		for (String tel : telefones) {
-			telefoneObj = new Telefones();
-			telefoneObj.setPessoa(aluno);
-			telefoneObj.setTelefone(tel);
-			fachada.inserirTelefone(telefoneObj);
+		try {
+			Turma t = fachada.buscarIdTurma(turma);
+			aluno.setTurma(t);
+			fachada.inserirAluno(aluno);
+			for (String tel : telefones) {
+				telefoneObj = new Telefones();
+				telefoneObj.setPessoa(aluno);
+				telefoneObj.setTelefone(tel);
+				fachada.inserirTelefone(telefoneObj);
+			}
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação: ", "Cadastro Realizado com Sucesso!"));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Informação: ", e.getMessage()));
 		}
+		clear();
 		aluno = new Aluno();
+		turma = 0;
 	}
 
 	public void clear() {
+		aluno.setId(null);
 		aluno.setNome(null);
 		aluno.setCpf(null);
 		aluno.setDtnasc(null);
@@ -70,24 +81,43 @@ public class AlunoBean {
 	}
 
 	public void edit() throws GeralException, DAOException {
-		Turma t = fachada.buscarIdTurma(turma);
-		aluno.setTurma(t);
-		fachada.alterarAluno(aluno);
-		for (String tel : telefones) {
-			telefoneObj = new Telefones();
-			telefoneObj.setPessoa(aluno);
-			telefoneObj.setTelefone(tel);
-			fachada.alteraTelefone(telefoneObj);
+		try {
+			Turma t = fachada.buscarIdTurma(turma);
+			aluno.setTurma(t);
+			fachada.alterarAluno(aluno);
+			for (String tel : telefones) {
+				telefoneObj = new Telefones();
+				telefoneObj.setPessoa(aluno);
+				telefoneObj.setTelefone(tel);
+				fachada.alteraTelefone(telefoneObj);
+			}
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação: ", "Edição Realizada com Sucesso!"));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Informação: ", e.getMessage()));
 		}
+		clear();
 		aluno = new Aluno();
+		turma = 0;
 	}
 
 	public void excluir() throws DAOException {
-		fachada.excluirAluno(aluno.getId());
+		try {
+			fachada.excluirAluno(aluno.getId());
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação: ", "Exclusão Realizada com Sucesso!"));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Informação: ", e.getMessage()));
+		}
+		clear();
 		aluno = new Aluno();
 	}
-	
-	public String menuPrincipal(){
+
+	public String menuPrincipal() {
 		return "/menuprincipal?faces-redirect=true";
 	}
 
@@ -133,7 +163,9 @@ public class AlunoBean {
 		this.turmas = turmas;
 	}
 
+	// ele pega a turma do cadastrado,se não tiver,assume como 0
 	public int getTurma() {
+		turma = (aluno.getTurma() != null) ? aluno.getTurma().getId() : 0;
 		return turma;
 	}
 
@@ -146,7 +178,6 @@ public class AlunoBean {
 	}
 
 	public void setTelefones(List<String> telefones) {
-
 		this.telefones = telefones;
 	}
 
