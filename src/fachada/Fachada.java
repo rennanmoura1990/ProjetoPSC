@@ -399,6 +399,11 @@ public class Fachada implements IFachada {
 		return t;
 	}
 
+	public List<Telefones> listaTelefonesPessoa(int pessoa_id) throws DAOException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	@Override
 	public void inserirTurma(Turma t) throws DAOException, GeralException {
 		rntu.verificaObjeto(t);
@@ -484,8 +489,8 @@ public class Fachada implements IFachada {
 	public Usuario fazerLogin(String login, String senha) throws DAOException {
 		return rnu.fazerLogin(login, senha);
 	}
-	
-	public List<TiposUsuarios> tiposUsuarios() throws GeralException{
+
+	public List<TiposUsuarios> tiposUsuarios() throws GeralException {
 		return rnu.tiposUsuarios();
 	}
 

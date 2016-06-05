@@ -12,8 +12,7 @@
 	</ui:define>
 	<ui:define name="content">
 		<h:form id="formPrincipal">
-			<p:messages id="messages" showDetail="true" autoUpdate="true"
-				/>
+			<p:messages id="messages" showDetail="true" autoUpdate="true" />
 			<p:panel id="panellista" header="Lista de Alunos"
 				style="margin-bottom:10px;">
 				<p:commandButton value="Cadastrar" type="button" id="cadastrar"
@@ -89,7 +88,7 @@
 					<p:inputText id="telefone" value="#{alunoBean.telefone}"></p:inputText>
 					<p:commandButton value="Adicionar"
 						action="#{alunoBean.addTelefone}" update="listatelefones" />
-					<p:selectOneMenu id="listatelefones" label="Selecionar telefones">
+					<p:selectOneMenu id="listatelefones">
 						<f:selectItems value="#{alunoBean.telefones}" />
 					</p:selectOneMenu>
 				</h:panelGrid>
@@ -130,11 +129,11 @@
 					<p:inputText id="rg" value="#{alunoBean.aluno.rg}" />
 				</h:panelGrid>
 				<h:panelGrid columns="4" cellpadding="5">
-					<p:outputLabel for="telefone" value="Telefone" />
+					<p:outputLabel for="telefone" value="Acrescentar Telefones" />
 					<p:inputText id="telefone" value="#{alunoBean.telefone}"></p:inputText>
 					<p:commandButton value="Adicionar"
 						action="#{alunoBean.addTelefone}" update="listatelefones" />
-					<p:selectOneMenu id="listatelefones" label="Selecionar telefones">
+					<p:selectOneMenu id="listatelefones">
 						<f:selectItems value="#{alunoBean.telefones}" />
 					</p:selectOneMenu>
 				</h:panelGrid>
@@ -164,7 +163,8 @@
 			<p:commandButton id="nao" value="Não" onclick="PF('aviso').hide()"
 				type="button" />
 		</p:confirmDialog>
-
+		
+		
 	</ui:define>
 </ui:composition>
 </html>

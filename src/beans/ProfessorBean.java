@@ -12,46 +12,38 @@ import exception.DAOException;
 import exception.GeralException;
 import fachada.Fachada;
 import fachada.IFachada;
-import model.Aluno;
+import model.Professor;
 import model.Telefones;
-import model.Turma;
-import model.enums.*;
 
 @ManagedBean
 @SessionScoped
-public class AlunoBean {
-	private Aluno aluno;
-	private List<Aluno> alunos;
-	private List<Status> status;
-	private int turma;
+public class ProfessorBean {
+
+	private Professor professor;
+	private List<Professor> professores;
 	private String telefone;
 	private List<String> telefones;
 	private Telefones telefoneObj;
 	private IFachada fachada;
-	private List<Turma> turmas;
 
-	public AlunoBean() {
-		this.aluno = new Aluno();
-		this.alunos = new ArrayList<Aluno>();
-		this.status = new ArrayList<Status>();
-		this.turmas = new ArrayList<Turma>();
-		this.telefones = new ArrayList<String>();
-		this.telefoneObj = new Telefones();
-		this.fachada = new Fachada();
+	public ProfessorBean() {
+		professor = new Professor();
+		professores = new ArrayList<Professor>();
+		telefones = new ArrayList<String>();
+		telefoneObj = new Telefones();
+		fachada = new Fachada();
 	}
 
 	public void addTelefone() {
 		telefones.add(telefone);
 	}
 
-	public void cadastrarAluno() throws GeralException, DAOException {
+	public void cadastrarProfessor() throws GeralException, DAOException {
 		try {
-			Turma t = fachada.buscarIdTurma(turma);
-			aluno.setTurma(t);
-			fachada.inserirAluno(aluno);
+			fachada.inserirProfessor(professor);
 			for (String tel : telefones) {
 				telefoneObj = new Telefones();
-				telefoneObj.setPessoa(aluno);
+				telefoneObj.setPessoa(professor);
 				telefoneObj.setTelefone(tel);
 				fachada.inserirTelefone(telefoneObj);
 			}
@@ -63,31 +55,26 @@ public class AlunoBean {
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Informação: ", e.getMessage()));
 		}
 		clear();
-		aluno = new Aluno();
-		turma = 0;
+		professor = new Professor();
 	}
 
 	public void clear() {
-		aluno.setId(null);
-		aluno.setNome(null);
-		aluno.setCpf(null);
-		aluno.setDtnasc(null);
-		aluno.setMatricula(null);
-		aluno.setRg(null);
-		aluno.setTelefones(null);
-		aluno.setTurma(null);
+		professor.setId(null);
+		professor.setNome(null);
+		professor.setCpf(null);
+		professor.setDtnasc(null);
+		professor.setRg(null);
+		professor.setTelefones(null);
 		telefone = null;
 		telefones.clear();
 	}
 
-	public void edit() throws GeralException, DAOException {
+	public void editarProfessor() throws GeralException, DAOException {
 		try {
-			Turma t = fachada.buscarIdTurma(turma);
-			aluno.setTurma(t);
-			fachada.alterarAluno(aluno);
+			fachada.alteraProfessor(professor);
 			for (String tel : telefones) {
 				telefoneObj = new Telefones();
-				telefoneObj.setPessoa(aluno);
+				telefoneObj.setPessoa(professor);
 				telefoneObj.setTelefone(tel);
 				fachada.alteraTelefone(telefoneObj);
 			}
@@ -99,13 +86,12 @@ public class AlunoBean {
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Informação: ", e.getMessage()));
 		}
 		clear();
-		aluno = new Aluno();
-		turma = 0;
+		professor = new Professor();
 	}
 
-	public void excluir() throws DAOException {
+	public void excluirProfessor() throws DAOException {
 		try {
-			fachada.excluirAluno(aluno.getId());
+			fachada.excluirProfessor(professor.getId());
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação: ", "Exclusão Realizada com Sucesso!"));
 		} catch (Exception e) {
@@ -114,71 +100,28 @@ public class AlunoBean {
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Informação: ", e.getMessage()));
 		}
 		clear();
-		aluno = new Aluno();
+		professor = new Professor();
 	}
-
-	public String menuPrincipal() {
+	
+	public String menuPrincipal(){
 		return "/menuprincipal?faces-redirect=true";
 	}
 
-	public Aluno getAluno() {
-		return aluno;
+	public Professor getProfessor() {
+		return professor;
 	}
 
-	public void setAluno(Aluno aluno) {
-		this.aluno = aluno;
+	public void setProfessor(Professor professor) {
+		this.professor = professor;
 	}
 
-	public List<Aluno> getAlunos() throws DAOException {
-		alunos = fachada.listaAluno();
-		return alunos;
+	public List<Professor> getProfessores() throws DAOException {
+		professores = fachada.listaProfessor();
+		return professores;
 	}
 
-	public void setAlunos(List<Aluno> alunos) {
-		this.alunos = alunos;
-	}
-
-	public IFachada getFachada() {
-		return fachada;
-	}
-
-	public void setFachada(IFachada fachada) {
-		this.fachada = fachada;
-	}
-
-	public List<Status> getStatus() {
-		return status;
-	}
-
-	public void setStatus(List<Status> status) {
-		this.status = status;
-	}
-
-	public List<Turma> getTurmas() throws DAOException {
-		turmas = fachada.listaTurma();
-		return turmas;
-	}
-
-	public void setTurmas(List<Turma> turmas) {
-		this.turmas = turmas;
-	}
-
-	// ele pega a turma do cadastrado,se não tiver,assume como 0
-	public int getTurma() {
-		turma = (aluno.getTurma() != null) ? aluno.getTurma().getId() : 0;
-		return turma;
-	}
-
-	public void setTurma(int turma) {
-		this.turma = turma;
-	}
-
-	public List<String> getTelefones() {
-		return telefones;
-	}
-
-	public void setTelefones(List<String> telefones) {
-		this.telefones = telefones;
+	public void setProfessores(List<Professor> professores) {
+		this.professores = professores;
 	}
 
 	public String getTelefone() {
@@ -189,6 +132,14 @@ public class AlunoBean {
 		this.telefone = telefone;
 	}
 
+	public List<String> getTelefones() {
+		return telefones;
+	}
+
+	public void setTelefones(List<String> telefones) {
+		this.telefones = telefones;
+	}
+
 	public Telefones getTelefoneObj() {
 		return telefoneObj;
 	}
@@ -197,4 +148,11 @@ public class AlunoBean {
 		this.telefoneObj = telefoneObj;
 	}
 
+	public IFachada getFachada() {
+		return fachada;
+	}
+
+	public void setFachada(IFachada fachada) {
+		this.fachada = fachada;
+	}
 }

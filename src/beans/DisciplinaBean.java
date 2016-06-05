@@ -58,9 +58,9 @@ public class DisciplinaBean {
 			disciplina.setTurma(t);
 			Professor p = fachada.buscarIdProfessor(professorId);
 			disciplina.setProfessor(p);
-			horario = horarios.get(horarioId).getHorario();
+			horario = horarios.get(horarioId-1).getHorario();
 			disciplina.setHorario(horario);
-			diaSemana = diasSemana.get(diaSemanaId).getDiasemana();
+			diaSemana = diasSemana.get(diaSemanaId-1).getDiasemana();
 			disciplina.setDiaSemana(diaSemana);
 			fachada.inserirDisciplina(disciplina);
 			FacesContext.getCurrentInstance().addMessage(null,
@@ -82,9 +82,9 @@ public class DisciplinaBean {
 			disciplina.setTurma(t);
 			Professor p = fachada.buscarIdProfessor(professorId);
 			disciplina.setProfessor(p);
-			horario = horarios.get(horarioId).getHorario();
+			horario = horarios.get(horarioId-1).getHorario();
 			disciplina.setHorario(horario);
-			diaSemana = diasSemana.get(diaSemanaId).getDiasemana();
+			diaSemana = diasSemana.get(diaSemanaId-1).getDiasemana();
 			disciplina.setDiaSemana(diaSemana);
 			fachada.alterarDisciplina(disciplina);
 			FacesContext.getCurrentInstance().addMessage(null,

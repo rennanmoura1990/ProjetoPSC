@@ -29,7 +29,7 @@ public class DAOTelefones extends DAOGenerico<Telefones> implements IDAOTelefone
 		}
 	}
 
-	public Telefones buscaTelefone(String telefone) {
+	public Telefones buscaTelefone(String telefone) throws DAOException{
 		try {
 			Query query = em.createQuery("SELECT t FROM Telefones t WHERE t.telefone = :telefone", Telefones.class);
 			query.setParameter("telefone", telefone);
@@ -44,7 +44,7 @@ public class DAOTelefones extends DAOGenerico<Telefones> implements IDAOTelefone
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Telefones> listaTelefonesPessoa(int pessoa_id){
+	public List<Telefones> listaTelefonesPessoa(int pessoa_id)throws DAOException{
 		try {
 			Query query = em.createQuery("SELECT t FROM Telefones t WHERE t.id_pessoa = :id",
 					Telefones.class);

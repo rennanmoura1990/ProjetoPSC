@@ -4,8 +4,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpSession;
-
 import exception.DAOException;
 import fachada.Fachada;
 import fachada.IFachada;
@@ -59,6 +57,16 @@ public class UsuarioBean {
 	public String formularioDisciplina(){
 		return "/secretaria/formulariodisciplina?faces-redirect=true";
 	}
+	public String formularioCoordenador(){
+		return "/secretaria/formulariocoordenador?faces-redirect=true";
+	}
+	public String formularioSecretaria(){
+		return "/secretaria/formulariosecretaria?faces-redirect=true";
+	}
+	public String formularioProfessor(){
+		return "/secretaria/formularioprofessor?faces-redirect=true";
+	}
+	
 
 	public String getLogin() {
 		return login;

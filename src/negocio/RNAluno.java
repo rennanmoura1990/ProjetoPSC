@@ -147,7 +147,7 @@ public class RNAluno {
 		if (porcentagem > 25) {
 			status = Status.REPROVADO_PORFALTA.getStatus();
 		} else {
-			status = null;
+			status = Status.NADA.getStatus();
 		}
 		return status;
 	}

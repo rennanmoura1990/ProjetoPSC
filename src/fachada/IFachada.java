@@ -84,7 +84,7 @@ public interface IFachada {
 
 	public List<Unidades> unidades() throws GeralException;
 
-	public void inserirProfessor(Professor p) throws Exception;
+	public void inserirProfessor(Professor p) throws GeralException, DAOException;
 
 	public void alteraProfessor(Professor p) throws DAOException, GeralException;
 
@@ -119,6 +119,8 @@ public interface IFachada {
 	public List<Telefones> listaTelefones() throws DAOException;
 
 	public Telefones buscaTelefonesUsuario(int pessoa_id, String telefone) throws DAOException;
+	
+	public List<Telefones> listaTelefonesPessoa(int pessoa_id) throws DAOException;
 
 	public void inserirTurma(Turma t) throws DAOException, GeralException;
 

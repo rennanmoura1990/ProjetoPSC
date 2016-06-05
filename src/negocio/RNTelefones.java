@@ -71,7 +71,7 @@ public class RNTelefones {
 		}
 	}
 
-	public Telefones buscaTelefone(Telefones t) {
+	public Telefones buscaTelefone(Telefones t) throws DAOException {
 		return daotelefones.buscaTelefone(t.getTelefone());
 	}
 
@@ -107,5 +107,9 @@ public class RNTelefones {
 			// TODO Auto-generated catch block
 			throw new DAOException("Não foi possivel Listar todos telefones!");
 		}
+	}
+
+	public List<Telefones> listaTelefonesPessoa(int pessoa_id) throws DAOException {
+		return daotelefones.listaTelefonesPessoa(pessoa_id);
 	}
 }

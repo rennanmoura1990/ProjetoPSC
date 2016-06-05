@@ -38,17 +38,11 @@ public class RNProfessor {
 		if (p.getDtnasc() == null) {
 			throw new GeralException("Data de Nascimento inválida!");
 		}
-		if (p.getDisciplina().isEmpty()) {
-			throw new GeralException("Professor precisa ter pelo menos uma disciplina!");
-		}
 		if (p.getNome().isEmpty()) {
 			throw new GeralException("Nome inválido!");
 		}
 		if (p.getRg().isEmpty()) {
 			throw new GeralException("RG inválido!");
-		}
-		if (p.getTelefones().isEmpty()) {
-			throw new GeralException("Professor precisa ter pelo menos um telefone de contato!");
 		}
 	}
 
