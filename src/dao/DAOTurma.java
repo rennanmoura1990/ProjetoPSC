@@ -1,5 +1,7 @@
 package dao;
 
+import java.util.List;
+
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
@@ -35,5 +37,16 @@ public class DAOTurma extends DAOGenerico<Turma> implements IDAOTurma {
 			em.clear();
 		}
 		return qtd;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Turma> listarTurmasAtivas(){
+		try {
+			Query query = em.createQuery("SELECT t FROM Turma t WHERE t.turmaAtiva = 'S'",Turma.class);
+			return (List<Turma>)query.getResultList();
+		} catch (NoResultException e) {
+			// TODO Auto-generated catch block
+			return null;
+		}
 	}
 }

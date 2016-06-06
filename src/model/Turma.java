@@ -22,17 +22,20 @@ public class Turma extends Geral{
 	@OneToMany(mappedBy="turma")
 	@Cascade(CascadeType.ALL)
 	private List<Disciplina> disciplina;
+	
+	private String turmaAtiva;
 
 	public Turma() {
 		super();
 	}
 	
-	public Turma(String nome_turma,int qtd_aulas,List<Aluno> alunos, List<Disciplina> disciplina) {
+	public Turma(String nome_turma,int qtd_aulas,List<Aluno> alunos, List<Disciplina> disciplina,String turmaAtiva) {
 		super();
 		this.nomeTurma = nome_turma;
 		this.qtd_aulas = qtd_aulas;
 		this.alunos = alunos;
 		this.disciplina = disciplina;
+		this.turmaAtiva = turmaAtiva;
 	}
 	
 	public String getNomeTurma() {
@@ -60,5 +63,13 @@ public class Turma extends Geral{
 	}
 	public void setDisciplina(List<Disciplina> disciplina) {
 		this.disciplina = disciplina;
+	}
+
+	public String getTurmaAtiva() {
+		return turmaAtiva;
+	}
+
+	public void setTurmaAtiva(String turmaAtiva) {
+		this.turmaAtiva = turmaAtiva;
 	}
 }

@@ -7,7 +7,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-
 import exception.DAOException;
 import exception.GeralException;
 import fachada.Fachada;
@@ -47,7 +46,7 @@ public class TurmaBean {
 		turma.setNomeTurma(null);
 		turma.setQtd_aulas(0);
 	}
-	
+
 	public void editarTurma() throws DAOException, GeralException {
 		try {
 			fachada.alteraTurma(turma);
@@ -61,9 +60,10 @@ public class TurmaBean {
 		clear();
 		turma = new Turma();
 	}
-	
+
 	public void excluirTurma() throws DAOException {
 		try {
+
 			fachada.excluirTurma(turma.getId());
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação: ", "Exclusão Realizada com Sucesso!"));
@@ -75,8 +75,8 @@ public class TurmaBean {
 		clear();
 		turma = new Turma();
 	}
-	
-	public String menuPrincipal(){
+
+	public String menuPrincipal() {
 		return "/menuprincipal?faces-redirect=true";
 	}
 
@@ -97,4 +97,11 @@ public class TurmaBean {
 		this.turmas = turmas;
 	}
 
+	public IFachada getFachada() {
+		return fachada;
+	}
+
+	public void setFachada(IFachada fachada) {
+		this.fachada = fachada;
+	}
 }

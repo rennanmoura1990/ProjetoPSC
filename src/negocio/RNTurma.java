@@ -89,4 +89,7 @@ public class RNTurma {
 			throw new DAOException("Não foi possível Listar todas turmas!");
 		}
 	}
+	public List<Turma> listarTurmasAtivas(){
+		return daoturma.listarTurmasAtivas();
+	}
 }

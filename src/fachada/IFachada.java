@@ -133,6 +133,8 @@ public interface IFachada {
 	public List<Turma> listaTurma() throws DAOException;
 
 	public Turma buscaTurmaNome(String nome) throws DAOException;
+	
+	public List<Turma> listarTurmasAtivas();
 
 	public void inserirUsuario(Usuario u) throws DAOException, GeralException;
 

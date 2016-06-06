@@ -445,6 +445,10 @@ public class Fachada implements IFachada {
 		Turma t = rntu.buscaTurma(nome);
 		return t;
 	}
+	
+	public List<Turma> listarTurmasAtivas(){
+		return rntu.listarTurmasAtivas();
+	}
 
 	@Override
 	public void inserirUsuario(Usuario u) throws DAOException, GeralException {
