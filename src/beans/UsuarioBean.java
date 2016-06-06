@@ -66,6 +66,9 @@ public class UsuarioBean {
 	public String formularioProfessor(){
 		return "/secretaria/formularioprofessor?faces-redirect=true";
 	}
+	public String formularioTurma(){
+		return "/secretaria/formularioturma?faces-redirect=true";
+	}
 	
 
 	public String getLogin() {

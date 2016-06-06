@@ -213,7 +213,6 @@ public class Fachada implements IFachada {
 		rnn.validaNotaIntegrantes(n);
 		rnn.validaNota(n.getNota1());
 		rnn.validaNota(n.getNota2());
-		n.setMedia((n.getNota1() + n.getNota2()) / 2);
 		rnn.inserir(n);
 	}
 
@@ -224,7 +223,6 @@ public class Fachada implements IFachada {
 		rnn.validaNotaIntegrantes(n);
 		rnn.validaNota(n.getNota1());
 		rnn.validaNota(n.getNota2());
-		n.setMedia((n.getNota1() + n.getNota2()) / 2);
 		rnn.alterar(n);
 	}
 

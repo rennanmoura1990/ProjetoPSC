@@ -1,11 +1,101 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-<title>Insert title here</title>
-</head>
-<body>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 
-</body>
+<ui:composition template=".././template.xhtml">
+	<ui:define name="top">
+		<h2>Cadastro de nova Turma</h2>
+	</ui:define>
+	<ui:define name="content">
+		<h:form id="formPrincipal">
+			<p:messages id="messages" showDetail="true" autoUpdate="true" />
+			<p:panel id="panellista" header="Lista de Turmas"
+				style="margin-bottom:10px;">
+				<p:commandButton value="Cadastrar" type="button" id="cadastrar"
+					onclick="PF('dialogCadastro').show();" />
+				<p:commandButton action="#{turmaBean.menuPrincipal}"
+					value="Voltar ao Menu Principal" />
+				<br></br>
+				<br></br>
+				<p:dataTable id="tabelaturmas" var="turma"
+					value="#{turmaBean.turmas}">
+					<p:column headerText="Nome">
+						<h:outputText value="#{turma.nomeTurma}" />
+					</p:column>
+					<p:column headerText="Nome">
+						<h:outputText value="#{turma.qtd_aulas}" />
+					</p:column>
+					<p:column headerText="Ações">
+						<p:commandLink title="Alterar" update="editaturma"
+							oncomplete="PF('dialogEdicao').show();" immediate="true">
+							<p:graphicImage value="/resources/img/edit.png" />
+							<f:setPropertyActionListener target="#{turmaBean.turma}"
+								value="#{turma}" />
+						</p:commandLink>
+						<p:commandLink title="Excluir" update="excluirturma"
+							oncomplete="PF('aviso').show();" immediate="true">
+							<p:graphicImage value="/resources/img/delete.png" />
+							<f:setPropertyActionListener value="#{turma}"
+								target="#{turmaBean.turma}" />
+						</p:commandLink>
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+		</h:form>
+
+		<!-- MODAL DE CADASTRO DE TURMA -->
+		<p:dialog header="Cadastro de Turma" widgetVar="dialogCadastro"
+			modal="true">
+			<h:form id="formcadastro">
+				<h:panelGrid columns="4" cellpadding="5">
+					<p:outputLabel for="nome" value="Nome" />
+					<p:inputText id="nome" value="#{turmaBean.turma.nomeTurma}" />
+					<p:outputLabel for="qtdaulas" value="Quantidade de Aulas" />
+					<p:inputText id="qtdaulas" value="#{turmaBean.turma.qtd_aulas}" />
+				</h:panelGrid>
+				<p:commandButton actionListener="#{turmaBean.cadastrarTurma}"
+					value="Cadastrar" update=":formPrincipal:panellista"
+					oncomplete="PF('dialogCadastro').hide();" />
+				<p:commandButton action="#{turmaBean.clear}" value="Limpar"
+					update="formcadastro" />
+			</h:form>
+		</p:dialog>
+		
+		<!-- MODAL DE EDICAO DE TURMA -->
+		<p:dialog header="Edição de Turma" widgetVar="dialogEdicao"
+			modal="true" id="editaturma">
+			<h:form id="formedicao">
+				<h:panelGrid columns="4" cellpadding="5">
+					<p:outputLabel for="nome" value="Nome" />
+					<p:inputText id="nome" value="#{turmaBean.turma.nomeTurma}" />
+					<p:outputLabel for="qtdaulas" value="Quantidade de Aulas" />
+					<p:inputText id="qtdaulas" value="#{turmaBean.turma.qtd_aulas}" />
+				</h:panelGrid>
+				<p:commandButton actionListener="#{turmaBean.editarTurma}"
+					value="Editar" update=":formPrincipal:panellista"
+					oncomplete="PF('dialogEdicao').hide();" />
+				<p:commandButton action="#{turmaBean.clear}" value="Limpar"
+					update="formedicao" />
+			</h:form>
+		</p:dialog>
+		
+		<!-- MODAL DE CAIXA DE DIÁLOGO DE EXCLUSÃO DE TURMA -->
+		<p:confirmDialog id="excluirturma"
+			message="Você quer realmente deletar a Turma #{turmaBean.turma.nomeTurma}?"
+			header="Excluir Turma" severity="alert" widgetVar="aviso">
+			<p:commandButton id="sim" value="Sim"
+				oncomplete="PF('aviso').hide();"
+				actionListener="#{turmaBean.excluirTurma}"
+				update=":formPrincipal:panellista" />
+			<p:commandButton id="nao" value="Não" onclick="PF('aviso').hide()"
+				type="button" />
+		</p:confirmDialog>
+
+	</ui:define>
+</ui:composition>
+
 </html>
