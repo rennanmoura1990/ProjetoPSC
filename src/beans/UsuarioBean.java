@@ -7,6 +7,7 @@ import javax.faces.context.FacesContext;
 import exception.DAOException;
 import fachada.Fachada;
 import fachada.IFachada;
+import model.Pessoa;
 import model.Usuario;
 
 @ManagedBean
@@ -16,10 +17,12 @@ public class UsuarioBean {
 	private String senha;
 	private Usuario usuario;
 	private IFachada fachada;
+	private Pessoa pessoa;
 
 	public UsuarioBean() {
 		this.usuario = new Usuario();
 		this.fachada = new Fachada();
+		this.pessoa = new Pessoa();
 	}
 
 	public String Login() {
@@ -101,6 +104,14 @@ public class UsuarioBean {
 
 	public void setFachada(IFachada fachada) {
 		this.fachada = fachada;
+	}
+
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}
 
 }

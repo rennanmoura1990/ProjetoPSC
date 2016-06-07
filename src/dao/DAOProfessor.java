@@ -25,7 +25,7 @@ public class DAOProfessor extends DAOGenerico<Professor> implements IDAOProfesso
 	@SuppressWarnings("unchecked")
 	public List<Professor> listarProfessoresAtivos() {
 		try {
-			Query query = em.createQuery("SELECT p FROM Professor p WHERE t.professorAtivo = 'S'", Professor.class);
+			Query query = em.createQuery("SELECT p FROM Professor p WHERE p.professorAtivo = 'S'", Professor.class);
 			return (List<Professor>) query.getResultList();
 		} catch (NoResultException e) {
 			// TODO Auto-generated catch block
