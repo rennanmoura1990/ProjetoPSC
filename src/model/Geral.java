@@ -9,7 +9,7 @@ import javax.persistence.MappedSuperclass;
 public class Geral {
 
 	@Id 
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.TABLE)
 	private Integer id;
 
 	public Integer getId() {

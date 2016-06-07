@@ -2,7 +2,6 @@ package dao;
 
 import java.util.List;
 
-import exception.DAOException;
 import exception.GeralException;
 import model.Disciplina;
 import model.enums.Dias_semana;
@@ -13,4 +12,5 @@ public interface IDAODisciplina extends IDAOGenerico<Disciplina>{
 	public List<Horarios> listaHorarios() throws GeralException;
 	public List<Dias_semana> listaDiasSemana() throws GeralException;
 	public List<Disciplina> disciplinaPorProfessor(int id_professor) throws GeralException;
+	public List<Disciplina> listarDisciplinaAtivas();
 }

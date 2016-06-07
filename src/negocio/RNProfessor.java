@@ -95,4 +95,7 @@ public class RNProfessor {
 			throw new DAOException("Não foi possível Listar todos alunos!");
 		}
 	}
+	public List<Professor> listarProfessoresAtivos(){
+		return daoprofessor.listarProfessoresAtivos();
+	}
 }

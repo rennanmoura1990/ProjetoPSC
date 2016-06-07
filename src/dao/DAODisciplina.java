@@ -64,4 +64,15 @@ public class DAODisciplina extends DAOGenerico<Disciplina> implements IDAODiscip
 			em.clear();
 		}
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Disciplina> listarDisciplinaAtivas() {
+		try {
+			Query query = em.createQuery("SELECT d FROM Disciplina d WHERE t.disciplinaAtiva = 'S'",Disciplina.class);
+			return (List<Disciplina>) query.getResultList();
+		} catch (NoResultException e) {
+			// TODO Auto-generated catch block
+			return null;
+		}
+	}
 }

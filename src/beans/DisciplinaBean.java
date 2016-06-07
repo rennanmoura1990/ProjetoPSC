@@ -62,6 +62,7 @@ public class DisciplinaBean {
 			disciplina.setHorario(horario);
 			diaSemana = diasSemana.get(diaSemanaId-1).getDiasemana();
 			disciplina.setDiaSemana(diaSemana);
+			disciplina.setDisciplinaAtiva("S");
 			fachada.inserirDisciplina(disciplina);
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação: ", "Cadastro Realizado com Sucesso!"));
@@ -113,7 +114,8 @@ public class DisciplinaBean {
 
 	public void excluir() throws DAOException {
 		try {
-			fachada.excluirDisciplina(disciplina.getId());
+			disciplina.setDisciplinaAtiva("N");
+			fachada.alterarDisciplina(disciplina);
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação: ", "Exclusão Realizada com Sucesso!"));
 		} catch (Exception e) {
@@ -138,7 +140,7 @@ public class DisciplinaBean {
 	}
 
 	public List<Disciplina> getDisciplinas() throws DAOException {
-		disciplinas = fachada.listaDisciplina();
+		disciplinas = fachada.listarDisciplinaAtivas();
 		return disciplinas;
 	}
 

@@ -40,6 +40,7 @@ public class ProfessorBean {
 
 	public void cadastrarProfessor() throws GeralException, DAOException {
 		try {
+			professor.setProfessorAtivo("S");
 			fachada.inserirProfessor(professor);
 			for (String tel : telefones) {
 				telefoneObj = new Telefones();
@@ -91,7 +92,8 @@ public class ProfessorBean {
 
 	public void excluirProfessor() throws DAOException {
 		try {
-			fachada.excluirProfessor(professor.getId());
+			professor.setProfessorAtivo("N");
+			fachada.alteraProfessor(professor);
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação: ", "Exclusão Realizada com Sucesso!"));
 		} catch (Exception e) {
@@ -116,7 +118,7 @@ public class ProfessorBean {
 	}
 
 	public List<Professor> getProfessores() throws DAOException {
-		professores = fachada.listaProfessor();
+		professores = fachada.listarProfessoresAtivos();
 		return professores;
 	}
 

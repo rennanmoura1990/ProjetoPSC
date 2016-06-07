@@ -73,14 +73,6 @@ public class RNTurma {
 		}
 	}
 
-	public void excluir(int id) throws DAOException {
-		try {
-			daoturma.excluir(Turma.class, id);
-		} catch (PersistenceException e) {
-			throw new DAOException("Erro ao alterar dados!");
-		}
-	}
-
 	public List<Turma> listarTudo() throws DAOException {
 		try {
 			return daoturma.listaTudo(Turma.class);
@@ -89,7 +81,8 @@ public class RNTurma {
 			throw new DAOException("Não foi possível Listar todas turmas!");
 		}
 	}
-	public List<Turma> listarTurmasAtivas(){
+
+	public List<Turma> listarTurmasAtivas() {
 		return daoturma.listarTurmasAtivas();
 	}
 }

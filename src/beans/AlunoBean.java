@@ -155,7 +155,7 @@ public class AlunoBean {
 	}
 
 	public List<Turma> getTurmas() throws DAOException {
-		turmas = fachada.listaTurma();
+		turmas = fachada.listarTurmasAtivas();
 		return turmas;
 	}
 

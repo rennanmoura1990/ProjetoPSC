@@ -41,6 +41,8 @@ public class Disciplina extends Geral {
 	@OneToMany(mappedBy = "disciplina")
 	@Cascade(CascadeType.ALL)
 	List<Nota> notas;
+	
+	private String disciplinaAtiva;
 
 	public Disciplina() {
 		super();
@@ -103,6 +105,14 @@ public class Disciplina extends Geral {
 
 	public void setNotas(List<Nota> notas) {
 		this.notas = notas;
+	}
+
+	public String getDisciplinaAtiva() {
+		return disciplinaAtiva;
+	}
+
+	public void setDisciplinaAtiva(String disciplinaAtiva) {
+		this.disciplinaAtiva = disciplinaAtiva;
 	}
 
 }

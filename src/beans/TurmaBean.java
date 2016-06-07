@@ -29,6 +29,7 @@ public class TurmaBean {
 
 	public void cadastrarTurma() throws DAOException, GeralException {
 		try {
+			turma.setTurmaAtiva("S");
 			fachada.inserirTurma(turma);
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação: ", "Cadastro Realizado com Sucesso!"));
@@ -63,8 +64,8 @@ public class TurmaBean {
 
 	public void excluirTurma() throws DAOException {
 		try {
-
-			fachada.excluirTurma(turma.getId());
+			turma.setTurmaAtiva("N");
+			fachada.alteraTurma(turma);
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação: ", "Exclusão Realizada com Sucesso!"));
 		} catch (Exception e) {
@@ -89,7 +90,7 @@ public class TurmaBean {
 	}
 
 	public List<Turma> getTurmas() throws DAOException {
-		turmas = fachada.listaTurma();
+		turmas = fachada.listarTurmasAtivas();
 		return turmas;
 	}
 

@@ -165,13 +165,6 @@ public class Fachada implements IFachada {
 	}
 
 	@Override
-	public void excluirDisciplina(int id) throws DAOException {
-		// TODO Auto-generated method stub
-		rnd.buscaID(id);
-		rnd.excluir(id);
-	}
-
-	@Override
 	public Disciplina buscarIdDisciplina(int id) throws DAOException {
 		// TODO Auto-generated method stub
 		Disciplina d = rnd.buscaID(id);
@@ -205,6 +198,10 @@ public class Fachada implements IFachada {
 
 	public List<Disciplina> listaDisciplinaPorProfessor(int id_professor) throws GeralException {
 		return rnd.listaDisciplinaPorProfessor(id_professor);
+	}
+	
+	public List<Disciplina> listarDisciplinaAtivas(){
+		return rnd.listarDisciplinaAtivas();
 	}
 
 	@Override
@@ -283,13 +280,6 @@ public class Fachada implements IFachada {
 	}
 
 	@Override
-	public void excluirProfessor(int id) throws DAOException {
-		// TODO Auto-generated method stub
-		rnp.buscaID(id);
-		rnp.excluir(id);
-	}
-
-	@Override
 	public Professor buscarIdProfessor(int id) throws DAOException {
 		// TODO Auto-generated method stub
 		Professor p = rnp.buscaID(id);
@@ -307,6 +297,10 @@ public class Fachada implements IFachada {
 		// TODO Auto-generated method stub
 		Professor p = rnp.buscaProfessor(nome);
 		return p;
+	}
+
+	public List<Professor> listarProfessoresAtivos() {
+		return rnp.listarProfessoresAtivos();
 	}
 
 	@Override
@@ -420,13 +414,6 @@ public class Fachada implements IFachada {
 	}
 
 	@Override
-	public void excluirTurma(int id) throws DAOException {
-		// TODO Auto-generated method stub
-		rntu.buscaID(id);
-		rntu.excluir(id);
-	}
-
-	@Override
 	public Turma buscarIdTurma(int id) throws DAOException {
 		// TODO Auto-generated method stub
 		Turma t = rntu.buscaID(id);
@@ -445,8 +432,8 @@ public class Fachada implements IFachada {
 		Turma t = rntu.buscaTurma(nome);
 		return t;
 	}
-	
-	public List<Turma> listarTurmasAtivas(){
+
+	public List<Turma> listarTurmasAtivas() {
 		return rntu.listarTurmasAtivas();
 	}
 

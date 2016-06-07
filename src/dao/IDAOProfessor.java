@@ -1,10 +1,12 @@
 package dao;
 
-import exception.DAOException;
+import java.util.List;
+
 import model.Professor;
 
 public interface IDAOProfessor extends IDAOGenerico<Professor>{
 
 	public Professor buscaProfessorNome(String nome);
+	public List<Professor> listarProfessoresAtivos();
 
 }
