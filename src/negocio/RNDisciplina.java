@@ -71,12 +71,7 @@ public class RNDisciplina {
 	}
 
 	public Disciplina buscaID(int id) throws DAOException {
-		try {
-			return daodisciplina.buscarId(id, Disciplina.class);
-		} catch (PersistenceException e) {
-			// TODO Auto-generated catch block
-			throw new DAOException("Erro ao buscar Disciplina por id");
-		}
+		return daodisciplina.buscarId(id, Disciplina.class);
 	}
 
 	public void alterar(Disciplina d) throws DAOException {
@@ -115,15 +110,10 @@ public class RNDisciplina {
 	}
 
 	public List<Disciplina> listaDisciplinaPorProfessor(int id_professor) throws GeralException {
-		try {
 			return daodisciplina.disciplinaPorProfessor(id_professor);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			throw new GeralException(e.getMessage());
-		}
 	}
-	
-	public List<Disciplina> listarDisciplinaAtivas(){
+
+	public List<Disciplina> listarDisciplinaAtivas() {
 		return daodisciplina.listarDisciplinaAtivas();
 	}
 

@@ -46,12 +46,12 @@ public class DAOTelefones extends DAOGenerico<Telefones> implements IDAOTelefone
 	@SuppressWarnings("unchecked")
 	public List<Telefones> listaTelefonesPessoa(int pessoa_id)throws DAOException{
 		try {
-			Query query = em.createQuery("SELECT t FROM Telefones t WHERE t.id_pessoa = :id",
+			Query query = em.createQuery("SELECT t FROM Telefones t LEFT JOIN t.pessoa p WHERE p.id = :id",
 					Telefones.class);
 			query.setParameter("id", pessoa_id);
 			List<Telefones> telefones = (List<Telefones>) query.getResultList();
 			return telefones;
-		} catch (Exception e) {
+		} catch (NoResultException e) {
 			// TODO Auto-generated catch block
 			return null;
 		} finally {

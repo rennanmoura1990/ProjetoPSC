@@ -10,6 +10,7 @@ import model.Disciplina;
 import model.Nota;
 import model.Professor;
 import model.Secretaria;
+import model.StatusDisciplina;
 import model.Telefones;
 import model.Turma;
 import model.Usuario;
@@ -36,7 +37,9 @@ public interface IFachada {
 
 	public void LancaFalta(Aluno a) throws DAOException;
 
-	public List<Aluno> listaAlunoporTurma(int id_turma) throws GeralException;
+	public String verificaPorcentagemFalta(Aluno a) throws DAOException;
+
+	public List<Aluno> listaAlunoporTurma(int id_turma);
 
 	public void inserirCoordenador(Coordenador c) throws DAOException;
 
@@ -65,7 +68,7 @@ public interface IFachada {
 	public List<Dias_semana> diasSemana() throws GeralException;
 
 	public List<Disciplina> listaDisciplinaPorProfessor(int id_professor) throws GeralException;
-	
+
 	public List<Disciplina> listarDisciplinaAtivas();
 
 	public void inserirNota(Nota n) throws GeralException, DAOException;
@@ -83,6 +86,8 @@ public interface IFachada {
 	public String NotaRecuperacao(int id_aluno, int id_disciplina) throws DAOException;
 
 	public List<Unidades> unidades() throws GeralException;
+
+	public List<Nota> notasDisciplinaAluno(int id_aluno, int id_disciplina);
 
 	public void inserirProfessor(Professor p) throws GeralException, DAOException;
 
@@ -142,10 +147,23 @@ public interface IFachada {
 
 	public Usuario buscarIdUsuario(int id) throws DAOException;
 
+	public Usuario buscaUsuarioLogin(String login) throws DAOException;
+
 	public List<Usuario> listaUsuario() throws DAOException;
 
 	public Usuario fazerLogin(String login, String senha) throws DAOException;
 
 	public List<TiposUsuarios> tiposUsuarios() throws GeralException;
 
+	public void inserirStatus(StatusDisciplina sd) throws DAOException;
+
+	public void alterarStatus(StatusDisciplina sd) throws DAOException;
+
+	public void excluirStatus(int id) throws DAOException;
+
+	public StatusDisciplina buscaIdStatus(int id) throws DAOException;
+
+	public List<StatusDisciplina> listatudoStatus() throws DAOException;
+	
+	public String Statusdisciplina(int id_aluno,int id_disciplina);
 }

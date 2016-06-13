@@ -15,8 +15,10 @@ import fachada.IFachada;
 import model.Disciplina;
 import model.Professor;
 import model.Turma;
+import model.Usuario;
 import model.enums.Dias_semana;
 import model.enums.Horarios;
+import model.enums.TiposUsuarios;
 
 @ManagedBean
 @SessionScoped
@@ -58,9 +60,9 @@ public class DisciplinaBean {
 			disciplina.setTurma(t);
 			Professor p = fachada.buscarIdProfessor(professorId);
 			disciplina.setProfessor(p);
-			horario = horarios.get(horarioId-1).getHorario();
+			horario = horarios.get(horarioId - 1).getHorario();
 			disciplina.setHorario(horario);
-			diaSemana = diasSemana.get(diaSemanaId-1).getDiasemana();
+			diaSemana = diasSemana.get(diaSemanaId - 1).getDiasemana();
 			disciplina.setDiaSemana(diaSemana);
 			disciplina.setDisciplinaAtiva("S");
 			fachada.inserirDisciplina(disciplina);
@@ -83,9 +85,9 @@ public class DisciplinaBean {
 			disciplina.setTurma(t);
 			Professor p = fachada.buscarIdProfessor(professorId);
 			disciplina.setProfessor(p);
-			horario = horarios.get(horarioId-1).getHorario();
+			horario = horarios.get(horarioId - 1).getHorario();
 			disciplina.setHorario(horario);
-			diaSemana = diasSemana.get(diaSemanaId-1).getDiasemana();
+			diaSemana = diasSemana.get(diaSemanaId - 1).getDiasemana();
 			disciplina.setDiaSemana(diaSemana);
 			fachada.alterarDisciplina(disciplina);
 			FacesContext.getCurrentInstance().addMessage(null,

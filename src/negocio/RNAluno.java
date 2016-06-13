@@ -57,7 +57,7 @@ public class RNAluno {
 		}
 	}
 
-	public Aluno buscaAlunoNome(String nome) throws DAOException{
+	public Aluno buscaAlunoNome(String nome) throws DAOException {
 		return daoaluno.buscaAlunoNome(nome);
 	}
 
@@ -100,12 +100,7 @@ public class RNAluno {
 	}
 
 	public List<Aluno> listarTudo() throws DAOException {
-		try {
-			return daoaluno.listaTudo(Aluno.class);
-		} catch (PersistenceException e) {
-			// TODO Auto-generated catch block
-			throw new DAOException("Não foi possivel Listar todos alunos!");
-		}
+		return daoaluno.listaTudo(Aluno.class);
 	}
 
 	/**
@@ -115,19 +110,11 @@ public class RNAluno {
 	 * @return
 	 * @throws DAOException
 	 */
-	public boolean verificaSala(int id_turma) throws DAOException {
-		boolean verifica;
-		try {
-			verifica = false;
-			long qtd = this.daoaluno.QtdAlunoTurma(id_turma);
-			if (qtd < 40) {
-				verifica = true;
-			}
-		} catch (PersistenceException e) {
-			// TODO Auto-generated catch block
+	public void verificaSala(int id_turma) throws DAOException {
+		long qtd = this.daoaluno.QtdAlunoTurma(id_turma);
+		if (qtd > 40) {
 			throw new DAOException("Turma cheia!");
 		}
-		return verifica;
 	}
 
 	/**
@@ -139,11 +126,9 @@ public class RNAluno {
 	 * @return
 	 * @throws DAOException
 	 */
-	public String verificaPorcentagemFalta(int id_aluno, int id_turma) throws DAOException {
+	public String verificaPorcentagemFalta(Aluno a) throws DAOException {
 		String status = null;
-		int faltas = QtdAlunoTurma(id_turma);
-		int aulas = this.daoturma.PegarAulasTotais(id_turma);
-		double porcentagem = (faltas / aulas) * 100;
+		double porcentagem = a.getPorcentagem();
 		if (porcentagem > 25) {
 			status = Status.REPROVADO_PORFALTA.getStatus();
 		} else {
@@ -188,12 +173,7 @@ public class RNAluno {
 		}
 	}
 
-	public List<Aluno> listaAlunoPorTurma(int id_turma) throws GeralException {
-		try {
-			return daoaluno.alunoPorTurma(id_turma);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			throw new GeralException(e.getMessage());
-		}
+	public List<Aluno> listaAlunoPorTurma(int id_turma) {
+		return daoaluno.alunoPorTurma(id_turma);
 	}
 }

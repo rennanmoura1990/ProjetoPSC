@@ -57,12 +57,10 @@ public class DAODisciplina extends DAOGenerico<Disciplina> implements IDAODiscip
 			Query query = em.createQuery("SELECT d FROM Disciplina d WHERE id_professor= :id");
 			query.setParameter("id", id_professor);
 			return (List<Disciplina>) query.getResultList();
-		} catch (Exception e) {
+		} catch (NoResultException e) {
 			// TODO Auto-generated catch block
-			throw new GeralException("Não foi possível listar disciplinas do professor!");
-		} finally {
-			em.clear();
-		}
+			return null;
+		} 
 	}
 	
 	@SuppressWarnings("unchecked")

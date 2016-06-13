@@ -48,6 +48,12 @@
 							<f:setPropertyActionListener value="#{professor}"
 								target="#{professorBean.professor}" />
 						</p:commandLink>
+						<p:commandLink title="Cadastrar Usuário" update="cadastrousuario"
+							oncomplete="PF('dialogCadastroUsuario').show();" immediate="true">
+							<p:graphicImage value="/resources/img/login.png" />
+							<f:setPropertyActionListener value="#{professor}"
+								target="#{professorBean.professor}" />
+						</p:commandLink>
 					</p:column>
 				</p:dataTable>
 			</p:panel>
@@ -79,14 +85,15 @@
 						<f:selectItems value="#{professorBean.telefones}" />
 					</p:selectOneMenu>
 				</h:panelGrid>
-				<p:commandButton actionListener="#{professorBean.cadastrarProfessor}"
+				<p:commandButton
+					actionListener="#{professorBean.cadastrarProfessor}"
 					value="Cadastrar" update=":formPrincipal:panellista"
 					oncomplete="PF('dialogCadastro').hide();" />
 				<p:commandButton action="#{professorBean.clear}" value="Limpar"
 					update="formcadastro" />
 			</h:form>
 		</p:dialog>
-		
+
 		<!-- MODAL DE EDICAO DO PROFESSOR -->
 		<p:dialog header="Edição de Professor" widgetVar="dialogEdicao"
 			modal="true" id="editprofessor">
@@ -120,7 +127,7 @@
 					update="formcadastro" />
 			</h:form>
 		</p:dialog>
-		
+
 		<!-- MODAL DE EXCLUSAO DE PROFESSOR -->
 		<p:confirmDialog id="excluirprofessor"
 			message="Você quer realmente deletar o Professor #{professorBean.professor.nome}?"
@@ -132,7 +139,22 @@
 			<p:commandButton id="nao" value="Não" onclick="PF('aviso').hide()"
 				type="button" />
 		</p:confirmDialog>
-	
+
+		<!-- MODAL DE CADASTRO DE USUARIO -->
+		<p:dialog header="Cadastro de Usuario do Sistema"
+			widgetVar="dialogCadastroUsuario" modal="true" id="cadastrousuario">
+			<h:form id="formcadastrousuario">
+				<h:panelGrid columns="2" cellpadding="5">
+					<p:outputLabel for="login" value="Login" />
+					<p:inputText id="login" value="#{professorBean.usuariologin.login}" />
+					<p:outputLabel for="senha" value="Senha" />
+					<p:password id="senha" value="#{professorBean.usuariologin.senha}"
+						navigator="true" />
+				</h:panelGrid>
+				<p:commandButton actionListener="#{professorBean.cadastrarUsuario}"
+					value="Cadastrar" oncomplete="PF('dialogCadastroUsuario').hide();" />
+			</h:form>
+		</p:dialog>
 
 	</ui:define>
 </ui:composition>

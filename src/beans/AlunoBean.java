@@ -15,6 +15,7 @@ import fachada.IFachada;
 import model.Aluno;
 import model.Telefones;
 import model.Turma;
+import model.Usuario;
 import model.enums.*;
 
 @ManagedBean
@@ -29,6 +30,8 @@ public class AlunoBean {
 	private Telefones telefoneObj;
 	private IFachada fachada;
 	private List<Turma> turmas;
+	private Usuario usuario;
+	private List<Telefones> telefonesPessoa;
 
 	public AlunoBean() {
 		this.aluno = new Aluno();
@@ -38,6 +41,8 @@ public class AlunoBean {
 		this.telefones = new ArrayList<String>();
 		this.telefoneObj = new Telefones();
 		this.fachada = new Fachada();
+		this.usuario = new Usuario();
+		this.telefonesPessoa = new ArrayList<Telefones>();
 	}
 
 	public void addTelefone() {
@@ -115,6 +120,53 @@ public class AlunoBean {
 		}
 		clear();
 		aluno = new Aluno();
+	}
+
+	public void cadastrarUsuario() throws DAOException, GeralException {
+		try {
+			usuario.setTipoUsuario(TiposUsuarios.ALUNO.toString());
+			usuario.setPessoa(aluno);
+			fachada.inserirUsuario(usuario);
+			clearUsuario();
+			usuario = new Usuario();
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+					"Informação: ", "Cadastro de Usuário Realizado com Sucesso!"));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Informação: ", e.getMessage()));
+		}
+	}
+
+	public void clearUsuario() {
+		usuario.setLogin(null);
+		usuario.setSenha(null);
+	}
+
+	public void editaTelefone() throws DAOException, GeralException {
+		try {
+			fachada.alteraTelefone(telefoneObj);
+			telefoneObj = new Telefones();
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação: ", "Telefone editado com Sucesso!"));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Informação: ", e.getMessage()));
+		}
+	}
+
+	public void excluirTelefone() throws DAOException {
+		try {
+			fachada.excluirTelefone(telefoneObj.getId());
+			telefoneObj = new Telefones();
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação: ", "Telefone excluído com Sucesso!"));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Informação: ", e.getMessage()));
+		}
 	}
 
 	public String menuPrincipal() {
@@ -195,6 +247,23 @@ public class AlunoBean {
 
 	public void setTelefoneObj(Telefones telefoneObj) {
 		this.telefoneObj = telefoneObj;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public List<Telefones> getTelefonesPessoa() throws DAOException {
+		telefonesPessoa = (aluno.getId() != null) ? fachada.listaTelefonesPessoa(aluno.getId()) : null;
+		return telefonesPessoa;
+	}
+
+	public void setTelefonesPessoa(List<Telefones> telefonesPessoa) {
+		this.telefonesPessoa = telefonesPessoa;
 	}
 
 }

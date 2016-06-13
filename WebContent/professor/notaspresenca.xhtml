@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template=".././template.xhtml">
+	<ui:define name="top">
+		<h2>Lançamento de Notas e Faltas</h2>
+	</ui:define>
+	<ui:define name="content">
+		<p:messages id="messages" showDetail="true" autoUpdate="true" />
+		<h:form id="formNotas">
+			<p:outputLabel
+				value="Bem vindo,Professor #{professorBean.usuario.pessoa.nome}." />
+			<br></br>
+			<br></br>
+			<p:selectOneMenu id="turma" value="#{professorBean.disciplinaid}"
+				valueChangeListener="#{professorBean.valueChangeMethod}"
+				onchange="submit()">
+				<f:selectItem itemLabel="Selecione Disciplina" />
+				<f:selectItems value="#{professorBean.disciplinas}" var="d"
+					itemLabel="#{d.nomeDisciplina}" itemValue="#{d.id}" />
+				<f:ajax render=":tabelaalunos" />
+			</p:selectOneMenu>
+		</h:form>
+		<p:dataTable id="tabelaalunos" var="aluno"
+			value="#{professorBean.alunos}">
+			<p:column headerText="Nome">
+				<h:outputText value="#{aluno.nome}" />
+			</p:column>
+			<p:column headerText="Status de Faltas">
+				<h:outputText value="#{aluno.status}" />
+			</p:column>
+			<p:column headerText="Ações">
+				<p:commandLink title="Lançar Nota" update="lancanota"
+					oncomplete="PF('dialoglancanota').show();" immediate="true">
+					<p:graphicImage value="/resources/img/lancanota.png" />
+					<f:setPropertyActionListener target="#{professorBean.aluno}"
+						value="#{aluno}" />
+				</p:commandLink>
+				<p:commandLink title="Lista de Notas" update="listanota"
+					oncomplete="PF('dialoglistanota').show();" immediate="true">
+					<p:graphicImage value="/resources/img/nota.png" />
+					<f:setPropertyActionListener target="#{professorBean.aluno}"
+						value="#{aluno}" />
+				</p:commandLink>
+				<p:commandLink title="Lançar Falta" update="lancarfalta"
+					oncomplete="PF('avisofalta').show();" immediate="true">
+					<p:graphicImage value="/resources/img/presenca.png" />
+					<f:setPropertyActionListener value="#{aluno}"
+						target="#{professorBean.aluno}" />
+				</p:commandLink>
+				<p:commandLink title="Gerar Status da Nota" update="gerastatus"
+					oncomplete="PF('avisostatus').show();" immediate="true">
+					<p:graphicImage value="/resources/img/statusnota.png" />
+					<f:setPropertyActionListener value="#{aluno}"
+						target="#{professorBean.aluno}" />
+				</p:commandLink>
+			</p:column>
+		</p:dataTable>
+
+		<!-- LANÇAMENTO DE NOTA -->
+		<p:dialog header="Lançar Nota" widgetVar="dialoglancanota"
+			modal="true" id="lancanota">
+			<h:form id="formlancanota">
+				<p:outputLabel value="#{professorBean.aluno.nome}" />
+				<h:panelGrid columns="2" cellpadding="5">
+					<p:outputLabel for="nota1" value="Nota 1" />
+					<p:inputText id="nota1" value="#{professorBean.nota.nota1}" />
+				</h:panelGrid>
+				<h:panelGrid columns="2" cellpadding="5">
+					<p:outputLabel for="nota2" value="Nota 2" />
+					<p:inputText id="nota2" value="#{professorBean.nota.nota2}" />
+				</h:panelGrid>
+				<h:panelGrid columns="2" cellpadding="5">
+					<p:selectOneMenu id="listaunidades"
+						value="#{professorBean.unidadeID}">
+						<f:selectItems value="#{professorBean.unidades}" var="u"
+							itemLabel="#{u.unidade}" itemValue="#{u.unidadeId}" />
+					</p:selectOneMenu>
+				</h:panelGrid>
+				<p:commandButton actionListener="#{professorBean.lancarNota}"
+					value="Lançar Nota" oncomplete="PF('dialoglancanota').hide();"
+					update="listanota" />
+			</h:form>
+		</p:dialog>
+
+		<!-- EDICAO DE NOTA -->
+		<p:dialog header="Editar Nota" widgetVar="dialogeditanota"
+			modal="true" id="editnota">
+			<h:form id="formeditnota">
+				<p:outputLabel value="#{professorBean.aluno.nome}" />
+				<h:panelGrid columns="2" cellpadding="5">
+					<p:outputLabel for="nota1" value="Nota 1" />
+					<p:inputText id="nota1" value="#{professorBean.nota.nota1}" />
+				</h:panelGrid>
+				<h:panelGrid columns="2" cellpadding="5">
+					<p:outputLabel for="nota2" value="Nota 2" />
+					<p:inputText id="nota2" value="#{professorBean.nota.nota2}" />
+				</h:panelGrid>
+				<h:panelGrid columns="2" cellpadding="5">
+					<p:selectOneMenu id="listaunidades"
+						value="#{professorBean.unidadeID}">
+						<f:selectItems value="#{professorBean.unidades}" var="u"
+							itemLabel="#{u.unidade}" itemValue="#{u.unidadeId}" />
+					</p:selectOneMenu>
+				</h:panelGrid>
+				<p:commandButton actionListener="#{professorBean.editaNota}"
+					value="Editar Nota" oncomplete="PF('dialogeditanota').hide();"
+					update="listanota" />
+			</h:form>
+		</p:dialog>
+
+
+		<p:dialog header="Lista de Notas do aluno" widgetVar="dialoglistanota"
+			modal="true" id="listanota">
+			<p:dataTable id="tabelanotaaluno" var="nota"
+				value="#{professorBean.notasAluno}">
+				<p:column headerText="Nota 1">
+					<h:outputText value="#{nota.nota1}" />
+				</p:column>
+				<p:column headerText="Nota 2">
+					<h:outputText value="#{nota.nota2}" />
+				</p:column>
+				<p:column headerText="Média">
+					<h:outputText value="#{nota.media}" />
+				</p:column>
+				<p:column headerText="Unidade">
+					<h:outputText value="#{nota.unidade}" />
+				</p:column>
+				<p:column headerText="Ações">
+					<p:commandLink title="Editar Nota" update="editnota"
+						oncomplete="PF('dialogeditanota').show();" immediate="true">
+						<p:graphicImage value="/resources/img/edit.png" />
+						<f:setPropertyActionListener target="#{professorBean.nota}"
+							value="#{nota}" />
+					</p:commandLink>
+				</p:column>
+			</p:dataTable>
+		</p:dialog>
+
+		<!-- MODAL DE CAIXA DE DIÁLOGO DE LANÇAMENTO DE FALTA -->
+		<p:confirmDialog id="lancarfalta"
+			message="Você quer realmente quer lançar falta no Aluno : #{professorBean.aluno.nome}?"
+			header="Lançamento de Falta" severity="alert" widgetVar="avisofalta">
+			<p:commandButton id="simlf" value="Sim"
+				oncomplete="PF('avisofalta').hide();"
+				actionListener="#{professorBean.lancaFalta}" update=":tabelaalunos" />
+			<p:commandButton id="naolf" value="Não" onclick="PF('avisofalta').hide()"
+				type="button" />
+		</p:confirmDialog>
+
+		<!-- MODAL DE CAIXA DE DIÁLOGO DE Status do aluno -->
+		<p:confirmDialog id="gerastatus"
+			message="Você quer realmente quer gerar Status do Aluno :  #{professorBean.aluno.nome}?"
+			header="Gerar Status de Nota Final" severity="alert" widgetVar="avisostatus">
+			<p:commandButton id="simgs" value="Sim"
+				oncomplete="PF('avisostatus').hide();"
+				actionListener="#{professorBean.gerarStatusNota}" update=":tabelaalunos" />
+			<p:commandButton id="naogs" value="Não" onclick="PF('avisostatus').hide()"
+				type="button" />
+		</p:confirmDialog>
+
+
+
+	</ui:define>
+</ui:composition>
+</html>

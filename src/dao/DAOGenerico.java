@@ -5,23 +5,23 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceException;
 
 import exception.DAOException;
 
-
 public abstract class DAOGenerico<T> implements IDAOGenerico<T> {
-	
+
 	public static EntityManagerFactory instancia;
-	
-	public static EntityManagerFactory getInstancia(){
-		if(instancia == null){
+
+	public static EntityManagerFactory getInstancia() {
+		if (instancia == null) {
 			instancia = Persistence.createEntityManagerFactory("Colegio");
 		}
 		return instancia;
 	}
-	
+
 	EntityManager em = getInstancia().createEntityManager();
 	EntityTransaction et = em.getTransaction();
 	T t; // objeto
@@ -89,9 +89,8 @@ public abstract class DAOGenerico<T> implements IDAOGenerico<T> {
 	public T buscarId(int id, Class<T> objeto) throws DAOException {
 		try {
 			t = em.find(objeto, id);
-		} catch (RuntimeException e) {
-			e.printStackTrace();
-			throw new DAOException("Erro ao buscar " + t.getClass().getSimpleName());
+		} catch (Exception e) {
+			return null;
 		} finally {
 			em.clear();
 		}
@@ -110,9 +109,7 @@ public abstract class DAOGenerico<T> implements IDAOGenerico<T> {
 			lista = em.createQuery("Select obj from " + objeto.getSimpleName() + " obj").getResultList();
 			return lista;
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			throw new DAOException("Erro ao Listar " + t.getClass().getSimpleName());
+			return null;
 		} finally {
 			em.clear();
 		}

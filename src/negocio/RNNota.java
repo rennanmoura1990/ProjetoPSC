@@ -48,7 +48,7 @@ public class RNNota {
 
 	public Nota buscarId(int id) throws DAOException {
 		try {
-			return daonota.buscarId(id,Nota.class);
+			return daonota.buscarId(id, Nota.class);
 		} catch (PersistenceException e) {
 			// TODO Auto-generated catch block
 			throw new DAOException(e.getMessage());
@@ -100,16 +100,10 @@ public class RNNota {
 		return status;
 	}
 
-	public boolean validaNota(double nota) throws GeralException {
-		try {
-			if (nota >= 0 || nota <= 10) {
-				return true;
-			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
+	public void validaNota(double nota) throws GeralException {
+		if (nota < 0 || nota > 10) {
 			throw new GeralException("A nota deve ser maior que 0 e menor que 10!");
 		}
-		return false;
 	}
 
 	public double NotaFinal(int id_aluno, int id_disciplina) throws DAOException {
@@ -138,9 +132,19 @@ public class RNNota {
 			throw new GeralException(e.getMessage());
 		}
 	}
-	
+
 	public void verificarObjeto(Nota n) throws DAOException {
 		if (n == null)
 			throw new DAOException("Dados inválidos!");
 	}
+
+	public List<Nota> notasDisciplinaAluno(int id_aluno, int id_disciplina) {
+		return daonota.notasDisciplinaAluno(id_aluno, id_disciplina);
+	}
+
+	public void verificaNotalancadaUnidade(int id_aluno, int id_disciplina, String unidade) throws DAOException {
+		if (daonota.notaUnidadeExistente(id_aluno, id_disciplina, unidade) != null)
+			throw new DAOException("Já existe nota pra essa unidade!");
+	}
+
 }

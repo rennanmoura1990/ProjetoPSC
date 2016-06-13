@@ -10,6 +10,7 @@ import model.Disciplina;
 import model.Nota;
 import model.Professor;
 import model.Secretaria;
+import model.StatusDisciplina;
 import model.Telefones;
 import model.Turma;
 import model.Usuario;
@@ -23,6 +24,7 @@ import negocio.RNDisciplina;
 import negocio.RNNota;
 import negocio.RNProfessor;
 import negocio.RNSecretaria;
+import negocio.RNStatusDisciplina;
 import negocio.RNTelefones;
 import negocio.RNTurma;
 import negocio.RNUsuario;
@@ -38,6 +40,7 @@ public class Fachada implements IFachada {
 	RNTelefones rnt = new RNTelefones();
 	RNTurma rntu = new RNTurma();
 	RNUsuario rnu = new RNUsuario();
+	RNStatusDisciplina rnsd = new RNStatusDisciplina();
 
 	@Override
 	public void inserirAluno(Aluno a) throws GeralException, DAOException {
@@ -45,6 +48,7 @@ public class Fachada implements IFachada {
 		rna.verificaObjeto(a);
 		rna.validaRegistro(a);
 		rna.registroNovoAluno(a);
+		rna.verificaSala(a.getTurma().getId());
 		rna.inserir(a);
 	}
 
@@ -97,7 +101,11 @@ public class Fachada implements IFachada {
 		rna.LancaFalta(a);
 	}
 
-	public List<Aluno> listaAlunoporTurma(int id_turma) throws GeralException {
+	public String verificaPorcentagemFalta(Aluno a) throws DAOException {
+		return rna.verificaPorcentagemFalta(a);
+	}
+
+	public List<Aluno> listaAlunoporTurma(int id_turma) {
 		return rna.listaAlunoPorTurma(id_turma);
 	}
 
@@ -199,8 +207,8 @@ public class Fachada implements IFachada {
 	public List<Disciplina> listaDisciplinaPorProfessor(int id_professor) throws GeralException {
 		return rnd.listaDisciplinaPorProfessor(id_professor);
 	}
-	
-	public List<Disciplina> listarDisciplinaAtivas(){
+
+	public List<Disciplina> listarDisciplinaAtivas() {
 		return rnd.listarDisciplinaAtivas();
 	}
 
@@ -210,6 +218,7 @@ public class Fachada implements IFachada {
 		rnn.validaNotaIntegrantes(n);
 		rnn.validaNota(n.getNota1());
 		rnn.validaNota(n.getNota2());
+		rnn.verificaNotalancadaUnidade(n.getAluno().getId(), n.getDisciplina().getId(), n.getUnidade());
 		rnn.inserir(n);
 	}
 
@@ -259,6 +268,10 @@ public class Fachada implements IFachada {
 	public List<Unidades> unidades() throws GeralException {
 		// TODO Auto-generated method stub
 		return rnn.unidades();
+	}
+
+	public List<Nota> notasDisciplinaAluno(int id_aluno, int id_disciplina) {
+		return rnn.notasDisciplinaAluno(id_aluno, id_disciplina);
 	}
 
 	@Override
@@ -393,7 +406,7 @@ public class Fachada implements IFachada {
 
 	public List<Telefones> listaTelefonesPessoa(int pessoa_id) throws DAOException {
 		// TODO Auto-generated method stub
-		return null;
+		return rnt.listaTelefonesPessoa(pessoa_id);
 	}
 
 	@Override
@@ -469,6 +482,10 @@ public class Fachada implements IFachada {
 		return u;
 	}
 
+	public Usuario buscaUsuarioLogin(String login) throws DAOException {
+		return rnu.buscaUsuarioLogin(login);
+	}
+
 	@Override
 	public List<Usuario> listaUsuario() throws DAOException {
 		// TODO Auto-generated method stub
@@ -481,6 +498,31 @@ public class Fachada implements IFachada {
 
 	public List<TiposUsuarios> tiposUsuarios() throws GeralException {
 		return rnu.tiposUsuarios();
+	}
+
+	public void inserirStatus(StatusDisciplina sd) throws DAOException {
+		rnsd.verificaStatusDisciplinaLancado(sd.getAluno().getId(), sd.getDisciplina().getId());
+		rnsd.inserir(sd);
+	}
+
+	public void alterarStatus(StatusDisciplina sd) throws DAOException {
+		rnsd.alterar(sd);
+	}
+
+	public void excluirStatus(int id) throws DAOException {
+		rnsd.excluir(id);
+	}
+
+	public StatusDisciplina buscaIdStatus(int id) throws DAOException {
+		return rnsd.buscaId(id);
+	}
+
+	public List<StatusDisciplina> listatudoStatus() throws DAOException {
+		return rnsd.listatudo();
+	}
+	
+	public String Statusdisciplina(int id_aluno,int id_disciplina){
+		return rnsd.Statusdisciplina(id_aluno, id_disciplina);
 	}
 
 }

@@ -37,8 +37,8 @@
 						<p:commandLink title="Alterar" update="editcoordenador"
 							oncomplete="PF('dialogEdicao').show();" immediate="true">
 							<p:graphicImage value="/resources/img/edit.png" />
-							<f:setPropertyActionListener target="#{funcionarioBean.coordenador}"
-								value="#{coordenador}" />
+							<f:setPropertyActionListener
+								target="#{funcionarioBean.coordenador}" value="#{coordenador}" />
 						</p:commandLink>
 						<p:commandLink title="Excluir" update="excluircoordenador"
 							oncomplete="PF('aviso').show();" immediate="true">
@@ -46,8 +46,19 @@
 							<f:setPropertyActionListener value="#{coordenador}"
 								target="#{funcionarioBean.coordenador}" />
 						</p:commandLink>
+						<p:commandLink title="Telefones" update="listatelefonesusuario"
+							oncomplete="PF('dialoglistatelefone').show();" immediate="true">
+							<p:graphicImage value="/resources/img/telefone.png" />
+							<f:setPropertyActionListener value="#{coordenador}"
+								target="#{funcionarioBean.coordenador}" />
+						</p:commandLink>
+						<p:commandLink title="Cadastrar Usuário" update="cadastrousuario"
+							oncomplete="PF('dialogCadastroUsuario').show();" immediate="true">
+							<p:graphicImage value="/resources/img/login.png" />
+							<f:setPropertyActionListener value="#{coordenador}"
+								target="#{funcionarioBean.coordenador}" />
+						</p:commandLink>
 					</p:column>
-			
 				</p:dataTable>
 			</p:panel>
 		</h:form>
@@ -136,6 +147,75 @@
 				type="button" />
 		</p:confirmDialog>
 
+
+		<!-- MODAL DE CADASTRO DE USUARIO -->
+		<p:dialog header="Cadastro de Usuario do Sistema"
+			widgetVar="dialogCadastroUsuario" modal="true" id="cadastrousuario">
+			<h:form id="formcadastrousuario">
+				<h:panelGrid columns="2" cellpadding="5">
+					<p:outputLabel for="login" value="Login" />
+					<p:inputText id="login" value="#{funcionarioBean.usuario.login}" />
+					<p:outputLabel for="senha" value="Senha" />
+					<p:password id="senha" value="#{funcionarioBean.usuario.senha}"
+						navigator="true" />
+				</h:panelGrid>
+				<p:commandButton
+					actionListener="#{funcionarioBean.cadastrarUsuarioCoordenador}"
+					value="Cadastrar" oncomplete="PF('dialogCadastroUsuario').hide();" />
+			</h:form>
+		</p:dialog>
+
+		<!-- TABELA DE TELEFONES DO USUÁRIO -->
+		<p:dialog header="Lista de Telefones" widgetVar="dialoglistatelefone"
+			modal="true" id="listatelefonesusuario">
+			<p:dataTable id="tabelatelefones" var="telefone"
+				value="#{funcionarioBean.telefonesCoordenador}">
+				<p:column headerText="Telefones">
+					<h:outputText value="#{telefone.telefone}" />
+				</p:column>
+				<p:column headerText="Ações">
+					<p:commandLink title="Alterar Telefone" update="edittelefone"
+						oncomplete="PF('dialogEdicaoTelefone').show();" immediate="true">
+						<p:graphicImage value="/resources/img/edit.png" />
+						<f:setPropertyActionListener
+							target="#{funcionarioBean.telefoneObj}" value="#{telefone}" />
+					</p:commandLink>
+					<p:commandLink title="Excluir Telefone" update="excluirtelefone"
+						oncomplete="PF('avisotelefone').show();" immediate="true">
+						<p:graphicImage value="/resources/img/delete.png" />
+						<f:setPropertyActionListener value="#{telefone}"
+							target="#{funcionarioBean.telefoneObj}" />
+					</p:commandLink>
+				</p:column>
+			</p:dataTable>
+		</p:dialog>
+
+		<!-- MODAL DE EDIÇÃO DE TELEFONE -->
+		<p:dialog header="Editar Telefone" widgetVar="dialogEdicaoTelefone"
+			modal="true" id="edittelefone">
+			<h:form id="formedittelefone">
+				<h:panelGrid columns="2" cellpadding="5">
+					<p:outputLabel for="telefone" value="Telefone" />
+					<p:inputText id="telefone"
+						value="#{funcionarioBean.telefoneObj.telefone}" />
+				</h:panelGrid>
+				<p:commandButton actionListener="#{funcionarioBean.editaTelefone}"
+					value="Editar" oncomplete="PF('dialogEdicaoTelefone').hide();"
+					update="listatelefonesusuario" />
+			</h:form>
+		</p:dialog>
+
+		<!-- MODAL DE CAIXA DE DIÁLOGO DE EXCLUSÃO DE TELEFONE -->
+		<p:confirmDialog id="excluirtelefone"
+			message="Você quer realmente deletar o Telefone #{funcionarioBean.telefoneObj.telefone}?"
+			header="Excluir Telefone" severity="alert" widgetVar="avisotelefone">
+			<p:commandButton id="simt" value="Sim"
+				oncomplete="PF('avisotelefone').hide();"
+				actionListener="#{funcionarioBean.excluirTelefone}"
+				update="listatelefonesusuario" />
+			<p:commandButton id="naot" value="Não"
+				onclick="PF('avisotelefone').hide()" type="button" />
+		</p:confirmDialog>
 	</ui:define>
 </ui:composition>
 </html>

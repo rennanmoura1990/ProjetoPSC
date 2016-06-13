@@ -11,7 +11,7 @@ import model.Turma;
 
 public class DAOTurma extends DAOGenerico<Turma> implements IDAOTurma {
 
-	public Turma BuscaTurmaNome(String nome){
+	public Turma BuscaTurmaNome(String nome) {
 		try {
 			Query query = em.createQuery("SELECT t FROM Turma t WHERE t.nomeTurma = :nome", Turma.class);
 			query.setParameter("nome", nome);
@@ -38,12 +38,12 @@ public class DAOTurma extends DAOGenerico<Turma> implements IDAOTurma {
 		}
 		return qtd;
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public List<Turma> listarTurmasAtivas(){
+	public List<Turma> listarTurmasAtivas() {
 		try {
-			Query query = em.createQuery("SELECT t FROM Turma t WHERE t.turmaAtiva = 'S'",Turma.class);
-			return (List<Turma>)query.getResultList();
+			Query query = em.createQuery("SELECT t FROM Turma t WHERE t.turmaAtiva = 'S'", Turma.class);
+			return (List<Turma>) query.getResultList();
 		} catch (NoResultException e) {
 			// TODO Auto-generated catch block
 			return null;

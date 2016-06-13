@@ -16,6 +16,8 @@ import model.Coordenador;
 import model.Pessoa;
 import model.Secretaria;
 import model.Telefones;
+import model.Usuario;
+import model.enums.TiposUsuarios;
 
 @ManagedBean
 @SessionScoped
@@ -29,6 +31,9 @@ public class FuncionarioBean {
 	private List<String> telefones;
 	private Telefones telefoneObj;
 	private IFachada fachada;
+	private Usuario usuario;
+	private List<Telefones> telefonesCoordenador;
+	private List<Telefones> telefonesSecretaria;
 
 	public FuncionarioBean() {
 		this.pessoa = new Pessoa();
@@ -39,6 +44,9 @@ public class FuncionarioBean {
 		this.telefones = new ArrayList<String>();
 		this.telefoneObj = new Telefones();
 		this.fachada = new Fachada();
+		this.usuario = new Usuario();
+		this.telefonesCoordenador = new ArrayList<Telefones>();
+		this.telefonesSecretaria = new ArrayList<Telefones>();
 	}
 
 	public void addTelefone() {
@@ -99,8 +107,8 @@ public class FuncionarioBean {
 		clear();
 		coordenador = new Coordenador();
 	}
-	
-	public void excluirCoordenador() throws DAOException{
+
+	public void excluirCoordenador() throws DAOException {
 		try {
 			fachada.excluirCoordenador(coordenador.getId());
 			FacesContext.getCurrentInstance().addMessage(null,
@@ -111,7 +119,7 @@ public class FuncionarioBean {
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Informação: ", e.getMessage()));
 		}
 	}
-	
+
 	public void cadastrarSecretaria() throws DAOException, GeralException {
 		try {
 			fachada.inserirSecretaria(secretaria);
@@ -131,7 +139,7 @@ public class FuncionarioBean {
 		clear();
 		secretaria = new Secretaria();
 	}
-	
+
 	public void editarSecretaria() throws DAOException, GeralException {
 		try {
 			fachada.alteraSecretaria(secretaria);
@@ -151,12 +159,75 @@ public class FuncionarioBean {
 		clear();
 		secretaria = new Secretaria();
 	}
-	
-	public void excluirSecretaria() throws DAOException{
+
+	public void excluirSecretaria() throws DAOException {
 		try {
 			fachada.excluirSecretaria(secretaria.getId());
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação: ", "Exclusão Realizada com Sucesso!"));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Informação: ", e.getMessage()));
+		}
+	}
+
+	public void cadastrarUsuarioCoordenador() throws DAOException, GeralException {
+		try {
+			usuario.setTipoUsuario(TiposUsuarios.COORDENADOR.toString());
+			usuario.setPessoa(coordenador);
+			fachada.inserirUsuario(usuario);
+			clearUsuario();
+			usuario = new Usuario();
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+					"Informação: ", "Cadastro de Usuário Realizado com Sucesso!"));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Informação: ", e.getMessage()));
+		}
+	}
+
+	public void cadastrarUsuarioSecretaria() throws DAOException, GeralException {
+		try {
+			usuario.setTipoUsuario(TiposUsuarios.SECRETARIA.toString());
+			usuario.setPessoa(secretaria);
+			fachada.inserirUsuario(usuario);
+			clearUsuario();
+			usuario = new Usuario();
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+					"Informação: ", "Cadastro de Usuário Realizado com Sucesso!"));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Informação: ", e.getMessage()));
+		}
+	}
+
+	public void clearUsuario() {
+		usuario.setLogin(null);
+		usuario.setSenha(null);
+	}
+
+	public void editaTelefone() throws DAOException, GeralException {
+		try {
+			fachada.alteraTelefone(telefoneObj);
+			telefoneObj = new Telefones();
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação: ", "Telefone editado com Sucesso!"));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Informação: ", e.getMessage()));
+		}
+	}
+
+	public void excluirTelefone() throws DAOException {
+		try {
+			fachada.excluirTelefone(telefoneObj.getId());
+			telefoneObj = new Telefones();
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação: ", "Telefone excluído com Sucesso!"));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			FacesContext.getCurrentInstance().addMessage(null,
@@ -230,4 +301,39 @@ public class FuncionarioBean {
 		this.fachada = fachada;
 	}
 
+	public Telefones getTelefoneObj() {
+		return telefoneObj;
+	}
+
+	public void setTelefoneObj(Telefones telefoneObj) {
+		this.telefoneObj = telefoneObj;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public List<Telefones> getTelefonesCoordenador() throws DAOException {
+		telefonesCoordenador = (coordenador.getId() != null) ? fachada.listaTelefonesPessoa(coordenador.getId()) : null;
+		return telefonesCoordenador;
+	}
+
+	public void setTelefonesCoordenador(List<Telefones> telefonesCoordenador) {
+		this.telefonesCoordenador = telefonesCoordenador;
+	}
+
+	public List<Telefones> getTelefonesSecretaria() throws DAOException {
+		telefonesSecretaria = (secretaria.getId() != null) ? fachada.listaTelefonesPessoa(secretaria.getId()) : null;
+		return telefonesSecretaria;
+	}
+
+	public void setTelefonesSecretaria(List<Telefones> telefonesSecretaria) {
+		this.telefonesSecretaria = telefonesSecretaria;
+	}
+	
+	
 }

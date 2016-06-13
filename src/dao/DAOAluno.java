@@ -65,10 +65,13 @@ public class DAOAluno extends DAOGenerico<Aluno> implements IDAOAluno {
 
 	public void LancaFalta(Aluno a) throws DAOException {
 		int faltas;
+		double porcentagem;
 		try {
 			et.begin();
 			faltas = a.getFaltas();
 			a.setFaltas(faltas + 1);
+			porcentagem = ((double)a.getFaltas()/(double)a.getTurma().getQtd_aulas())*100;
+			a.setPorcentagem(porcentagem);
 			em.merge(a);
 			et.commit();
 		} catch (PersistenceException e) {
@@ -96,15 +99,15 @@ public class DAOAluno extends DAOGenerico<Aluno> implements IDAOAluno {
 	 * @throws GeralException
 	 */
 	@SuppressWarnings("unchecked")
-	public List<Aluno> alunoPorTurma(int id_turma) throws GeralException {
+	public List<Aluno> alunoPorTurma(int id_turma){
 		try {
-			Query query = em.createQuery("SELECT a FROM Aluno a WHERE a.id_turma = :id");
+			Query query = em.createQuery("SELECT a FROM Aluno a LEFT JOIN a.turma t WHERE t.id = :id");
 			query.setParameter("id", id_turma);
 			return (List<Aluno>) query.getResultList();
-		} catch (Exception e) {
+		} catch (NoResultException e) {
 			// TODO Auto-generated catch block
-			throw new GeralException("Não foi possível listar Alunos pela Turma!");
-		} finally {
+			return null;
+		}finally {
 			em.clear();
 		}
 	}

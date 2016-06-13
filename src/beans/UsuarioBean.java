@@ -1,14 +1,22 @@
 package beans;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
+
 import exception.DAOException;
+import exception.GeralException;
 import fachada.Fachada;
 import fachada.IFachada;
-import model.Pessoa;
 import model.Usuario;
+import model.Aluno;
+import model.Disciplina;
+import model.Turma;
 
 @ManagedBean
 @SessionScoped
@@ -17,12 +25,12 @@ public class UsuarioBean {
 	private String senha;
 	private Usuario usuario;
 	private IFachada fachada;
-	private Pessoa pessoa;
+	
 
 	public UsuarioBean() {
 		this.usuario = new Usuario();
 		this.fachada = new Fachada();
-		this.pessoa = new Pessoa();
+		
 	}
 
 	public String Login() {
@@ -33,7 +41,7 @@ public class UsuarioBean {
 				if (usuario.getTipoUsuario().equals("ALUNO")) {
 					return "menuprincipal?faces-redirect=true";
 				} else if (usuario.getTipoUsuario().equals("PROFESSOR")) {
-					return "menuprincipal?faces-redirect=true";
+					return "/professor/notaspresenca?faces-redirect=true";
 				} else if (usuario.getTipoUsuario().equals("COORDENADOR")) {
 					return "menuprincipal?faces-redirect=true";
 				} else if (usuario.getTipoUsuario().equals("SECRETARIA")) {
@@ -57,22 +65,30 @@ public class UsuarioBean {
 	public String formularioAluno() {
 		return "/secretaria/formularioaluno?faces-redirect=true";
 	}
-	public String formularioDisciplina(){
+
+	public String formularioDisciplina() {
 		return "/secretaria/formulariodisciplina?faces-redirect=true";
 	}
-	public String formularioCoordenador(){
+
+	public String formularioCoordenador() {
 		return "/secretaria/formulariocoordenador?faces-redirect=true";
 	}
-	public String formularioSecretaria(){
+
+	public String formularioSecretaria() {
 		return "/secretaria/formulariosecretaria?faces-redirect=true";
 	}
-	public String formularioProfessor(){
+
+	public String formularioProfessor() {
 		return "/secretaria/formularioprofessor?faces-redirect=true";
 	}
-	public String formularioTurma(){
+
+	public String formularioTurma() {
 		return "/secretaria/formularioturma?faces-redirect=true";
 	}
-	
+
+	public String notas() {
+		return "/professor/notas?faces-redirect=true";
+	}
 
 	public String getLogin() {
 		return login;
@@ -105,13 +121,4 @@ public class UsuarioBean {
 	public void setFachada(IFachada fachada) {
 		this.fachada = fachada;
 	}
-
-	public Pessoa getPessoa() {
-		return pessoa;
-	}
-
-	public void setPessoa(Pessoa pessoa) {
-		this.pessoa = pessoa;
-	}
-
 }
