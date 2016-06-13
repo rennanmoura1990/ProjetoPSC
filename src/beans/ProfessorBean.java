@@ -158,7 +158,7 @@ public class ProfessorBean extends Usuario {
 	public void valueChangeMethod(ValueChangeEvent e) throws GeralException, DAOException {
 		alunos = null;
 		disciplinaid = (e.getNewValue() != null) ? (int) e.getNewValue() : 0;
-		disciplina = fachada.buscarIdDisciplina(disciplinaid);
+		disciplina = (disciplinaid > 0 ) ? fachada.buscarIdDisciplina(disciplinaid) : null;
 		alunos = (disciplina != null) ? fachada.listaAlunoporTurma(disciplina.getTurma().getId()) : null;
 	}
 

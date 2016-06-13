@@ -48,7 +48,6 @@ public class Fachada implements IFachada {
 		rna.verificaObjeto(a);
 		rna.validaRegistro(a);
 		rna.registroNovoAluno(a);
-		rna.verificaSala(a.getTurma().getId());
 		rna.inserir(a);
 	}
 
