@@ -117,6 +117,7 @@
 
 		<p:dialog header="Lista de Notas do aluno" widgetVar="dialoglistanota"
 			modal="true" id="listanota">
+			<b>STATUS : </b><p:outputLabel value="#{professorBean.statusNotasDisciplina}"/>
 			<p:dataTable id="tabelanotaaluno" var="nota"
 				value="#{professorBean.notasAluno}">
 				<p:column headerText="Nota 1">

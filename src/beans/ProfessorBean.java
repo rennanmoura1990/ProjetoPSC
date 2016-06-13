@@ -21,6 +21,7 @@ import model.StatusDisciplina;
 import model.Telefones;
 import model.Turma;
 import model.Usuario;
+import model.enums.Status;
 import model.enums.TiposUsuarios;
 import model.enums.Unidades;
 
@@ -52,6 +53,7 @@ public class ProfessorBean extends Usuario {
 	private List<Unidades> unidades;
 	private String unidadeNome;
 	private StatusDisciplina statusdisciplina;
+	private String statusNotasDisciplina;
 
 	public ProfessorBean() {
 		this.professor = new Professor();
@@ -250,7 +252,7 @@ public class ProfessorBean extends Usuario {
 
 	public void gerarStatusNota() throws DAOException, GeralException {
 		try {
-			String status = fachada.NotaFinal(alunoid, disciplinaid);
+			String status = fachada.NotaFinal(aluno.getId(), disciplinaid);
 			statusdisciplina.setStatus(status);
 			statusdisciplina.setAluno(aluno);
 			statusdisciplina.setDisciplina(disciplina);
@@ -443,6 +445,15 @@ public class ProfessorBean extends Usuario {
 
 	public void setStatusdisciplina(StatusDisciplina statusdisciplina) {
 		this.statusdisciplina = statusdisciplina;
+	}
+
+	public String getStatusNotasDisciplina() {
+		statusNotasDisciplina = ((aluno.getId() != null) && (disciplina != null)) ? fachada.Statusdisciplina(aluno.getId(), disciplinaid) : Status.NADA.getStatus();
+		return statusNotasDisciplina;
+	}
+
+	public void setStatusNotasDisciplina(String statusNotasDisciplina) {
+		this.statusNotasDisciplina = statusNotasDisciplina;
 	}
 
 }
