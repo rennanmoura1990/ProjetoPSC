@@ -48,6 +48,12 @@
 							<f:setPropertyActionListener value="#{professor}"
 								target="#{professorBean.professor}" />
 						</p:commandLink>
+						<p:commandLink title="Telefones" update="listatelefonesusuario"
+							oncomplete="PF('dialoglistatelefone').show();" immediate="true">
+							<p:graphicImage value="/resources/img/telefone.png" />
+							<f:setPropertyActionListener value="#{professor}"
+								target="#{professorBean.professor}" />
+						</p:commandLink>
 						<p:commandLink title="Cadastrar Usuário" update="cadastrousuario"
 							oncomplete="PF('dialogCadastroUsuario').show();" immediate="true">
 							<p:graphicImage value="/resources/img/login.png" />
@@ -155,6 +161,59 @@
 					value="Cadastrar" oncomplete="PF('dialogCadastroUsuario').hide();" />
 			</h:form>
 		</p:dialog>
+
+
+		<!-- TABELA DE TELEFONES DO USUÁRIO -->
+		<p:dialog header="Lista de Telefones" widgetVar="dialoglistatelefone"
+			modal="true" id="listatelefonesusuario">
+			<p:dataTable id="tabelatelefones" var="telefone"
+				value="#{professorBean.telefonesProfessor}">
+				<p:column headerText="Telefones">
+					<h:outputText value="#{telefone.telefone}" />
+				</p:column>
+				<p:column headerText="Ações">
+					<p:commandLink title="Alterar Telefone" update="edittelefone"
+						oncomplete="PF('dialogEdicaoTelefone').show();" immediate="true">
+						<p:graphicImage value="/resources/img/edit.png" />
+						<f:setPropertyActionListener target="#{professorBean.telefoneObj}"
+							value="#{telefone}" />
+					</p:commandLink>
+					<p:commandLink title="Excluir Telefone" update="excluirtelefone"
+						oncomplete="PF('avisotelefone').show();" immediate="true">
+						<p:graphicImage value="/resources/img/delete.png" />
+						<f:setPropertyActionListener value="#{telefone}"
+							target="#{professorBean.telefoneObj}" />
+					</p:commandLink>
+				</p:column>
+			</p:dataTable>
+		</p:dialog>
+
+		<!-- MODAL DE EDIÇÃO DE TELEFONE -->
+		<p:dialog header="Editar Telefone" widgetVar="dialogEdicaoTelefone"
+			modal="true" id="edittelefone">
+			<h:form id="formedittelefone">
+				<h:panelGrid columns="2" cellpadding="5">
+					<p:outputLabel for="telefone" value="Telefone" />
+					<p:inputText id="telefone"
+						value="#{professorBean.telefoneObj.telefone}" />
+				</h:panelGrid>
+				<p:commandButton actionListener="#{professorBean.editaTelefone}"
+					value="Editar" oncomplete="PF('dialogEdicaoTelefone').hide();"
+					update="listatelefonesusuario" />
+			</h:form>
+		</p:dialog>
+
+		<!-- MODAL DE CAIXA DE DIÁLOGO DE EXCLUSÃO DE TELEFONE -->
+		<p:confirmDialog id="excluirtelefone"
+			message="Você quer realmente deletar o Telefone #{professorBean.telefoneObj.telefone}?"
+			header="Excluir Telefone" severity="alert" widgetVar="avisotelefone">
+			<p:commandButton id="simt" value="Sim"
+				oncomplete="PF('avisotelefone').hide();"
+				actionListener="#{professorBean.excluirTelefone}"
+				update="listatelefonesusuario" />
+			<p:commandButton id="naot" value="Não"
+				onclick="PF('avisotelefone').hide()" type="button" />
+		</p:confirmDialog>
 
 	</ui:define>
 </ui:composition>

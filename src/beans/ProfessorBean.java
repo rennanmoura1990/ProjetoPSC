@@ -45,6 +45,7 @@ public class ProfessorBean extends Usuario {
 	private int disciplinaid;
 	private List<Nota> notasAluno;
 	private Usuario usuariologin;
+	private List<Telefones> telefonesProfessor;
 	/**
 	 * Notas
 	 */
@@ -72,6 +73,7 @@ public class ProfessorBean extends Usuario {
 		this.notasAluno = new ArrayList<Nota>();
 		this.usuariologin = new Usuario();
 		this.statusdisciplina = new StatusDisciplina();
+		this.telefonesProfessor = new ArrayList<Telefones>();
 	}
 
 	public void addTelefone() {
@@ -267,6 +269,32 @@ public class ProfessorBean extends Usuario {
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Informação: ", e.getMessage()));
 		}
 	}
+	
+	public void editaTelefone() throws DAOException, GeralException {
+		try {
+			fachada.alteraTelefone(telefoneObj);
+			telefoneObj = new Telefones();
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação: ", "Telefone editado com Sucesso!"));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Informação: ", e.getMessage()));
+		}
+	}
+
+	public void excluirTelefone() throws DAOException {
+		try {
+			fachada.excluirTelefone(telefoneObj.getId());
+			telefoneObj = new Telefones();
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "Informação: ", "Telefone excluído com Sucesso!"));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Informação: ", e.getMessage()));
+		}
+	}
 
 	public String menuPrincipal() {
 		return "/menuprincipal?faces-redirect=true";
@@ -454,6 +482,15 @@ public class ProfessorBean extends Usuario {
 
 	public void setStatusNotasDisciplina(String statusNotasDisciplina) {
 		this.statusNotasDisciplina = statusNotasDisciplina;
+	}
+
+	public List<Telefones> getTelefonesProfessor() throws DAOException {
+		telefonesProfessor = (professor.getId() != null) ? fachada.listaTelefonesPessoa(professor.getId()) : null;
+		return telefonesProfessor;
+	}
+
+	public void setTelefonesProfessor(List<Telefones> telefonesProfessor) {
+		this.telefonesProfessor = telefonesProfessor;
 	}
 
 }
