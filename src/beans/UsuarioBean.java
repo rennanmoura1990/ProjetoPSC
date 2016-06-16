@@ -20,7 +20,7 @@ public class UsuarioBean {
 	private String senha;
 	private Usuario usuario;
 	private IFachada fachada;
-	private List<TiposUsuarios> tiposusuarios;
+	private static List<TiposUsuarios> tiposusuarios;
 
 	public UsuarioBean() {
 		this.usuario = new Usuario();
@@ -57,7 +57,7 @@ public class UsuarioBean {
 		return "index?faces-redirect=true";
 	}
 	
-	public boolean temPapel(TiposUsuarios papel){
+	public static boolean temPapel(TiposUsuarios papel){
 		return tiposusuarios.contains(papel);
 	}
 
