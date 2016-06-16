@@ -131,10 +131,7 @@ public class DisciplinaBean {
 	}
 
 	public String menuPrincipal() {
-		if (usuariologon.getTipoUsuario() == TiposUsuarios.COORDENADOR.toString()) {
-			return "/coordenador/menuprincipal?faces-redirect=true";
-		}
-		return null;
+		return "/menuprincipal?faces-redirect=true";
 	}
 
 	public Disciplina getDisciplina() {

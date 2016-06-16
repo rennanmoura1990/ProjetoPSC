@@ -81,12 +81,7 @@ public class TurmaBean {
 	}
 
 	public String menuPrincipal() {
-		if(usuariologon.getTipoUsuario() == TiposUsuarios.SECRETARIA.toString()){
-			return "/secretaria/menuprincipal?faces-redirect=true";
-		}else if (usuariologon.getTipoUsuario() == TiposUsuarios.COORDENADOR.toString()){
-			return "/coordenador/menuprincipal?faces-redirect=true";
-		}
-		return null;
+		return "/menuprincipal?faces-redirect=true";
 	}
 
 	public Turma getTurma() {

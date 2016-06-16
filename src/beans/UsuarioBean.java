@@ -16,12 +16,11 @@ public class UsuarioBean {
 	private String senha;
 	private Usuario usuario;
 	private IFachada fachada;
-	
 
 	public UsuarioBean() {
 		this.usuario = new Usuario();
 		this.fachada = new Fachada();
-		
+
 	}
 
 	public String Login() {
@@ -34,11 +33,11 @@ public class UsuarioBean {
 				} else if (usuario.getTipoUsuario().equals("PROFESSOR")) {
 					return "/professor/notaspresenca?faces-redirect=true";
 				} else if (usuario.getTipoUsuario().equals("COORDENADOR")) {
-					return "/coordenador/menuprincipal?faces-redirect=true";
+					return "menuprincipal?faces-redirect=true";
 				} else if (usuario.getTipoUsuario().equals("SECRETARIA")) {
-					return "/secretaria/menuprincipal?faces-redirect=true";
+					return "menuprincipal?faces-redirect=true";
 				} else {
-					return "/adm/menuprincipal?faces-redirect=true";
+					return "menuprincipal?faces-redirect=true";
 				}
 			}
 		} catch (DAOException e) {
@@ -80,7 +79,7 @@ public class UsuarioBean {
 	public String notas() {
 		return "/professor/notas?faces-redirect=true";
 	}
-	
+
 	public String aluno() {
 		return "/aluno/consultanota?faces-redirect=true";
 	}

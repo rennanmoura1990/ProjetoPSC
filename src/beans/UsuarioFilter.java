@@ -59,19 +59,7 @@ public class UsuarioFilter implements Filter {
 				// se eu acessar qualquer página dentro dessas pastas,se a
 				// sessão tiver nula,volta pra tela de login :)
 			}
-		} /*else if (uri.endsWith("index.xhtml") || uri.endsWith(req.getContextPath() + "/")) {
-			Usuario u = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
-			if (u.getTipoUsuario() == TiposUsuarios.SECRETARIA.toString())
-				redireciona = "/secretaria/menuprincipal?faces-redirect=true";
-			if (u.getTipoUsuario() == TiposUsuarios.COORDENADOR.toString())
-				redireciona = "/coordenador/menuprincipal?faces-redirect=true";
-			if (u.getTipoUsuario() == TiposUsuarios.PROFESSOR.toString())
-				redireciona = "/professor/notaspresenca?faces-redirect=true";
-			if (u.getTipoUsuario() == TiposUsuarios.ALUNO.toString())
-				redireciona = "/aluno/consultanota?faces-redirect=true";
-			if (u.getTipoUsuario() == TiposUsuarios.ADMINISTRADOR.toString())
-				redireciona = "/adm/menuprincipal?faces-redirect=true";
-		}*/
+		}
 		if (redireciona != null) {
 			res.sendRedirect(redireciona);
 		} else {
