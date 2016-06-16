@@ -2,6 +2,7 @@ package negocio;
 
 import java.util.List;
 
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 
 import dao.DAOAluno;
@@ -53,7 +54,7 @@ public class RNAluno {
 			throw new GeralException("RG inválido!");
 		}
 		if (a.getTurma() == null) {
-			throw new GeralException("É necessário esta em uma turma!");
+			throw new GeralException("É necessário estar em uma turma!");
 		}
 	}
 
@@ -75,12 +76,7 @@ public class RNAluno {
 	}
 
 	public Aluno buscaID(int id) throws DAOException {
-		try {
-			return daoaluno.buscarId(id, Aluno.class);
-		} catch (PersistenceException e) {
-			// TODO Auto-generated catch block
-			throw new DAOException("Erro ao buscar Aluno por id");
-		}
+		return daoaluno.buscarId(id, Aluno.class);
 	}
 
 	public void alterar(Aluno a) throws DAOException {

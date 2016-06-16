@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template=".././template.xhtml">
+	<ui:define name="top">
+		<h2>Consulta de Notas e Faltas.</h2>
+	</ui:define>
+	<ui:define name="content">
+		<h:form id="formNotas">
+			<p:outputLabel
+				value="Bem vindo,Aluno #{alunoBean.usuariologon.pessoa.nome}." />
+			<br></br>
+			<br></br>
+			<p:outputLabel value="Faltas Totais : #{alunoBean.alunologado.faltas}"/>
+			<br></br>
+			<p:selectOneMenu id="disciplinasaluno" value="#{alunoBean.disciplinaId}"
+				valueChangeListener="#{alunoBean.DisciplinaChangeMethod}"
+				onchange="submit()">
+				<f:selectItem itemLabel="Selecione Disciplina" />
+				<f:selectItems value="#{alunoBean.disciplinas}" var="d"
+					itemLabel="#{d.nomeDisciplina}" itemValue="#{d.id}" />
+				<f:ajax render=":tabelanotas" />
+			</p:selectOneMenu>
+		</h:form>
+		<p:dataTable id="tabelanotas" var="nota" value="#{alunoBean.notas}">
+			<p:column headerText="Nota 1">
+				<h:outputText value="#{nota.nota1}" />
+			</p:column>
+			<p:column headerText="Nota 2">
+				<h:outputText value="#{nota.nota2}" />
+			</p:column>
+			<p:column headerText="Média">
+				<h:outputText value="#{nota.media}" />
+			</p:column>
+			<p:column headerText="Unidade">
+				<h:outputText value="#{nota.unidade}" />
+			</p:column>
+		</p:dataTable>
+	</ui:define>
+</ui:composition>
+</html>

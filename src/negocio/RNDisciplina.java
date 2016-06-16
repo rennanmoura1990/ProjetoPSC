@@ -116,5 +116,9 @@ public class RNDisciplina {
 	public List<Disciplina> listarDisciplinaAtivas() {
 		return daodisciplina.listarDisciplinaAtivas();
 	}
+	
+	public List<Disciplina> listarDisciplinaTurma(int id_turma){
+		return daodisciplina.listarDisciplinaTurma(id_turma);
+	}
 
 }

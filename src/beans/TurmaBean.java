@@ -12,6 +12,8 @@ import exception.GeralException;
 import fachada.Fachada;
 import fachada.IFachada;
 import model.Turma;
+import model.Usuario;
+import model.enums.TiposUsuarios;
 
 @ManagedBean
 @SessionScoped
@@ -20,6 +22,7 @@ public class TurmaBean {
 	private Turma turma;
 	private List<Turma> turmas;
 	private IFachada fachada;
+	private Usuario usuariologon = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario"); 
 
 	public TurmaBean() {
 		turma = new Turma();
@@ -78,7 +81,12 @@ public class TurmaBean {
 	}
 
 	public String menuPrincipal() {
-		return "/menuprincipal?faces-redirect=true";
+		if(usuariologon.getTipoUsuario() == TiposUsuarios.SECRETARIA.toString()){
+			return "/secretaria/menuprincipal?faces-redirect=true";
+		}else if (usuariologon.getTipoUsuario() == TiposUsuarios.COORDENADOR.toString()){
+			return "/coordenador/menuprincipal?faces-redirect=true";
+		}
+		return null;
 	}
 
 	public Turma getTurma() {
@@ -104,5 +112,13 @@ public class TurmaBean {
 
 	public void setFachada(IFachada fachada) {
 		this.fachada = fachada;
+	}
+
+	public Usuario getUsuariologon() {
+		return usuariologon;
+	}
+
+	public void setUsuariologon(Usuario usuariologon) {
+		this.usuariologon = usuariologon;
 	}
 }

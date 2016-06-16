@@ -27,7 +27,7 @@ import model.enums.Unidades;
 
 @ManagedBean
 @SessionScoped
-public class ProfessorBean extends Usuario {
+public class ProfessorBean {
 
 	private Professor professor;
 	private List<Professor> professores;

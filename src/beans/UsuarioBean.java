@@ -1,22 +1,13 @@
 package beans;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ValueChangeEvent;
-
 import exception.DAOException;
-import exception.GeralException;
 import fachada.Fachada;
 import fachada.IFachada;
 import model.Usuario;
-import model.Aluno;
-import model.Disciplina;
-import model.Turma;
 
 @ManagedBean
 @SessionScoped
@@ -39,15 +30,15 @@ public class UsuarioBean {
 			if (usuario != null) {
 				FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", usuario);
 				if (usuario.getTipoUsuario().equals("ALUNO")) {
-					return "menuprincipal?faces-redirect=true";
+					return "/aluno/consultanota?faces-redirect=true";
 				} else if (usuario.getTipoUsuario().equals("PROFESSOR")) {
 					return "/professor/notaspresenca?faces-redirect=true";
 				} else if (usuario.getTipoUsuario().equals("COORDENADOR")) {
-					return "menuprincipal?faces-redirect=true";
+					return "/coordenador/menuprincipal?faces-redirect=true";
 				} else if (usuario.getTipoUsuario().equals("SECRETARIA")) {
-					return "menuprincipal?faces-redirect=true";
+					return "/secretaria/menuprincipal?faces-redirect=true";
 				} else {
-					return "menuprincipal?faces-redirect=true";
+					return "/adm/menuprincipal?faces-redirect=true";
 				}
 			}
 		} catch (DAOException e) {
@@ -88,6 +79,10 @@ public class UsuarioBean {
 
 	public String notas() {
 		return "/professor/notas?faces-redirect=true";
+	}
+	
+	public String aluno() {
+		return "/aluno/consultanota?faces-redirect=true";
 	}
 
 	public String getLogin() {

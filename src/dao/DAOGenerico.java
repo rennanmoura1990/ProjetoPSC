@@ -89,12 +89,10 @@ public abstract class DAOGenerico<T> implements IDAOGenerico<T> {
 	public T buscarId(int id, Class<T> objeto) throws DAOException {
 		try {
 			t = em.find(objeto, id);
-		} catch (Exception e) {
+			return t;
+		} catch (NoResultException e) {
 			return null;
-		} finally {
-			em.clear();
 		}
-		return t;
 	}
 
 	/*

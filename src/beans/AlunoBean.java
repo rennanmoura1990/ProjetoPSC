@@ -7,12 +7,15 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 
 import exception.DAOException;
 import exception.GeralException;
 import fachada.Fachada;
 import fachada.IFachada;
 import model.Aluno;
+import model.Disciplina;
+import model.Nota;
 import model.Telefones;
 import model.Turma;
 import model.Usuario;
@@ -32,6 +35,15 @@ public class AlunoBean {
 	private List<Turma> turmas;
 	private Usuario usuario;
 	private List<Telefones> telefonesPessoa;
+	private Usuario usuariologon = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+	private List<Disciplina> disciplinas;
+	private List<Nota> notas;
+	private int disciplinaId;
+	private Disciplina disciplina;
+	private Turma turmaObj;
+	private int alunoId;
+	private int turmaId;
+	private Aluno alunologado;
 
 	public AlunoBean() {
 		this.aluno = new Aluno();
@@ -43,6 +55,11 @@ public class AlunoBean {
 		this.fachada = new Fachada();
 		this.usuario = new Usuario();
 		this.telefonesPessoa = new ArrayList<Telefones>();
+		this.disciplinas = new ArrayList<Disciplina>();
+		this.notas = new ArrayList<Nota>();
+		this.disciplina = new Disciplina();
+		this.turmaObj = new Turma();
+		this.alunologado = new Aluno();
 	}
 
 	public void addTelefone() {
@@ -169,8 +186,30 @@ public class AlunoBean {
 		}
 	}
 
+	public void DisciplinaChangeMethod(ValueChangeEvent e) throws GeralException, DAOException {
+		notas = null;
+		disciplinaId = 0;
+		disciplina = null;
+		alunoId = 0;
+		aluno = null;
+		turmaId = 0;
+		disciplinaId = (e.getNewValue() != null) ? (int) e.getNewValue() : 0;
+		disciplina = (disciplinaId > 0) ? fachada.buscarIdDisciplina(disciplinaId) : null;
+		alunoId = usuariologon.getPessoa().getId();
+		aluno = (alunoId > 0) ? fachada.buscarIdAluno(alunoId) : null;
+		turmaId = (aluno != null) ? aluno.getTurma().getId() : null;
+		notas = ((aluno != null) && (disciplina != null))
+				? fachada.notasDisciplinaAluno(alunoId, disciplinaId) : null;
+	}
+
 	public String menuPrincipal() {
-		return "/menuprincipal?faces-redirect=true";
+		if(usuariologon.getTipoUsuario() == TiposUsuarios.SECRETARIA.toString()){
+			return "/secretaria/menuprincipal?faces-redirect=true";
+		}else if (usuariologon.getTipoUsuario() == TiposUsuarios.COORDENADOR.toString()){
+			return "/coordenador/menuprincipal?faces-redirect=true";
+		}
+		return null;
+		
 	}
 
 	public Aluno getAluno() {
@@ -264,6 +303,81 @@ public class AlunoBean {
 
 	public void setTelefonesPessoa(List<Telefones> telefonesPessoa) {
 		this.telefonesPessoa = telefonesPessoa;
+	}
+
+	public Usuario getUsuariologon() {
+		return usuariologon;
+	}
+
+	public void setUsuariologon(Usuario usuariologon) {
+		this.usuariologon = usuariologon;
+	}
+
+	public List<Disciplina> getDisciplinas() throws DAOException {
+		disciplinas = fachada.listarDisciplinaTurma(turmaObj.getId());
+		return disciplinas;
+	}
+
+	public void setDisciplinas(List<Disciplina> disciplinas) {
+		this.disciplinas = disciplinas;
+	}
+
+	public List<Nota> getNotas() {
+		return notas;
+	}
+
+	public void setNotas(List<Nota> notas) {
+		this.notas = notas;
+	}
+
+	public int getDisciplinaId() {
+		return disciplinaId;
+	}
+
+	public void setDisciplinaId(int disciplinaId) {
+		this.disciplinaId = disciplinaId;
+	}
+
+	public Disciplina getDisciplina() {
+		return disciplina;
+	}
+
+	public void setDisciplina(Disciplina disciplina) {
+		this.disciplina = disciplina;
+	}
+
+	public Turma getTurmaObj() {
+		turmaObj = alunologado.getTurma();
+		return turmaObj;
+	}
+
+	public void setTurmaObj(Turma turmaObj) {
+		this.turmaObj = turmaObj;
+	}
+
+	public int getAlunoId() {
+		return alunoId;
+	}
+
+	public void setAlunoId(int alunoId) {
+		this.alunoId = alunoId;
+	}
+
+	public int getTurmaId() {
+		return turmaId;
+	}
+
+	public void setTurmaId(int turmaId) {
+		this.turmaId = turmaId;
+	}
+
+	public Aluno getAlunologado() {
+		alunologado = (Aluno) usuariologon.getPessoa();
+		return alunologado;
+	}
+
+	public void setAlunologado(Aluno alunologado) {
+		this.alunologado = alunologado;
 	}
 
 }

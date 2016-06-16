@@ -41,6 +41,7 @@ public class DisciplinaBean {
 	private IFachada fachada;
 	private Horarios horarioEnum;
 	private Dias_semana diasSemanaEnum;
+	private Usuario usuariologon = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
 
 	public DisciplinaBean() {
 		this.disciplina = new Disciplina();
@@ -130,7 +131,10 @@ public class DisciplinaBean {
 	}
 
 	public String menuPrincipal() {
-		return "/menuprincipal?faces-redirect=true";
+		if (usuariologon.getTipoUsuario() == TiposUsuarios.COORDENADOR.toString()) {
+			return "/coordenador/menuprincipal?faces-redirect=true";
+		}
+		return null;
 	}
 
 	public Disciplina getDisciplina() {
@@ -274,6 +278,14 @@ public class DisciplinaBean {
 
 	public void setDiasSemanaEnum(Dias_semana diasSemanaEnum) {
 		this.diasSemanaEnum = diasSemanaEnum;
+	}
+
+	public Usuario getUsuariologon() {
+		return usuariologon;
+	}
+
+	public void setUsuariologon(Usuario usuariologon) {
+		this.usuariologon = usuariologon;
 	}
 
 }

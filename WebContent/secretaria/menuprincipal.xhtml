@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="/template.xhtml">
+	<ui:define name="top">
+		<h2>Menu Principal</h2>
+	</ui:define>
+	<ui:define name="content">
+		<h:form>
+			<p:outputLabel value="Bem vindo:#{usuarioBean.login}"></p:outputLabel>
+			<br></br>
+			<br></br>
+			<p:commandButton value="Formulário Aluno" id="formularioaluno"
+				action="#{usuarioBean.formularioAluno()}" />
+			<p:commandButton value="Formulário Coordenador"
+				id="formulariocoordenador"
+				action="#{usuarioBean.formularioCoordenador()}" />
+			<p:commandButton value="Formulário Secretaria"
+				id="formulariosecretaria"
+				action="#{usuarioBean.formularioSecretaria()}" />
+			<p:commandButton value="Formulário Professor"
+				id="formularioprofessor"
+				action="#{usuarioBean.formularioProfessor()}" />
+			<p:commandButton value="Formulário Turma" id="formularioturma"
+				action="#{usuarioBean.formularioTurma()}" />
+		</h:form>
+		<br></br>
+		<h:form>
+			<p:commandButton value="logout" id="logout"
+				action="#{usuarioBean.Logout()}" />
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

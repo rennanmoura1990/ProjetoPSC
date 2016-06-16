@@ -5,8 +5,14 @@ import java.util.List;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.Root;
 
 import exception.DAOException;
+import model.Aluno;
 import model.Turma;
 
 public class DAOTurma extends DAOGenerico<Turma> implements IDAOTurma {

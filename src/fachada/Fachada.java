@@ -211,6 +211,10 @@ public class Fachada implements IFachada {
 		return rnd.listarDisciplinaAtivas();
 	}
 
+	public List<Disciplina> listarDisciplinaTurma(int id_turma) {
+		return rnd.listarDisciplinaTurma(id_turma);
+	}
+
 	@Override
 	public void inserirNota(Nota n) throws GeralException, DAOException {
 		// TODO Auto-generated method stub
@@ -519,8 +523,8 @@ public class Fachada implements IFachada {
 	public List<StatusDisciplina> listatudoStatus() throws DAOException {
 		return rnsd.listatudo();
 	}
-	
-	public String Statusdisciplina(int id_aluno,int id_disciplina){
+
+	public String Statusdisciplina(int id_aluno, int id_disciplina) {
 		return rnsd.Statusdisciplina(id_aluno, id_disciplina);
 	}
 

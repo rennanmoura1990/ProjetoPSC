@@ -71,6 +71,8 @@ public interface IFachada {
 
 	public List<Disciplina> listarDisciplinaAtivas();
 
+	public List<Disciplina> listarDisciplinaTurma(int id_turma);
+
 	public void inserirNota(Nota n) throws GeralException, DAOException;
 
 	public void alterarNota(Nota n) throws DAOException, GeralException;
@@ -164,6 +166,6 @@ public interface IFachada {
 	public StatusDisciplina buscaIdStatus(int id) throws DAOException;
 
 	public List<StatusDisciplina> listatudoStatus() throws DAOException;
-	
-	public String Statusdisciplina(int id_aluno,int id_disciplina);
+
+	public String Statusdisciplina(int id_aluno, int id_disciplina);
 }

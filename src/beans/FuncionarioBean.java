@@ -34,6 +34,8 @@ public class FuncionarioBean {
 	private Usuario usuario;
 	private List<Telefones> telefonesCoordenador;
 	private List<Telefones> telefonesSecretaria;
+	private Usuario usuariologon = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
+			.get("usuario");
 
 	public FuncionarioBean() {
 		this.pessoa = new Pessoa();
@@ -47,6 +49,7 @@ public class FuncionarioBean {
 		this.usuario = new Usuario();
 		this.telefonesCoordenador = new ArrayList<Telefones>();
 		this.telefonesSecretaria = new ArrayList<Telefones>();
+		this.usuariologon = new Usuario();
 	}
 
 	public void addTelefone() {
@@ -85,7 +88,12 @@ public class FuncionarioBean {
 	}
 
 	public String menuPrincipal() {
-		return "/menuprincipal?faces-redirect=true";
+		if (usuariologon.getTipoUsuario() == TiposUsuarios.SECRETARIA.toString()) {
+			return "/secretaria/menuprincipal?faces-redirect=true";
+		} else if (usuariologon.getTipoUsuario() == TiposUsuarios.COORDENADOR.toString()) {
+			return "/coordenador/menuprincipal?faces-redirect=true";
+		}
+		return null;
 	}
 
 	public void editarCoordenador() throws DAOException, GeralException {
@@ -334,6 +342,13 @@ public class FuncionarioBean {
 	public void setTelefonesSecretaria(List<Telefones> telefonesSecretaria) {
 		this.telefonesSecretaria = telefonesSecretaria;
 	}
-	
-	
+
+	public Usuario getUsuariologon() {
+		return usuariologon;
+	}
+
+	public void setUsuariologon(Usuario usuariologon) {
+		this.usuariologon = usuariologon;
+	}
+
 }
