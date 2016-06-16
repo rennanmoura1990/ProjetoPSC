@@ -1,5 +1,8 @@
 package beans;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -8,6 +11,7 @@ import exception.DAOException;
 import fachada.Fachada;
 import fachada.IFachada;
 import model.Usuario;
+import model.enums.*;
 
 @ManagedBean
 @SessionScoped
@@ -16,10 +20,12 @@ public class UsuarioBean {
 	private String senha;
 	private Usuario usuario;
 	private IFachada fachada;
+	private List<TiposUsuarios> tiposusuarios;
 
 	public UsuarioBean() {
 		this.usuario = new Usuario();
 		this.fachada = new Fachada();
+		this.tiposusuarios = new ArrayList<TiposUsuarios>();
 
 	}
 
@@ -49,7 +55,10 @@ public class UsuarioBean {
 	public String Logout() {
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 		return "index?faces-redirect=true";
-
+	}
+	
+	public boolean temPapel(TiposUsuarios papel){
+		return tiposusuarios.contains(papel);
 	}
 
 	public String formularioAluno() {
@@ -57,7 +66,7 @@ public class UsuarioBean {
 	}
 
 	public String formularioDisciplina() {
-		return "/secretaria/formulariodisciplina?faces-redirect=true";
+		return "/coordenador/formulariodisciplina?faces-redirect=true";
 	}
 
 	public String formularioCoordenador() {

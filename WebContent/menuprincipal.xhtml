@@ -19,7 +19,7 @@
 				action="#{usuarioBean.formularioAluno()}" />
 			<p:commandButton value="Formulário Disciplinas"
 				id="formulariodisciplina"
-				action="#{usuarioBean.formularioDisciplina()}" />
+				action="#{usuarioBean.formularioDisciplina()}" disabled="#{usuarioBean.usuario.tipoUsuario=='SECRETARIA'}" />
 			<p:commandButton value="Formulário Coordenador"
 				id="formulariocoordenador"
 				action="#{usuarioBean.formularioCoordenador()}" />

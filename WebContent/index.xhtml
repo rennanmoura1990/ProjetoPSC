@@ -12,12 +12,12 @@
 	<h:form>
 		<h3>Login</h3>
 		<p:outputLabel value="Nome : " />
-		<p:inputText id="nomeusuario" value="#{usuarioBean.login}"></p:inputText>
+		<p:inputText id="nomeusuario" required="true" value="#{usuarioBean.login}" />
 		<p:message for="nomeusuario"></p:message>
 		<br></br>
 		<br></br>
 		<p:outputLabel value="Senha : " />
-		<p:password id="senhausuario" value="#{usuarioBean.senha}"></p:password>
+		<p:password id="senhausuario" required="true" value="#{usuarioBean.senha}" />
 		<p:message for="senhausuario"></p:message>
 		<br></br>
 		<br></br>
