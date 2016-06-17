@@ -54,7 +54,7 @@ public class UsuarioFilter implements Filter {
 			// request.getRequestDispatcher("/index.xhtml");
 			// dis.forward(request, response);
 			if (uri.contains("/secretaria") || uri.contains("/professor") || uri.contains("/coordenador")
-					|| uri.contains("/aluno") || uri.contains("/adm")) {
+					|| uri.contains("/aluno") || uri.contains("/adm") || uri.contains("menuprincipal")) {
 				redireciona = req.getContextPath() + "/index.xhtml";
 				// se eu acessar qualquer página dentro dessas pastas,se a
 				// sessão tiver nula,volta pra tela de login :)
