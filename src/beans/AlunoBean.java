@@ -308,7 +308,7 @@ public class AlunoBean {
 	}
 
 	public List<Disciplina> getDisciplinas() throws DAOException {
-		disciplinas = fachada.listarDisciplinaTurma(turmaObj.getId());
+		disciplinas = fachada.listarDisciplinaTurma(getTurmaObj().getId());
 		return disciplinas;
 	}
 
@@ -341,7 +341,7 @@ public class AlunoBean {
 	}
 
 	public Turma getTurmaObj() {
-		turmaObj = alunologado.getTurma();
+		turmaObj = getAlunologado().getTurma();
 		return turmaObj;
 	}
 

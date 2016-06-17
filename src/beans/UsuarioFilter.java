@@ -59,10 +59,6 @@ public class UsuarioFilter implements Filter {
 				// se eu acessar qualquer página dentro dessas pastas,se a
 				// sessão tiver nula,volta pra tela de login :)
 			}
-		} else {
-			if (uri.contains("/coordenador") && (!UsuarioBean.temPapel(TiposUsuarios.COORDENADOR))) {
-				res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-			}
 		}
 		if (redireciona != null) {
 			res.sendRedirect(redireciona);

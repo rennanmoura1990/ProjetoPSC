@@ -14,6 +14,8 @@
 		<h:form id="formNotas">
 			<p:outputLabel
 				value="Bem vindo,Aluno #{alunoBean.usuariologon.pessoa.nome}." />
+				<p:commandButton value="logout" id="logout"
+				action="#{usuarioBean.Logout()}" />
 			<br></br>
 			<br></br>
 			<p:outputLabel value="Faltas Totais : #{alunoBean.alunologado.faltas}"/>
@@ -34,7 +36,7 @@
 			<p:column headerText="Nota 2">
 				<h:outputText value="#{nota.nota2}" />
 			</p:column>
-			<p:column headerText="Média">
+			<p:column headerText="MÃ©dia">
 				<h:outputText value="#{nota.media}" />
 			</p:column>
 			<p:column headerText="Unidade">

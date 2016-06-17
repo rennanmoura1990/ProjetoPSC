@@ -7,6 +7,9 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
+
 import exception.DAOException;
 import fachada.Fachada;
 import fachada.IFachada;
@@ -25,7 +28,7 @@ public class UsuarioBean {
 	public UsuarioBean() {
 		this.usuario = new Usuario();
 		this.fachada = new Fachada();
-		this.tiposusuarios = new ArrayList<TiposUsuarios>();
+		UsuarioBean.tiposusuarios = new ArrayList<TiposUsuarios>();
 
 	}
 
@@ -54,7 +57,7 @@ public class UsuarioBean {
 
 	public String Logout() {
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-		return "index?faces-redirect=true";
+		return "/index?faces-redirect=true";
 	}
 	
 	public static boolean temPapel(TiposUsuarios papel){

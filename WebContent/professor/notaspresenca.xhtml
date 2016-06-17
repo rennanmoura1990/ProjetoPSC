@@ -8,13 +8,15 @@
 
 <ui:composition template=".././template.xhtml">
 	<ui:define name="top">
-		<h2>Lançamento de Notas e Faltas</h2>
+		<h2>LanÃ§amento de Notas e Faltas</h2>
 	</ui:define>
 	<ui:define name="content">
 		<p:messages id="messages" showDetail="true" autoUpdate="true" />
 		<h:form id="formNotas">
 			<p:outputLabel
 				value="Bem vindo,Professor #{professorBean.usuario.pessoa.nome}." />
+				<p:commandButton value="logout" id="logout"
+				action="#{usuarioBean.Logout()}" />
 			<br></br>
 			<br></br>
 			<p:selectOneMenu id="turma" value="#{professorBean.disciplinaid}"
@@ -34,8 +36,8 @@
 			<p:column headerText="Status de Faltas">
 				<h:outputText value="#{aluno.status}" />
 			</p:column>
-			<p:column headerText="Ações">
-				<p:commandLink title="Lançar Nota" update="lancanota"
+			<p:column headerText="AÃ§Ãµes">
+				<p:commandLink title="LanÃ§ar Nota" update="lancanota"
 					oncomplete="PF('dialoglancanota').show();" immediate="true">
 					<p:graphicImage value="/resources/img/lancanota.png" />
 					<f:setPropertyActionListener target="#{professorBean.aluno}"
@@ -47,7 +49,7 @@
 					<f:setPropertyActionListener target="#{professorBean.aluno}"
 						value="#{aluno}" />
 				</p:commandLink>
-				<p:commandLink title="Lançar Falta" update="lancarfalta"
+				<p:commandLink title="LanÃ§ar Falta" update="lancarfalta"
 					oncomplete="PF('avisofalta').show();" immediate="true">
 					<p:graphicImage value="/resources/img/presenca.png" />
 					<f:setPropertyActionListener value="#{aluno}"
@@ -62,8 +64,8 @@
 			</p:column>
 		</p:dataTable>
 
-		<!-- LANÇAMENTO DE NOTA -->
-		<p:dialog header="Lançar Nota" widgetVar="dialoglancanota"
+		<!-- LANÃ‡AMENTO DE NOTA -->
+		<p:dialog header="LanÃ§ar Nota" widgetVar="dialoglancanota"
 			modal="true" id="lancanota">
 			<h:form id="formlancanota">
 				<p:outputLabel value="#{professorBean.aluno.nome}" />
@@ -83,7 +85,7 @@
 					</p:selectOneMenu>
 				</h:panelGrid>
 				<p:commandButton actionListener="#{professorBean.lancarNota}"
-					value="Lançar Nota" oncomplete="PF('dialoglancanota').hide();"
+					value="LanÃ§ar Nota" oncomplete="PF('dialoglancanota').hide();"
 					update="listanota" />
 			</h:form>
 		</p:dialog>
@@ -126,13 +128,13 @@
 				<p:column headerText="Nota 2">
 					<h:outputText value="#{nota.nota2}" />
 				</p:column>
-				<p:column headerText="Média">
+				<p:column headerText="MÃ©dia">
 					<h:outputText value="#{nota.media}" />
 				</p:column>
 				<p:column headerText="Unidade">
 					<h:outputText value="#{nota.unidade}" />
 				</p:column>
-				<p:column headerText="Ações">
+				<p:column headerText="AÃ§Ãµes">
 					<p:commandLink title="Editar Nota" update="editnota"
 						oncomplete="PF('dialogeditanota').show();" immediate="true">
 						<p:graphicImage value="/resources/img/edit.png" />
@@ -143,25 +145,25 @@
 			</p:dataTable>
 		</p:dialog>
 
-		<!-- MODAL DE CAIXA DE DIÁLOGO DE LANÇAMENTO DE FALTA -->
+		<!-- MODAL DE CAIXA DE DIÃLOGO DE LANÃ‡AMENTO DE FALTA -->
 		<p:confirmDialog id="lancarfalta"
-			message="Você quer realmente quer lançar falta no Aluno : #{professorBean.aluno.nome}?"
-			header="Lançamento de Falta" severity="alert" widgetVar="avisofalta">
+			message="VocÃª quer realmente quer lanÃ§ar falta no Aluno : #{professorBean.aluno.nome}?"
+			header="LanÃ§amento de Falta" severity="alert" widgetVar="avisofalta">
 			<p:commandButton id="simlf" value="Sim"
 				oncomplete="PF('avisofalta').hide();"
 				actionListener="#{professorBean.lancaFalta}" update=":tabelaalunos" />
-			<p:commandButton id="naolf" value="Não" onclick="PF('avisofalta').hide()"
+			<p:commandButton id="naolf" value="NÃ£o" onclick="PF('avisofalta').hide()"
 				type="button" />
 		</p:confirmDialog>
 
-		<!-- MODAL DE CAIXA DE DIÁLOGO DE Status do aluno -->
+		<!-- MODAL DE CAIXA DE DIÃLOGO DE Status do aluno -->
 		<p:confirmDialog id="gerastatus"
-			message="Você quer realmente quer gerar Status do Aluno :  #{professorBean.aluno.nome}?"
+			message="VocÃª quer realmente quer gerar Status do Aluno :  #{professorBean.aluno.nome}?"
 			header="Gerar Status de Nota Final" severity="alert" widgetVar="avisostatus">
 			<p:commandButton id="simgs" value="Sim"
 				oncomplete="PF('avisostatus').hide();"
 				actionListener="#{professorBean.gerarStatusNota}" update=":tabelaalunos" />
-			<p:commandButton id="naogs" value="Não" onclick="PF('avisostatus').hide()"
+			<p:commandButton id="naogs" value="NÃ£o" onclick="PF('avisostatus').hide()"
 				type="button" />
 		</p:confirmDialog>
 
