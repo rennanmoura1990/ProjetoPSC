@@ -232,6 +232,7 @@ public class Fachada implements IFachada {
 		rnn.validaNotaIntegrantes(n);
 		rnn.validaNota(n.getNota1());
 		rnn.validaNota(n.getNota2());
+		rnn.verificaNotalancadaUnidade(n.getAluno().getId(), n.getDisciplina().getId(), n.getUnidade());
 		rnn.alterar(n);
 	}
 
